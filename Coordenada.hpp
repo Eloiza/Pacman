@@ -8,9 +8,19 @@ class Coordenada{
         //construtores
         Coordenada(unsigned short x, unsigned short y);
         Coordenada();
-        
-        //destrutor
+
+        // destrutor
         ~Coordenada() = default;
+
+        Coordenada operator + (Coordenada c);
+        Coordenada operator + (short int v);
+        void operator ++(int v);
+
+        Coordenada operator - (Coordenada c);
+        Coordenada operator - (short int v);
+        void operator --(int v);
+
+        bool operator==(Coordenada c);
 
         //setters
         void setX(unsigned short x);
