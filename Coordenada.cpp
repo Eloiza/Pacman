@@ -1,7 +1,7 @@
 #include "Coordenada.hpp"
 
 // construtores
-Coordenada::Coordenada(unsigned short const x, unsigned short const y): x{x}, y{y}{
+Coordenada::Coordenada(signed char const x, signed char const y): x{x}, y{y}{
 };
 
 Coordenada::Coordenada(): x{0}, y{0}{
@@ -12,7 +12,7 @@ Coordenada Coordenada::operator+(Coordenada const &c) const{
     return res;
 };
 
-Coordenada Coordenada::operator+(short int const v) const{
+Coordenada Coordenada::operator+(signed char const v) const{
     Coordenada res(this->x + v, this->y + v);
     return res;
 };
@@ -27,7 +27,7 @@ Coordenada Coordenada::operator-(Coordenada const &c) const{
     return res;
 };
 
-Coordenada Coordenada::operator-(short int const v) const{
+Coordenada Coordenada::operator-(signed char const v) const{
     Coordenada res(this->x - v, this->y - v);
     return res;
 };
@@ -50,25 +50,25 @@ bool Coordenada::operator==(Coordenada const &c) const{
 };
 
 // setters
-void Coordenada::setX(unsigned short const x){
+void Coordenada::setX(signed char const x){
     this->x = x;
 };
 
-void Coordenada::setY(unsigned short const y){
+void Coordenada::setY(signed char const y){
     this->y = y;
 };
 
-void Coordenada::setXY(unsigned short const x, unsigned short const y){
+void Coordenada::setXY(signed char const x, signed char const y){
     this->x = x;
     this->y = y;
 };
 
 // getters
-unsigned short Coordenada::getX() const{
+signed char Coordenada::getX() const{
     return this->x;
 };
 
-unsigned short Coordenada::getY() const{
+signed char Coordenada::getY() const{
     return this->y;
 };
 

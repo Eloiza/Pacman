@@ -1,4 +1,5 @@
 #include "Coordenada.hpp"
+#include "Pacman.hpp"
 
 #include <iostream>
 #include <string> 
