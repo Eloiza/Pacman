@@ -20,6 +20,7 @@ class Coordenada{
         Coordenada operator - (short int const v) const;
         void operator --(int);
 
+        void operator= (Coordenada const &c);
         bool operator==(Coordenada const &c) const;
 
         //setters

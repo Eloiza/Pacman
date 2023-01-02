@@ -37,6 +37,11 @@ void Coordenada::operator--(int){
     this->y--;
 };
 
+void Coordenada::operator=(Coordenada const &c){
+    this->x = c.getX();
+    this->y = c.getY();
+};
+
 bool Coordenada::operator==(Coordenada const &c) const{
     if(this->x == c.x && this->y == c.y)
         return 1;
