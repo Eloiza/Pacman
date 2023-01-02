@@ -1,17 +1,26 @@
+#ifndef PACMAN_H
+#define PACMAN_H
+
 #include "Coordenada.hpp"
 
 class Pacman{
     public:
         Pacman();
-        ~Pacman();
+        virtual ~Pacman() = default;
 
         //getters
-        Coordenada* getPosicao();
+        const Coordenada* getPosicao() const;
 
         //setters
-        setPosicao(Coordenada c);
-        
+        void setPosicao(Coordenada const &c);
+        void setPosicao(short int const x, short int const y);
+
+        //movimento
+        void mover(char const direcao);
+
     private:
         Coordenada* posicao;
         static char simbolo; 
-}
+};
+
+#endif
