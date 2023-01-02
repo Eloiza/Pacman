@@ -6,32 +6,32 @@
 class Coordenada{
     public:
         //construtores
-        Coordenada(unsigned short x, unsigned short y);
+        Coordenada(unsigned short const x, unsigned short const y);
         Coordenada();
 
         // destrutor
         ~Coordenada() = default;
 
-        Coordenada operator + (Coordenada c);
-        Coordenada operator + (short int v);
-        void operator ++(int v);
+        Coordenada operator + (Coordenada const &c) const;
+        Coordenada operator + (short int const v) const;
+        void operator ++(int);
 
-        Coordenada operator - (Coordenada c);
-        Coordenada operator - (short int v);
-        void operator --(int v);
+        Coordenada operator - (Coordenada const &c) const;
+        Coordenada operator - (short int const v) const;
+        void operator --(int);
 
-        bool operator==(Coordenada c);
+        bool operator==(Coordenada const &c) const;
 
         //setters
-        void setX(unsigned short x);
-        void setY(unsigned short y);
-        void setXY(unsigned short x, unsigned short y);
+        void setX(unsigned short const x);
+        void setY(unsigned short const y);
+        void setXY(unsigned short const x, unsigned short const y);
 
         //getters
-        unsigned short getX();
-        unsigned short getY();
+        unsigned short getX() const;
+        unsigned short getY() const;
 
-        std::string imprimir();
+        std::string imprimir() const;
 
     private:
         unsigned short x;
