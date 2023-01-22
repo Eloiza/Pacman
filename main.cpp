@@ -3,26 +3,18 @@
 int main(int argc, char **argv)
 {
     initscr();
+    cbreak();
     noecho();
-    // nodelay(stdscr, TRUE);
-
-    int height = 3;
-    int width = 5;
-    int starty = (LINES - height) / 2; /* Calculando para um posicionamento central */
-    int startx = (COLS - width) / 2;   /* da janela */
+    nodelay(stdscr, TRUE);
+    curs_set(FALSE); //hide cursor
 
     start_color(); 
     wattron(stdscr, A_BOLD);
-    init_pair(1, COLOR_WHITE, COLOR_BLUE);
+    init_pair(1, COLOR_YELLOW, COLOR_YELLOW);
 
-    WINDOW *win = newwin(height, width, starty, startx);
-    wbkgd(win, COLOR_PAIR(1));
+    char pacman = 'C';
+    int ch =0, x =0, y = 0;
 
-    mvwprintw(win, 0, 0, "  O O     VVVVV");
-    wrefresh(win);
-    
-    int ch;
-    int x=startx, y=starty;
     while ((ch = getch()) != 'q'){
         switch (ch){
         case 'a':
@@ -38,17 +30,14 @@ int main(int argc, char **argv)
             ++y;
             break;
         }
-        clear();
-        refresh();
-
-        wclear(win);
-        mvwin(win, y, x);
-        mvwprintw(win, 0, 0, "  O O     VVVVV");
-
-        wrefresh(win);
+        erase();
+        attron(COLOR_PAIR(1));
+        mvaddch(y, x, pacman);
+        attroff(COLOR_PAIR(1));
+        move(y, x);
         refresh();
     }
-    refresh();
+
     endwin();
     return 0;
 }
