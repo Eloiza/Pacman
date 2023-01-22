@@ -1,4 +1,4 @@
-parametrosCompilacao=-Wall #-Wshadow
+parametrosCompilacao=-Wall -lncurses -ltinfo #-Wshadow
 nomePrograma=pacman
 
 all: $(nomePrograma)
