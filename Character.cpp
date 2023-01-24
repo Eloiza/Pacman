@@ -1,5 +1,22 @@
 #include "Character.hpp"
 
+Character::Character(){
+};
+Character::Character(char sprite, unsigned char color_pair, unsigned char y, unsigned char x)
+    :sprite{sprite}, color_pair{color_pair}{
+    this->set_position(y, x);
+};
+
+Character::Character(char sprite, unsigned char y, unsigned char x)
+    :sprite{sprite}{
+    this->set_position(y, x);
+};
+
+Character::Character(char sprite):sprite{sprite}{
+    this->set_position(0,0);
+};
+
+
 void Character::move(unsigned char direction){
     switch (direction){
     case 'a':
@@ -24,8 +41,20 @@ bool Character::collision(unsigned char y, unsigned char x){
 };
 
 void Character::set_position(unsigned char y, unsigned char x){
-    if(!collision(y, x)){
+    if(!this->collision(y, x)){
         this->y = y;
+        this->x = x;
+    }
+};
+
+void Character::set_x(unsigned x){
+    if(!this->collision(this->y, x)){
+        this->x = x;
+    }
+};
+
+void Character::set_y(unsigned x){
+    if (!this->collision(this->y, x)){
         this->x = x;
     }
 };
