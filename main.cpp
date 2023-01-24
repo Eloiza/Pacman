@@ -6,7 +6,7 @@ int main(int argc, char **argv){
     console.initNcurses(30,30);
     console.initColors();
 
-    Character pacman('C', 1, 1);
+    Character pacman('C', 1, 1, 2);
 
     unsigned char ch= ' ';
     while ((ch = getch()) != 'q'){
