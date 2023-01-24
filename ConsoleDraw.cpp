@@ -26,11 +26,35 @@ void ConsoleDraw::drawGameScreen(){
     attroff(COLOR_PAIR(2));
 };
 
-void ConsoleDraw::drawCharacter(const unsigned char ch, const int y, const int x, const unsigned char color) const{
+void ConsoleDraw::drawCharacter(Character &c) const{
+    erase();
+    attron(COLOR_PAIR(c.get_color()));
+    mvaddch(c.get_y(), c.get_x(), c.get_sprite());
+    attroff(COLOR_PAIR(c.get_color()));
+    move(c.get_y(), c.get_x());
+};
+
+void ConsoleDraw::drawCharacter(const unsigned char ch) const{
+    erase();
+    attron(COLOR_PAIR(1));
+    mvaddch(0, 0, ch);
+    attroff(COLOR_PAIR(1));
+    move(0, 0);
+};
+
+void ConsoleDraw::drawCharacter(const unsigned char ch, const int y, const int x) const{
     erase();
     attron(COLOR_PAIR(1));
     mvaddch(y, x, ch);
     attroff(COLOR_PAIR(1));
+    move(y, x);
+};
+
+void ConsoleDraw::drawCharacter(const unsigned char ch, const int y, const int x, const unsigned char color) const{
+    erase();
+    attron(COLOR_PAIR(color));
+    mvaddch(y, x, ch);
+    attroff(COLOR_PAIR(color));
     move(y, x);
 };
 

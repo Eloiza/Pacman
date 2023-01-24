@@ -11,7 +11,7 @@ int main(int argc, char **argv){
     unsigned char ch= ' ';
     while ((ch = getch()) != 'q'){
         pacman.move(ch);
-        console.drawCharacter(pacman.get_sprite(), pacman.get_y(), pacman.get_x(), pacman.get_color());
+        console.drawCharacter(pacman);
     }
 
     endwin();

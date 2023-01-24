@@ -2,14 +2,19 @@
 #define CONSOLE_DRAW_H
 
 #include <ncurses.h>
+#include "Character.hpp"
 
 class ConsoleDraw{
     public:
         void initNcurses(int terminalWidth, int terminalHeight);
         void initColors();
         void drawGameScreen();
-        void drawCharacter(const unsigned char ch, const int y, const int x, const unsigned char color) const;
         void endNcurses();
+
+        void drawCharacter(Character& c) const;
+        void drawCharacter(const unsigned char ch) const;
+        void drawCharacter(const unsigned char ch, const int y, const int x) const;
+        void drawCharacter(const unsigned char ch, const int y, const int x, const unsigned char color) const;
 
         /*getters*/
         void getTerminalSize(const int * width, const int * height) const;
