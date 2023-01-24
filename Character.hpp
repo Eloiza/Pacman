@@ -11,16 +11,27 @@ class Character{
         Character(char sprite, unsigned char y, unsigned char x);
         Character(char sprite);
 
+        /*destructors*/
         virtual ~Character() = default;
+
+        /*class methods*/
         void move(unsigned char direction);
         bool collision(unsigned char y, unsigned char x);
         
         /*setters*/
         void set_position(unsigned char y, unsigned char x);
-        void set_x(unsigned x);
-        void set_y(unsigned x);
+        void set_x(unsigned char x);
+        void set_y(unsigned char y);
+        void set_state(bool state);
+        void set_sprite(unsigned char sprite);
+        void set_color(unsigned char color);
 
         /*getters*/
+        char get_sprite();
+        bool get_state();
+        unsigned char get_color();
+        unsigned char get_x();
+        unsigned char get_y();
 
     private:
         char sprite;
