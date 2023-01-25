@@ -16,17 +16,26 @@ void ConsoleDraw::initColors(){
     start_color();
     wattron(stdscr, A_BOLD);
 
-    init_pair((short int) Colors::DEFAULT, COLOR_BLUE, COLOR_BLACK); // maze-color
+    init_pair((short int) Colors::DEFAULT, COLOR_BLACK, COLOR_WHITE); // maze-color
+    init_pair((short int) Colors::WALL, COLOR_BLUE, COLOR_BLUE);  // maze-color
     init_pair((short int) Colors::PACMAN, COLOR_YELLOW, COLOR_YELLOW); // pacman-color
 };
 
 void ConsoleDraw::drawGameScreen(){
-    attron(COLOR_PAIR(2));
-    box(stdscr, 0, 0);
-    // for (y = 0; y < LINES; y++){
-    //         // mvhline(y, 0, WALL, 5);
+    // box(stdscr, 0, 0);
+    // attron(COLOR_PAIR((short int) Colors::DEFAULT));
+    int y = 0;
+    mvhline(0, 1,'_', 40);
+    mvhline(1, 1, '_', 40);
+
+    mvaddch(1, 1, '|');
+    // mvvline(1, 1, '|', 1);
+
+    refresh();
+    // for (y = 0; y < 30; y++){
+    //     mvaddch(y, 30, '_');
     // }
-    attroff(COLOR_PAIR(2));
+    // attroff(COLOR_PAIR((short int) Colors::DEFAULT));
 };
 
 void ConsoleDraw::drawCharacter(Character &c) const{

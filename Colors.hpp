@@ -4,7 +4,8 @@
 namespace gameColors{
     enum class Colors : short int{
         DEFAULT,
-        PACMAN
+        PACMAN, 
+        WALL
     };
 }
 
