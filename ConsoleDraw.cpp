@@ -1,6 +1,7 @@
 #include "ConsoleDraw.hpp"
 #include "Colors.hpp"
 
+#include <iostream>
 using namespace gameColors;
 
 void ConsoleDraw::initNcurses(int terminalWidth, int terminalHeight){
@@ -74,8 +75,25 @@ void ConsoleDraw::endNcurses(){
     endwin();
 };
 
-void ConsoleDraw::getTerminalSize(const int *width, const int * height) const
-{
+void ConsoleDraw::loadGameMap(const std::string& fileName){
+    std::string readtext, filetext; 
+    
+    std::ifstream mapfile(fileName);
+    if(mapfile.is_open()){
+        this->mapLin = 0;
+        while (getline(mapfile, readtext)){
+            this->gameMap += readtext;
+            this->mapLin++;
+        }
+
+        this->mapCol = this->gameMap.size() / this->mapLin;
+        mapfile.close();
+    }
+};
+
+/*getters*/
+
+void ConsoleDraw::getTerminalSize(const int *width, const int * height) const{
     width = &this->terminalWidth;
     height = &this->terminalHeight;
 };
@@ -88,6 +106,19 @@ int ConsoleDraw::getTerminalHeight() const{
     return this->terminalHeight;
 };
 
+std::string ConsoleDraw::getGameMap() const{
+    return this->gameMap;
+}
+
+int ConsoleDraw::getmapCol(){
+    return (int) this->mapCol;
+}
+
+int ConsoleDraw::getmapLin(){
+    return (int) this->mapLin;
+}
+/*setters*/
+
 void ConsoleDraw::setTerminalSize(int width, int height){
     this->terminalWidth = width;
     this->terminalHeight = height;
@@ -99,4 +130,10 @@ void ConsoleDraw::setTerminalWidth(int width){
 
 void ConsoleDraw::setTerminalHeight(int height){
     this->terminalHeight = height;
+};
+
+void ConsoleDraw::setGameMap(std::string gameMap, unsigned char mapLin, unsigned char mapCol){
+    this->gameMap = gameMap;
+    this->mapLin = mapLin;
+    this->mapCol = mapCol;
 };
