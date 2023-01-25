@@ -1,4 +1,7 @@
 #include "ConsoleDraw.hpp"
+#include "Colors.hpp"
+
+using namespace gameColors;
 
 void ConsoleDraw::initNcurses(int terminalWidth, int terminalHeight){
     initscr(); 
@@ -13,8 +16,8 @@ void ConsoleDraw::initColors(){
     start_color();
     wattron(stdscr, A_BOLD);
 
-    init_pair(1, COLOR_YELLOW, COLOR_YELLOW); // pacman-color
-    init_pair(2, COLOR_BLUE, COLOR_BLACK); // maze-color
+    init_pair((short int) Colors::DEFAULT, COLOR_BLUE, COLOR_BLACK); // maze-color
+    init_pair((short int) Colors::PACMAN, COLOR_YELLOW, COLOR_YELLOW); // pacman-color
 };
 
 void ConsoleDraw::drawGameScreen(){
