@@ -11,14 +11,13 @@ using namespace gameColors;
 int main(int argc, char **argv){
     ConsoleDraw console = ConsoleDraw();
     console.loadGameMap("./maps/map.txt");
-    std::cout << console.getGameMap() << std::endl;
-    std::cout << console.getmapLin() << std::endl;
-    std::cout << console.getmapCol() << std::endl;
+    console.initNcurses(40,40);
+    console.initColors();
+    console.drawGameScreen();
 
-    // console.initNcurses(40,40);
-    // console.initColors();
-    // console.drawGameScreen();
-
+    while(1){
+        console.drawGameScreen();
+    }
     // Character pacman('C',(unsigned int) Colors::PACMAN, 1, 2);
 
     // unsigned char ch= ' ';

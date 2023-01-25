@@ -23,20 +23,15 @@ void ConsoleDraw::initColors(){
 };
 
 void ConsoleDraw::drawGameScreen(){
-    // box(stdscr, 0, 0);
-    // attron(COLOR_PAIR((short int) Colors::DEFAULT));
-    int y = 0;
-    mvhline(0, 1,'_', 40);
-    mvhline(1, 1, '_', 40);
-
-    mvaddch(1, 1, '|');
-    // mvvline(1, 1, '|', 1);
-
+    unsigned int i, j;
+    attron(COLOR_PAIR((short int) Colors::DEFAULT));
+    for(i=0; i< (unsigned int) this->mapLin; i++){
+        for(j=0; j< (unsigned int) this->mapCol; j++){
+            mvaddch(i, j, this->gameMap[i* (unsigned int) this->mapCol+j]);
+        }
+    }
     refresh();
-    // for (y = 0; y < 30; y++){
-    //     mvaddch(y, 30, '_');
-    // }
-    // attroff(COLOR_PAIR((short int) Colors::DEFAULT));
+    attroff(COLOR_PAIR((short int) Colors::DEFAULT));
 };
 
 void ConsoleDraw::drawCharacter(Character &c) const{
