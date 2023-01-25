@@ -15,17 +15,14 @@ int main(int argc, char **argv){
     console.initColors();
     console.drawGameScreen();
 
-    while(1){
-        console.drawGameScreen();
-    }
-    // Character pacman('C',(unsigned int) Colors::PACMAN, 1, 2);
+    Character pacman('C',(unsigned int) Colors::PACMAN, 1, 2);
 
-    // unsigned char ch= ' ';
-    // while ((ch = getch()) != 'q'){
-    //     console.drawGameScreen();
-    //     pacman.move(ch);
-    //     console.drawCharacter(pacman);
-    // }
+    unsigned char ch= ' ';
+    while ((ch = getch()) != 'q'){
+        console.drawGameScreen();
+        pacman.move(ch);
+        console.drawCharacter(pacman);
+    }
 
     endwin();
     return 0;
