@@ -21,7 +21,7 @@ int main(int argc, char **argv){
     while ((ch = getch()) != 'q'){
         pacman.move(ch);
         console.drawCharacter(pacman);
-        console.drawScore((unsigned int) pacman.get_score());
+        // console.drawScore((unsigned int) pacman.get_score());
     }
 
     endwin();

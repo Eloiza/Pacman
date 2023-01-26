@@ -48,30 +48,6 @@ void ConsoleDraw::drawScore(unsigned int score){
     refresh();
 };
 
-void ConsoleDraw::drawCharacter(const unsigned char ch) const{
-    erase();
-    attron(COLOR_PAIR(1));
-    mvaddch(0, 0, ch);
-    attroff(COLOR_PAIR(1));
-    move(0, 0);
-};
-
-void ConsoleDraw::drawCharacter(const unsigned char ch, const int y, const int x) const{
-    erase();
-    attron(COLOR_PAIR(1));
-    mvaddch(y, x, ch);
-    attroff(COLOR_PAIR(1));
-    move(y, x);
-};
-
-void ConsoleDraw::drawCharacter(const unsigned char ch, const int y, const int x, const unsigned char color) const{
-    erase();
-    attron(COLOR_PAIR(color));
-    mvaddch(y, x, ch);
-    attroff(COLOR_PAIR(color));
-    move(y, x);
-};
-
 void ConsoleDraw::endNcurses(){
     endwin();
 };

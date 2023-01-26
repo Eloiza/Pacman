@@ -7,7 +7,7 @@ class MapElements{
         static const char EMPTY_SPACE{' '};
         static const char POINT{'.'};
         static const char VITAMIN{'@'};
-        static const char GHOST{'A'};
+        static const char GHOST{'W'};
         static const char PACMAN{'C'};
 };
 

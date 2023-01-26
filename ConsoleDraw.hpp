@@ -18,9 +18,6 @@ class ConsoleDraw{
 
         void drawScore(unsigned int score);
         void drawCharacter(Character& c) const;
-        void drawCharacter(const unsigned char ch) const;
-        void drawCharacter(const unsigned char ch, const int y, const int x) const;
-        void drawCharacter(const unsigned char ch, const int y, const int x, const unsigned char color) const;
 
         /*getters*/
         void getTerminalSize(const int * width, const int * height) const;
