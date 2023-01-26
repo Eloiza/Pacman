@@ -2,6 +2,7 @@
 #define CHARACTER_HPP
 
 #include <ncurses.h>
+#include "MapElements.hpp"
 
 class Character{
     public:

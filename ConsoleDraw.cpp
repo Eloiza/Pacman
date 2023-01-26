@@ -1,5 +1,6 @@
 #include "ConsoleDraw.hpp"
 #include "Colors.hpp"
+#include "MapElements.hpp"
 
 #include <iostream>
 using namespace gameColors;
@@ -24,25 +25,17 @@ void ConsoleDraw::initColors(){
 
 void ConsoleDraw::drawGameScreen(){
     unsigned int i, j;
-    // attron(COLOR_PAIR((short int) Colors::DEFAULT));
-    //  printw("sadasdqwqdsadasdqwqdsadasdqwqdsadasdqwqdsadasdqwqdsadasdqwqd\nsadasdqwqdsadasdqwqdsadasdqwqdsadasdqwqdsadasdqwqd\nsadasdqwqdsadasdqwqdsadasdqwqdsadasdqwqdsadasdqwqd\nsadasdqwqdsadasdqwqdsadasdqwqdsadasdqwqdsadasdqwqd\n");
-    //  printw("sadasdqwqdsadasdqwqdsadasdqwqdsadasdqwqdsadasdqwqdsadasdqwqd\nsadasdqwqdsadasdqwqdsadasdqwqdsadasdqwqdsadasdqwqd\n");
-
     for(i=0; i< (unsigned int) this->mapLin; i++){
         for(j=0; j< (unsigned int) this->mapCol; j++){
-            // mvaddch(i, j, this->gameMap[i* (unsigned int) this->mapCol+j]);
-            move(i,j);
-            addch(this->gameMap[i* (unsigned int) this->mapCol+j]);
-
+            mvaddch(i, j, this->gameMap[i* (unsigned int) this->mapCol+j]);
         }
     }
     refresh();
-    // attroff(COLOR_PAIR((short int) Colors::DEFAULT));
 };
 
 void ConsoleDraw::drawCharacter(Character &c) const{
     attron(COLOR_PAIR(Colors::DEFAULT));
-    mvaddch(c.get_prev_y(), c.get_prev_x(), ' ');
+    mvaddch(c.get_prev_y(), c.get_prev_x(), MapElements::EMPTY_SPACE);
     attroff(COLOR_PAIR(Colors::DEFAULT));
 
     attron(COLOR_PAIR(c.get_color()));

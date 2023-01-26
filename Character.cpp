@@ -43,7 +43,7 @@ void Character::move(unsigned char direction){
 bool Character::collision(unsigned char y, unsigned char x){
     int testch;
     testch = mvinch(y, x);
-    return (((testch & A_CHARTEXT) == '_') || ((testch & A_CHARTEXT) == '|'));
+    return (((testch & A_CHARTEXT) == MapElements::WALL));
 };
 
 /*setters*/
