@@ -43,6 +43,11 @@ void ConsoleDraw::drawCharacter(Character &c) const{
     attroff(COLOR_PAIR(c.get_color()));
 };
 
+void ConsoleDraw::drawScore(unsigned int score){
+    mvaddch(0, 8, (char) score);
+    refresh();
+};
+
 void ConsoleDraw::drawCharacter(const unsigned char ch) const{
     erase();
     attron(COLOR_PAIR(1));

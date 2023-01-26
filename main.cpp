@@ -16,12 +16,12 @@ int main(int argc, char **argv){
     console.initColors();
     console.drawGameScreen();
 
-    // Character pacman('C',(unsigned int) Colors::PACMAN, 1, 2);
     Pacman pacman('C', 2, 1);
     unsigned char ch= ' ';
     while ((ch = getch()) != 'q'){
         pacman.move(ch);
         console.drawCharacter(pacman);
+        console.drawScore((unsigned int) pacman.get_score());
     }
 
     endwin();

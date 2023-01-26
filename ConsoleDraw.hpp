@@ -16,6 +16,7 @@ class ConsoleDraw{
         
         void loadGameMap(const std::string& fileName);
 
+        void drawScore(unsigned int score);
         void drawCharacter(Character& c) const;
         void drawCharacter(const unsigned char ch) const;
         void drawCharacter(const unsigned char ch, const int y, const int x) const;
