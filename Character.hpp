@@ -25,6 +25,9 @@ class Character{
         void set_state(bool state);
         void set_sprite(unsigned char sprite);
         void set_color(unsigned char color);
+        void set_prev_position(unsigned char y, unsigned char x);
+        void set_prev_x(unsigned char x);
+        void set_prev_y(unsigned char y);
 
         /*getters*/
         char get_sprite();
@@ -32,6 +35,8 @@ class Character{
         unsigned char get_color();
         unsigned char get_x();
         unsigned char get_y();
+        unsigned char get_prev_x();
+        unsigned char get_prev_y();
 
     private:
         char sprite;
@@ -39,5 +44,9 @@ class Character{
         unsigned char color_pair;
         unsigned char x;
         unsigned char y;
+
+        //store previous position
+        unsigned char prev_x;
+        unsigned char prev_y;
 };
 #endif

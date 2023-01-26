@@ -19,7 +19,7 @@ int main(int argc, char **argv){
 
     unsigned char ch= ' ';
     while ((ch = getch()) != 'q'){
-        console.drawGameScreen();
+        // console.drawGameScreen();
         pacman.move(ch);
         console.drawCharacter(pacman);
     }

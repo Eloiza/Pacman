@@ -25,27 +25,30 @@ void ConsoleDraw::initColors(){
 void ConsoleDraw::drawGameScreen(){
     unsigned int i, j;
     // attron(COLOR_PAIR((short int) Colors::DEFAULT));
-     printw("sadasdqwqdsadasdqwqdsadasdqwqdsadasdqwqdsadasdqwqdsadasdqwqd\nsadasdqwqdsadasdqwqdsadasdqwqdsadasdqwqdsadasdqwqd\nsadasdqwqdsadasdqwqdsadasdqwqdsadasdqwqdsadasdqwqd\nsadasdqwqdsadasdqwqdsadasdqwqdsadasdqwqdsadasdqwqd\n");
+    //  printw("sadasdqwqdsadasdqwqdsadasdqwqdsadasdqwqdsadasdqwqdsadasdqwqd\nsadasdqwqdsadasdqwqdsadasdqwqdsadasdqwqdsadasdqwqd\nsadasdqwqdsadasdqwqdsadasdqwqdsadasdqwqdsadasdqwqd\nsadasdqwqdsadasdqwqdsadasdqwqdsadasdqwqdsadasdqwqd\n");
     //  printw("sadasdqwqdsadasdqwqdsadasdqwqdsadasdqwqdsadasdqwqdsadasdqwqd\nsadasdqwqdsadasdqwqdsadasdqwqdsadasdqwqdsadasdqwqd\n");
 
-    // for(i=0; i< (unsigned int) this->mapLin; i++){
-    //     for(j=0; j< (unsigned int) this->mapCol; j++){
-    //         // mvaddch(i, j, this->gameMap[i* (unsigned int) this->mapCol+j]);
-    //         move(i,j);
-    //         addch(this->gameMap[i* (unsigned int) this->mapCol+j]);
+    for(i=0; i< (unsigned int) this->mapLin; i++){
+        for(j=0; j< (unsigned int) this->mapCol; j++){
+            // mvaddch(i, j, this->gameMap[i* (unsigned int) this->mapCol+j]);
+            move(i,j);
+            addch(this->gameMap[i* (unsigned int) this->mapCol+j]);
 
-    //     }
-    // }
+        }
+    }
     refresh();
     // attroff(COLOR_PAIR((short int) Colors::DEFAULT));
 };
 
 void ConsoleDraw::drawCharacter(Character &c) const{
     erase();
+    // attron(COLOR_PAIR(Colors::DEFAULT));
+    // mvaddch(c.get_y(), c.get_x(), c.get_sprite());
+    // attroff(COLOR_PAIR(Colors::DEFAULT));
+
     attron(COLOR_PAIR(c.get_color()));
     mvaddch(c.get_y(), c.get_x(), c.get_sprite());
     attroff(COLOR_PAIR(c.get_color()));
-    move(c.get_y(), c.get_x());
 };
 
 void ConsoleDraw::drawCharacter(const unsigned char ch) const{

@@ -22,15 +22,19 @@ Character::Character(char sprite):sprite{sprite}{
 void Character::move(unsigned char direction){
     switch (direction){
     case 'a':
+        this->set_prev_position(this->y, this->x);
         this->set_position(this->y, this->x-1); 
         break;
     case 'd':
+        this->set_prev_position(this->y, this->x);
         this->set_position(this->y, this->x+1); 
         break;
     case 'w':
+        this->set_prev_position(this->y, this->x);
         this->set_position(this->y-1, this->x); 
         break;
     case 's':
+        this->set_prev_position(this->y, this->x);
         this->set_position(this->y+1, this->x); 
         break;
     };
@@ -43,6 +47,19 @@ bool Character::collision(unsigned char y, unsigned char x){
 };
 
 /*setters*/
+void Character::set_prev_position(unsigned char y, unsigned char x){
+    this->prev_y = y;
+    this->prev_x = x;
+};
+
+void Character::set_prev_x(unsigned char prev_x){
+    this->prev_x = prev_x;
+};
+
+void Character::set_prev_y(unsigned char prev_y){
+    this->prev_y = prev_y;
+};
+
 void Character::set_position(unsigned char y, unsigned char x){
     if(!this->collision(y, x)){
         this->y = y;
@@ -94,3 +111,12 @@ unsigned char Character::get_x(){
 unsigned char Character::get_y(){
     return this->y;
 };
+
+unsigned char Character::get_prev_x(){
+    return this->prev_x;
+};
+
+unsigned char Character::get_prev_y(){
+    return this->prev_y;
+};
+
