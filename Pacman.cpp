@@ -1,42 +1,48 @@
 #include "Pacman.hpp"
 
-char Pacman::simbolo{'<'};
+using namespace gameColors;
 
-Pacman::Pacman(): posicao{new Coordenada()}{
+/*Constructors*/
+Pacman::Pacman(){
 };
 
-// getters
-const Coordenada* Pacman::getPosicao() const{
-    return this->posicao;
+Pacman::Pacman(char sprite, unsigned char y, unsigned char x)
+:Character(sprite, y, x){
+    this->color_pair = (unsigned char) Colors::PACMAN;
+    this->lives = 3;
+    this->score = 0;
 };
 
-// setters
-void Pacman::setPosicao(Coordenada const &c){
-    *(this->posicao) = c;
-};
-
-void Pacman::setPosicao(short int const x, short int const y){
-    this->posicao->setXY(x, y);
-};
-
-void Pacman::mover(char const direcao){
-    switch(direcao){
-        case 'w':
-            this->setPosicao(this->posicao->getX(), this->posicao->getY() - 1);
-            break;
-
-        case 'a':
-            this->setPosicao(this->posicao->getX() - 1, this->posicao->getY());
-            break;
-            
-        case 's':
-            this->setPosicao(this->posicao->getX(), this->posicao->getY() + 1);
-            break;
-
-        case 'd':
-            this->setPosicao(this->posicao->getX() + 1, this->posicao->getY());
-            break;
+bool Pacman::collision(unsigned char y, unsigned char x){
+    int testch;
+    testch = mvinch(y, x);
+    switch (testch & A_CHARTEXT){
+        case MapElements::POINT:
+            this->score++;
+            return 0; 
+        case MapElements::GHOST:
+            this->lives--;
+            return 1;
+        case MapElements::WALL:
+            return 1;
     }
+    return 0;
 };
 
+/*getters*/
+unsigned int Pacman::get_lives() const{
+    return this->lives;
+};
 
+unsigned int Pacman::get_score() const{
+    return this->score;
+};
+
+/*setters*/
+void Pacman::set_lives(const unsigned int lives){
+    this->lives = lives;
+};
+
+void Pacman::set_score(const unsigned int score){
+    this->score = score;
+};

@@ -16,8 +16,8 @@ class Character{
         virtual ~Character() = default;
 
         /*class methods*/
-        void move(unsigned char direction);
-        bool collision(unsigned char y, unsigned char x);
+        virtual void move(unsigned char direction);
+        virtual bool collision(unsigned char y, unsigned char x);
         
         /*setters*/
         void set_position(unsigned char y, unsigned char x);
@@ -39,10 +39,12 @@ class Character{
         unsigned char get_prev_x();
         unsigned char get_prev_y();
 
-    private:
+    protected:
         char sprite;
         bool state;
         unsigned char color_pair;
+
+        //store current position
         unsigned char x;
         unsigned char y;
 

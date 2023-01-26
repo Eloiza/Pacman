@@ -1,26 +1,29 @@
 #ifndef PACMAN_H
 #define PACMAN_H
 
-#include "Coordenada.hpp"
+#include "Character.hpp"
+#include "Colors.hpp"
 
-class Pacman{
+class Pacman : public Character{
     public:
         Pacman();
+        Pacman(char sprite, unsigned char y, unsigned char x);
+
         virtual ~Pacman() = default;
 
-        //getters
-        const Coordenada* getPosicao() const;
+        virtual bool collision(unsigned char y, unsigned char x) override;
 
-        //setters
-        void setPosicao(Coordenada const &c);
-        void setPosicao(short int const x, short int const y);
+        /*getters*/
+        unsigned int get_lives() const;
+        unsigned int get_score() const;
 
-        //movimento
-        void mover(char const direcao);
+        /*setters*/
+        void set_lives(const unsigned int lives);
+        void set_score(const unsigned int score);
 
     private:
-        Coordenada* posicao;
-        static char simbolo; 
+        unsigned int score;
+        unsigned int lives;
 };
 
 #endif
