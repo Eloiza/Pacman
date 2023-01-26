@@ -41,10 +41,9 @@ void ConsoleDraw::drawGameScreen(){
 };
 
 void ConsoleDraw::drawCharacter(Character &c) const{
-    erase();
-    // attron(COLOR_PAIR(Colors::DEFAULT));
-    // mvaddch(c.get_y(), c.get_x(), c.get_sprite());
-    // attroff(COLOR_PAIR(Colors::DEFAULT));
+    attron(COLOR_PAIR(Colors::DEFAULT));
+    mvaddch(c.get_prev_y(), c.get_prev_x(), ' ');
+    attroff(COLOR_PAIR(Colors::DEFAULT));
 
     attron(COLOR_PAIR(c.get_color()));
     mvaddch(c.get_y(), c.get_x(), c.get_sprite());
