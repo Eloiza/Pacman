@@ -27,7 +27,7 @@ class Ghost : public Character{
         // void generateTarget(std::pair<unsigned char, unsigned char> pacman_position);
         Cell generateDirection(Map *map, Cell goal);
 
-        std::priority_queue<Node, std::vector<Node>, std::greater<Node>> Ghost::getNeighbors(Map *map, Cell n, Cell goal);
+        std::priority_queue<Node, std::vector<Node>, std::greater<Node>> getNeighbors(Map *map, Cell n, Cell goal);
 
         /*setters*/
         void setTarget(Cell * const target);

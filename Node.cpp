@@ -3,10 +3,8 @@
 Node::Node(){
 };
 
-Node::Node(unsigned int x, unsigned int y): x{x}, y{y}{
-};
 
-Node::Node(unsigned int x, unsigned int y, double f): x{x}, y{y}, f{f}{
+Node::Node(unsigned int row, unsigned int col, double f): Cell(row, col), f{f}{
 };
 
 bool Node::operator<(Node const &n) const{
