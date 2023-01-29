@@ -1,45 +1,39 @@
 #include "Ghost.hpp"
 
+using namespace gameColors;
 /*constructors*/
 Ghost::Ghost(){
 };
+
 Ghost::Ghost(char sprite, unsigned char color_pair, unsigned char y, unsigned char x)
 : Character(sprite, color_pair, y, x){
 };
 
-Ghost::Ghost(Node position){
-    this->position = position;
-    this->previousPosition = position;
+Ghost::Ghost(unsigned int row, unsigned int col){
+    this->setPosition(row, col);
+    this->setPrevPosition(row, col);
+    this->setSprite(MapElements::GHOST);
+    this->setColor((unsigned int) Colors::GENERIC_GHOST);
 };
 
 /*implements manhathan distance*/
-double Ghost::distance(Node p1, Node p2){
-    return abs(p2.x - p1.x) + abs(p2.y - p1.y);
+double Ghost::distance(Cell p1, Cell p2){
+    return abs(p2.row - p1.row) + abs(p2.col - p1.col);
 };
 
-double Ghost::distance(unsigned int x, unsigned int y, Node p2){
-    return abs(p2.x - x) + abs(p2.y - y);
+double Ghost::distance(unsigned int row, unsigned int col, Cell p2){
+    return abs(p2.row - row) + abs(p2.col - col);
 };
 
 // void Ghost::generateTarget(std::pair<unsigned char, unsigned char> pacman_position){
 //     this->target = pacman_position;
 // };
 
-void Ghost::setTarget(Node target){
-    this->target = target;
+void Ghost::setTarget(Cell * const target){
+    this->target = *target;
 };
 
-void Ghost::setPosition(Node position){
-    this->position = position;
-};
-
-void Ghost::move(Node newPosition){
-    this->set_prev_position(this->position.y, this->position.x);
-    this->setPosition(newPosition);
-    this->set_position(newPosition.y, newPosition.x);
-};
-
-Node Ghost::generateDirection(Map *map, Node goal){
+Cell Ghost::generateDirection(Map *map, Cell goal){
     // Node nodePosition = Node(this->x, this->y, 0);
     std::priority_queue<Node, std::vector<Node>, std::greater<Node>> neighbors;
     neighbors = this->getNeighbors(map, this->position, goal);
@@ -54,16 +48,11 @@ Node Ghost::generateDirection(Map *map, Node goal){
         std::cout << neighbors.top().f << "\n";
         neighbors.pop();
     }
+
     return best;
 }
 
-bool Ghost::collision_new(Map *map, unsigned char y, unsigned char x){
-    return map->map[x * map->cols + y] == MapElements::WALL;
-
-    // return (((testch & A_CHARTEXT) == MapElements::WALL));
-};
-
-std::priority_queue<Node, std::vector<Node>, std::greater<Node>> Ghost::getNeighbors(Map *map, Node n, Node goal){
+std::priority_queue<Node, std::vector<Node>, std::greater<Node>> Ghost::getNeighbors(Map *map, Cell n, Cell goal){
     std::priority_queue<Node, std::vector<Node>, std::greater<Node>> valid_neighbors;
 
     // Define the possible x and y values of the neighbors
@@ -72,14 +61,14 @@ std::priority_queue<Node, std::vector<Node>, std::greater<Node>> Ghost::getNeigh
 
     // Iterate over the possible x and y values
     for (int i = 0; i < 4; i++){
-        int x = n.x + dx[i];
-        int y = n.y + dy[i];
+        int col = n.col + dx[i];
+        int row = n.row + dy[i];
 
         // Check if the neighbor is within the boundaries of the map
-        if (x >= 0 && x < (int) map->cols && y >= 0 && y < (int) map->rows){
+        if (col >= 0 && col < (int) map->cols && row >= 0 && row < (int) map->rows){
             // Check if there is an obstacle at the location
-            if (!collision_new(map, y, x)){
-                valid_neighbors.push(Node(x, y, distance(x, y, goal)));
+            if (!isCollision(map, row, col)){
+                valid_neighbors.push(Node(col, row, distance(col, row, goal)));
             }
         }
     }

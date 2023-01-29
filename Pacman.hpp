@@ -7,19 +7,19 @@
 class Pacman : public Character{
     public:
         Pacman();
-        Pacman(char sprite, unsigned char y, unsigned char x);
+        Pacman(unsigned int row, unsigned int col);
 
         virtual ~Pacman() = default;
 
-        virtual bool collision(unsigned char y, unsigned char x) override;
+        virtual bool isCollision(unsigned int row, unsigned int col) override;
 
         /*getters*/
-        unsigned int get_lives() const;
-        unsigned int get_score() const;
+        unsigned int getLives() const;
+        unsigned int getScore() const;
 
         /*setters*/
-        void set_lives(const unsigned int lives);
-        void set_score(const unsigned int score);
+        void setLives(const unsigned int lives);
+        void setScore(const unsigned int score);
 
     private:
         unsigned int score;

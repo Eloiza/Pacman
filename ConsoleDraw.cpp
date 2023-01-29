@@ -22,6 +22,7 @@ void ConsoleDraw::initColors(){
     init_pair((short int) Colors::DEFAULT, COLOR_BLACK, COLOR_WHITE); // maze-color
     init_pair((short int) Colors::WALL, COLOR_BLUE, COLOR_BLUE);  // maze-color
     init_pair((short int) Colors::PACMAN, COLOR_YELLOW, COLOR_YELLOW); // pacman-color
+    init_pair((short int) Colors::GENERIC_GHOST, COLOR_WHITE, COLOR_WHITE);  // pacman-color
 };
 
 void ConsoleDraw::drawGameScreen(Map * gameMap){
@@ -36,12 +37,12 @@ void ConsoleDraw::drawGameScreen(Map * gameMap){
 
 void ConsoleDraw::drawCharacter(Character &c) const{
     attron(COLOR_PAIR(Colors::DEFAULT));
-    mvaddch(c.get_prev_y(), c.get_prev_x(), MapElements::EMPTY_SPACE);
+    mvaddch(c.getPrevRow(), c.getPrevCol(), MapElements::EMPTY_SPACE);
     attroff(COLOR_PAIR(Colors::DEFAULT));
 
-    attron(COLOR_PAIR(c.get_color()));
-    mvaddch(c.get_y(), c.get_x(), c.get_sprite());
-    attroff(COLOR_PAIR(c.get_color()));
+    attron(COLOR_PAIR(c.getColor()));
+    mvaddch(c.getRow(), c.getCol(), c.getSprite());
+    attroff(COLOR_PAIR(c.getColor()));
 };
 
 void ConsoleDraw::drawScore(unsigned int score){

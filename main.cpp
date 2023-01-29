@@ -15,21 +15,21 @@
 
 using namespace gameColors;
 
-void printMap(Map * gameMap){
-    unsigned int i, j;
-    for (i = 0; i < gameMap->rows; i++){
-        for (j = 0; j < gameMap->cols; j++)
-        {
-            std::cout << gameMap->map[i * gameMap->cols + j];
-        }
-        std::cout << std::endl;
-    }
-}
+// void printMap(Map * gameMap){
+//     unsigned int i, j;
+//     for (i = 0; i < gameMap->rows; i++){
+//         for (j = 0; j < gameMap->cols; j++)
+//         {
+//             std::cout << gameMap->map[i * gameMap->cols + j];
+//         }
+//         std::cout << std::endl;
+//     }
+// }
 
-void move_ghost(Map * map, Ghost g, char c){
-    map->map[g.previousPosition.x * (unsigned int)map->cols + g.previousPosition.y] = ' ';
-    map->map[g.position.x * (unsigned int)map->cols +g.position.y] = c;
-}
+// void move_ghost(Map * map, Ghost g, char c){
+//     map->map[g.previousPosition.x * (unsigned int)map->cols + g.previousPosition.y] = ' ';
+//     map->map[g.position.x * (unsigned int)map->cols +g.position.y] = c;
+// }
 
 int main(int argc, char **argv){
     Map map;
@@ -40,14 +40,13 @@ int main(int argc, char **argv){
     console.initColors();
     console.drawGameScreen(&map);
 
-    //init pacman 
-    Pacman pacman('C', 2, 12);
-    
+    //init pacman
+    Pacman pacman(2, 12);
+
     //init ghost
-    Ghost g(Node(2, 1));
-    move_ghost(&map, g, 'W');
-    Node goal = Node(2, 12);
-    Node result;
+    Ghost g(2, 1);
+    Cell goal = Cell(2, 12);
+    Cell result;
 
     unsigned char ch= ' ';
     while ((ch = getch()) != 'q'){
@@ -55,7 +54,7 @@ int main(int argc, char **argv){
         console.drawCharacter(pacman);
 
         result = g.generateDirection(&map, goal);
-        g.move(result);
+        g.move(&result);
         console.drawCharacter(g);
     }
     endwin();

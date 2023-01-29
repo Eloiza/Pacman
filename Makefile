@@ -3,8 +3,8 @@ nomePrograma=pacman
 
 all: $(nomePrograma)
 
-$(nomePrograma): main.o Coordenada.o Pacman.o ConsoleDraw.o Character.o Node.o Map.o Ghost.o
-	g++ -o $(nomePrograma) main.o Coordenada.o Pacman.o ConsoleDraw.o Character.o Node.o Map.o Ghost.o $(parametrosCompilacao)
+$(nomePrograma): main.o Coordenada.o Pacman.o ConsoleDraw.o Character.o Node.o Map.o Ghost.o Cell.o
+	g++ -o $(nomePrograma) main.o Coordenada.o Pacman.o ConsoleDraw.o Character.o Node.o Map.o Ghost.o Cell.o $(parametrosCompilacao)
 
 main.o: main.cpp
 	g++ -c main.cpp $(parametrosCompilacao)
@@ -23,6 +23,9 @@ Character.o: Character.hpp Character.cpp
 
 Node.o: Node.hpp Node.cpp 
 	g++ -c Node.cpp $(parametrosCompilacao)
+
+Cell.o: Cell.hpp Cell.cpp 
+	g++ -c Cell.cpp $(parametrosCompilacao)
 
 Map.o: Map.hpp Map.cpp
 	g++ -c Map.cpp $(parametrosCompilacao)

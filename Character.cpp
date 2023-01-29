@@ -4,119 +4,133 @@
 Character::Character(){
 };
 
-Character::Character(char sprite, unsigned char color_pair, unsigned char y, unsigned char x)
-    :sprite{sprite}, color_pair{color_pair}{
-    this->set_position(y, x);
+Character::Character(char sprite, unsigned int color, unsigned int row, unsigned int col)
+    :sprite{sprite}, color{color}{
+    this->setPosition(row, col);
 };
 
-Character::Character(char sprite, unsigned char y, unsigned char x)
+Character::Character(char sprite, unsigned int row, unsigned int col)
     :sprite{sprite}{
-    this->set_position(y, x);
+    this->setPosition(row, col);
 };
 
-Character::Character(char sprite):sprite{sprite}{
-    this->set_position(0,0);
-};
-
-
-void Character::move(unsigned char direction){
+void Character::move(unsigned int direction){
     switch (direction){
     case 'a':
-        this->set_prev_position(this->y, this->x);
-        this->set_position(this->y, this->x-1); 
+        this->setPrevPosition(this->position.row, this->position.col);
+        this->setPosition(this->position.row, this->position.col-1); 
         break;
     case 'd':
-        this->set_prev_position(this->y, this->x);
-        this->set_position(this->y, this->x+1); 
+        this->setPrevPosition(this->position.row, this->position.col);
+        this->setPosition(this->position.row, this->position.col+1); 
         break;
     case 'w':
-        this->set_prev_position(this->y, this->x);
-        this->set_position(this->y-1, this->x); 
+        this->setPrevPosition(this->position.row, this->position.col);
+        this->setPosition(this->position.row-1, this->position.col); 
         break;
     case 's':
-        this->set_prev_position(this->y, this->x);
-        this->set_position(this->y+1, this->x); 
+        this->setPrevPosition(this->position.row, this->position.col);
+        this->setPosition(this->position.row+1, this->position.col); 
         break;
     };
 };
 
-bool Character::collision(unsigned char y, unsigned char x){
+void Character::move(Cell * const new_position){
+    this->setPrevPosition(&this->position);
+    this->setPosition(new_position);
+};
+
+bool Character::isCollision(unsigned int row, unsigned int col){
     int testch;
-    testch = mvinch(y, x);
+    testch = mvinch(row, col);
     return (((testch & A_CHARTEXT) == MapElements::WALL));
 };
 
+bool Character::isCollision(Cell * const position){
+    int testch;
+    testch = mvinch(position->row, position->col);
+    return (((testch & A_CHARTEXT) == MapElements::WALL));
+};
+
+bool Character::isCollision(Map *map, unsigned int row, unsigned int col){
+    return map->map[row*map->cols+col] == MapElements::WALL;
+};
+
+bool Character::isCollision(Map *map, Cell *const position){
+    return map->map[position->row * map->cols + position->col] == MapElements::WALL;
+};
+
 /*setters*/
-void Character::set_prev_position(unsigned char y, unsigned char x){
-    this->prev_y = y;
-    this->prev_x = x;
+void Character::setPrevPosition(unsigned int row, unsigned int col){
+    this->prevPosition.row = row;
+    this->prevPosition.col = col;
 };
 
-void Character::set_prev_x(unsigned char prev_x){
-    this->prev_x = prev_x;
+void Character::setPrevPosition(Cell * const position){
+    this->prevPosition = *position;
 };
 
-void Character::set_prev_y(unsigned char prev_y){
-    this->prev_y = prev_y;
+void Character::setPrevCol(unsigned int prev_col){
+    this->prevPosition.col = prev_col;
 };
 
-void Character::set_position(unsigned char y, unsigned char x){
-    if(!this->collision(y, x)){
-        this->y = y;
-        this->x = x;
+void Character::setPrevRow(unsigned int prev_row){
+    this->prevPosition.row = prev_row;
+};
+
+void Character::setPosition(unsigned int row, unsigned int col){
+    if(!this->isCollision(row, col)){
+        this->position.row = row;
+        this->position.col = col;
     }
 };
 
-void Character::set_x(unsigned char x){
-    if(!this->collision(this->y, x)){
-        this->x = x;
+void Character::setPosition(Cell * position){
+    this->position = *position;
+};
+
+void Character::setCol(unsigned int col){
+    if(!this->isCollision(this->position.row, col)){
+        this->position.col = col;
     }
 };
 
-void Character::set_y(unsigned char y){
-    if (!this->collision(y, this->x)){
-        this->y = y;
+void Character::setRow(unsigned int row){
+    if (!this->isCollision(row, this->position.col)){
+        this->position.row = row;
     }
 };
 
-void Character::set_state(bool state){
-    this->state = state;
-};
-
-void Character::set_sprite(unsigned char sprite){
+void Character::setSprite(unsigned int sprite){
     this->sprite = sprite;
 };
 
-void Character::set_color(unsigned char color){
-    this->color_pair = color;
+void Character::setColor(unsigned int color){
+    this->color = color;
 };
 
 /*getters*/
-char Character::get_sprite(){
+char Character::getSprite(){
     return this->sprite;
 };
 
-bool Character::get_state(){
-    return this->state;
+unsigned int Character::getColor(){
+    return this->color;
 };
 
-unsigned char Character::get_color(){
-    return this->color_pair;
+unsigned int Character::getCol(){
+    return this->position.col;
 };
 
-unsigned char Character::get_x(){
-    return this->x;
+unsigned int Character::getRow(){
+    return this->position.row;
 };
 
-unsigned char Character::get_y(){
-    return this->y;
+unsigned int Character::getPrevCol(){
+    return this->prevPosition.col;
 };
 
-unsigned char Character::get_prev_x(){
-    return this->prev_x;
-};
-
-unsigned char Character::get_prev_y(){
-    return this->prev_y;
+unsigned int Character::getPrevRow(){
+    return this->prevPosition.row;
 };
 

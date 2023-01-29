@@ -6,16 +6,18 @@ using namespace gameColors;
 Pacman::Pacman(){
 };
 
-Pacman::Pacman(char sprite, unsigned char y, unsigned char x)
-:Character(sprite, y, x){
-    this->color_pair = (unsigned char) Colors::PACMAN;
+Pacman::Pacman(unsigned int row, unsigned int col){
+    this->setPosition(row, col);
+    this->setPrevPosition(row, col);
+    this->setColor((unsigned int) Colors::PACMAN);
+    this->setSprite(MapElements::PACMAN);
     this->lives = 3;
     this->score = 0;
 };
 
-bool Pacman::collision(unsigned char y, unsigned char x){
+bool Pacman::isCollision(unsigned int row, unsigned int col){
     int testch;
-    testch = mvinch(y, x);
+    testch = mvinch(row, col);
     switch (testch & A_CHARTEXT){
         case MapElements::POINT:
             this->score++;
@@ -30,19 +32,19 @@ bool Pacman::collision(unsigned char y, unsigned char x){
 };
 
 /*getters*/
-unsigned int Pacman::get_lives() const{
+unsigned int Pacman::getLives() const{
     return this->lives;
 };
 
-unsigned int Pacman::get_score() const{
+unsigned int Pacman::getScore() const{
     return this->score;
 };
 
 /*setters*/
-void Pacman::set_lives(const unsigned int lives){
+void Pacman::setLives(const unsigned int lives){
     this->lives = lives;
 };
 
-void Pacman::set_score(const unsigned int score){
+void Pacman::setScore(const unsigned int score){
     this->score = score;
 };
