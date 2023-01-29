@@ -1,3 +1,6 @@
+#ifndef NODE_HPP
+#define NODE_HPP
+
 class Node{
     public:
         Node();
@@ -20,3 +23,4 @@ class Node{
         // double g;
         double f;
 };
+#endif

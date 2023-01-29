@@ -11,13 +11,13 @@ class ConsoleDraw{
     public:
         void initNcurses(int terminalWidth, int terminalHeight);
         void initColors();
-        void ConsoleDraw::drawGameScreen(Map * gameMap);
         void endNcurses();
         
         void loadGameMap(const std::string& fileName);
 
         void drawScore(unsigned int score);
         void drawCharacter(Character& c) const;
+        void drawGameScreen(Map * gameMap);
 
         /*getters*/
         void getTerminalSize(const int * width, const int * height) const;
