@@ -11,6 +11,7 @@ Ghost::Ghost(char sprite, unsigned char color_pair, unsigned char y, unsigned ch
 Ghost::Ghost(unsigned int row, unsigned int col){
     this->setPosition(row, col);
     this->setPrevPosition(row, col);
+    this->setSprite(MapElements::GHOST);
 };
 
 /*implements manhathan distance*/

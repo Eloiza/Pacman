@@ -6,9 +6,11 @@ using namespace gameColors;
 Pacman::Pacman(){
 };
 
-Pacman::Pacman(char sprite, unsigned int row, unsigned int col)
-:Character(sprite, row, col){
-    this->color = (unsigned int) Colors::PACMAN;
+Pacman::Pacman(unsigned int row, unsigned int col){
+    this->setPosition(row, col);
+    this->setPrevPosition(row, col);
+    this->setColor((unsigned int) Colors::PACMAN);
+    this->setSprite(MapElements::PACMAN);
     this->lives = 3;
     this->score = 0;
 };

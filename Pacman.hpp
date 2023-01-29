@@ -7,7 +7,7 @@
 class Pacman : public Character{
     public:
         Pacman();
-        Pacman(char sprite, unsigned int row, unsigned int col);
+        Pacman(unsigned int row, unsigned int col);
 
         virtual ~Pacman() = default;
 
