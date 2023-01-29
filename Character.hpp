@@ -3,53 +3,61 @@
 
 #include <ncurses.h>
 #include "MapElements.hpp"
+#include "Cell.hpp"
 
 class Character{
     public:
         /*constructors*/
         Character();
-        Character(char sprite, unsigned char color_pair, unsigned char y, unsigned char x);
-        Character(char sprite, unsigned char y, unsigned char x);
-        Character(char sprite);
+        Character(char sprite, unsigned int color, unsigned int row, unsigned int col);
+        Character(char sprite, unsigned int row, unsigned int col);
+
+        Character(char sprite, unsigned int color_pair, Cell * const position);
+        Character(char sprite, Cell * const  position);
 
         /*destructors*/
         virtual ~Character() = default;
 
         /*class methods*/
-        virtual void move(unsigned char direction);
-        virtual bool collision(unsigned char y, unsigned char x);
-        
+        virtual void move(unsigned int direction);
+        virtual void move(Cell * const new_position);
+
+        virtual bool isCollision(unsigned int row, unsigned int col);
+        virtual bool isCollision(Cell * const position);
+
         /*setters*/
-        void set_position(unsigned char y, unsigned char x);
-        void set_x(unsigned char x);
-        void set_y(unsigned char y);
-        void set_state(bool state);
-        void set_sprite(unsigned char sprite);
-        void set_color(unsigned char color);
-        void set_prev_position(unsigned char y, unsigned char x);
-        void set_prev_x(unsigned char x);
-        void set_prev_y(unsigned char y);
+        void setPosition(unsigned int row, unsigned int col);
+        void setPosition(Cell * const position);
+
+        void setRow(unsigned int row);
+        void setCol(unsigned int col);
+
+        void setSprite(unsigned int sprite);
+        void setColor(unsigned int color);
+
+        void setPrevPosition(unsigned int row, unsigned int col);
+        void setPrevPosition(Cell * const position);
+
+        void setPrevRow(unsigned int row);
+        void setPrevCol(unsigned int col);
 
         /*getters*/
-        char get_sprite();
-        bool get_state();
-        unsigned char get_color();
-        unsigned char get_x();
-        unsigned char get_y();
-        unsigned char get_prev_x();
-        unsigned char get_prev_y();
+        char getSprite();
+        unsigned int getColor();
+        unsigned int getRow();
+        unsigned int getCol();
+        unsigned int getPrevRow();
+        unsigned int getPrevCol();
 
     protected:
         char sprite;
-        bool state;
-        unsigned char color_pair;
+        unsigned int color;
 
         //store current position
-        unsigned char x;
-        unsigned char y;
+        Cell position;
 
-        //store previous position
-        unsigned char prev_x;
-        unsigned char prev_y;
+        // store previous position
+        Cell prevPosition;
+
 };
 #endif
