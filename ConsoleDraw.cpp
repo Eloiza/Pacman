@@ -1,6 +1,7 @@
 #include "ConsoleDraw.hpp"
 #include "Colors.hpp"
 #include "MapElements.hpp"
+#include "Map.hpp"
 
 #include <iostream>
 using namespace gameColors;
@@ -23,11 +24,11 @@ void ConsoleDraw::initColors(){
     init_pair((short int) Colors::PACMAN, COLOR_YELLOW, COLOR_YELLOW); // pacman-color
 };
 
-void ConsoleDraw::drawGameScreen(){
+void ConsoleDraw::drawGameScreen(Map * gameMap){
     unsigned int i, j;
-    for(i=0; i< (unsigned int) this->mapLin; i++){
-        for(j=0; j< (unsigned int) this->mapCol; j++){
-            mvaddch(i, j, this->gameMap[i* (unsigned int) this->mapCol+j]);
+    for(i=0; i< (unsigned int) gameMap->lin; i++){
+        for(j=0; j< (unsigned int) gameMap->col; j++){
+            mvaddch(i, j, gameMap->map[i* (unsigned int) gameMap->col+j]);
         }
     }
     refresh();
@@ -52,22 +53,6 @@ void ConsoleDraw::endNcurses(){
     endwin();
 };
 
-void ConsoleDraw::loadGameMap(const std::string& fileName){
-    std::string readtext, filetext; 
-    
-    std::ifstream mapfile(fileName);
-    if(mapfile.is_open()){
-        this->mapLin = 0;
-        while (getline(mapfile, readtext)){
-            this->gameMap += readtext;
-            this->mapLin++;
-        }
-
-        this->mapCol = this->gameMap.size() / this->mapLin;
-        mapfile.close();
-    }
-};
-
 /*getters*/
 
 void ConsoleDraw::getTerminalSize(const int *width, const int * height) const{
@@ -83,17 +68,6 @@ int ConsoleDraw::getTerminalHeight() const{
     return this->terminalHeight;
 };
 
-std::string ConsoleDraw::getGameMap() const{
-    return this->gameMap;
-}
-
-int ConsoleDraw::getmapCol(){
-    return (int) this->mapCol;
-}
-
-int ConsoleDraw::getmapLin(){
-    return (int) this->mapLin;
-}
 /*setters*/
 
 void ConsoleDraw::setTerminalSize(int width, int height){
@@ -107,10 +81,4 @@ void ConsoleDraw::setTerminalWidth(int width){
 
 void ConsoleDraw::setTerminalHeight(int height){
     this->terminalHeight = height;
-};
-
-void ConsoleDraw::setGameMap(std::string gameMap, unsigned char mapLin, unsigned char mapCol){
-    this->gameMap = gameMap;
-    this->mapLin = mapLin;
-    this->mapCol = mapCol;
 };
