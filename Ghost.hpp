@@ -11,32 +11,28 @@
 
 #include "Node.hpp"
 #include "Map.hpp"
+#include "Cell.hpp"
 
 class Ghost : public Character{
     public:
         /*constructors*/
         Ghost();
-        Ghost(char sprite, unsigned char color_pair, unsigned char y, unsigned char x);
-        Ghost(Node position);
+        Ghost(char sprite, unsigned char color_pair, unsigned char row, unsigned char col);
+        Ghost(unsigned int row, unsigned int col);
 
-        bool collision_new(Map *map, unsigned char y, unsigned char x);
+        double distance(Cell p1, Cell p2);
+        double distance(unsigned int x, unsigned int y, Cell p2);
 
-        double distance(Node p1, Node p2);
-        double distance(unsigned int x, unsigned int y, Node p2);
-        virtual void move(Node newPosition);
+        // void generateTarget(std::pair<unsigned char, unsigned char> pacman_position);
+        Cell generateDirection(Map *map, Cell goal);
 
-        void generateTarget(std::pair<unsigned char, unsigned char> pacman_position);
-        Node generateDirection(Map * map, Node goal);
-        std::priority_queue<Node, std::vector<Node>, std::greater<Node>> getNeighbors(Map *map, Node n, Node goal);
+        std::priority_queue<Node, std::vector<Node>, std::greater<Node>> Ghost::getNeighbors(Map *map, Cell n, Cell goal);
 
         /*setters*/
-        void setPosition(Node position);
-        void setTarget(Node target);
+        void setTarget(Cell * const target);
 
-    // protected:
-        Node previousPosition;
-        Node target;
-        Node position;
+    protected:
+        Cell target;
 };
 
 #endif
