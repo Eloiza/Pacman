@@ -13,6 +13,7 @@
 #include "Map.hpp"
 #include "Cell.hpp"
 #include "MapElements.hpp"
+#include "Colors.hpp"
 
 class Ghost : public Character{
     public:

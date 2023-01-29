@@ -5,7 +5,8 @@ namespace gameColors{
     enum class Colors : short int{
         DEFAULT,
         PACMAN, 
-        WALL
+        WALL,
+        GENERIC_GHOST
     };
 }
 

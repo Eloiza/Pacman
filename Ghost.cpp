@@ -1,5 +1,6 @@
 #include "Ghost.hpp"
 
+using namespace gameColors;
 /*constructors*/
 Ghost::Ghost(){
 };
@@ -12,6 +13,7 @@ Ghost::Ghost(unsigned int row, unsigned int col){
     this->setPosition(row, col);
     this->setPrevPosition(row, col);
     this->setSprite(MapElements::GHOST);
+    this->setColor((unsigned int) Colors::GENERIC_GHOST);
 };
 
 /*implements manhathan distance*/

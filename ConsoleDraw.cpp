@@ -22,6 +22,7 @@ void ConsoleDraw::initColors(){
     init_pair((short int) Colors::DEFAULT, COLOR_BLACK, COLOR_WHITE); // maze-color
     init_pair((short int) Colors::WALL, COLOR_BLUE, COLOR_BLUE);  // maze-color
     init_pair((short int) Colors::PACMAN, COLOR_YELLOW, COLOR_YELLOW); // pacman-color
+    init_pair((short int) Colors::GENERIC_GHOST, COLOR_WHITE, COLOR_WHITE);  // pacman-color
 };
 
 void ConsoleDraw::drawGameScreen(Map * gameMap){
