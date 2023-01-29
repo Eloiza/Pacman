@@ -36,12 +36,12 @@ void ConsoleDraw::drawGameScreen(Map * gameMap){
 
 void ConsoleDraw::drawCharacter(Character &c) const{
     attron(COLOR_PAIR(Colors::DEFAULT));
-    mvaddch(c.get_prev_y(), c.get_prev_x(), MapElements::EMPTY_SPACE);
+    mvaddch(c.getPrevRow(), c.getPrevCol(), MapElements::EMPTY_SPACE);
     attroff(COLOR_PAIR(Colors::DEFAULT));
 
-    attron(COLOR_PAIR(c.get_color()));
-    mvaddch(c.get_y(), c.get_x(), c.get_sprite());
-    attroff(COLOR_PAIR(c.get_color()));
+    attron(COLOR_PAIR(c.getColor()));
+    mvaddch(c.getRow(), c.getCol(), c.getSprite());
+    attroff(COLOR_PAIR(c.getColor()));
 };
 
 void ConsoleDraw::drawScore(unsigned int score){
