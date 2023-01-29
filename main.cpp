@@ -52,9 +52,9 @@ int main(int argc, char **argv){
     while ((ch = getch()) != 'q'){
         pacman.move(ch);
         console.drawCharacter(pacman);
-
         result = g.generateDirection(&map, goal);
         g.move(&result);
+        napms(150);
         console.drawCharacter(g);
     }
     endwin();

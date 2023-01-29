@@ -34,7 +34,10 @@ void Ghost::setTarget(Cell * const target){
 };
 
 Cell Ghost::generateDirection(Map *map, Cell goal){
-    // Node nodePosition = Node(this->x, this->y, 0);
+    if(this->position.row == goal.row && this->position.col == goal.col){
+        return this->position;
+    }
+    
     std::priority_queue<Node, std::vector<Node>, std::greater<Node>> neighbors;
     neighbors = this->getNeighbors(map, this->position, goal);
     
@@ -44,11 +47,6 @@ Cell Ghost::generateDirection(Map *map, Cell goal){
     }
 
     Node best = neighbors.top();
-    while (!neighbors.empty()){
-        std::cout << neighbors.top().f << "\n";
-        neighbors.pop();
-    }
-
     return best;
 }
 
@@ -68,7 +66,7 @@ std::priority_queue<Node, std::vector<Node>, std::greater<Node>> Ghost::getNeigh
         if (col >= 0 && col < (int) map->cols && row >= 0 && row < (int) map->rows){
             // Check if there is an obstacle at the location
             if (!isCollision(map, row, col)){
-                valid_neighbors.push(Node(col, row, distance(col, row, goal)));
+                valid_neighbors.push(Node(row, col, distance(row, col, goal)));
             }
         }
     }
