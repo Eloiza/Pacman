@@ -35,58 +35,29 @@ int main(int argc, char **argv){
     Map map;
     map.loadGameMap("./maps/map.txt");
 
+    ConsoleDraw console = ConsoleDraw();
+    console.initNcurses(40,40);
+    console.initColors();
+    console.drawGameScreen(&map);
+
+    //init pacman 
+    Pacman pacman('C', 2, 12);
+    
+    //init ghost
     Ghost g(Node(2, 1));
-    Ghost p(Node(2, 12));
     move_ghost(&map, g, 'W');
-    move_ghost(&map, p, 'C');
-    printMap(&map);
-
-    Node goal = Node(2,12);
+    Node goal = Node(2, 12);
     Node result;
-    int troca = 0;
-    std::cout << "Distance: " << g.distance(g.position, goal) << std::endl;
 
-    for(int i=0; i<10; i++){
+    unsigned char ch= ' ';
+    while ((ch = getch()) != 'q'){
+        pacman.move(ch);
+        console.drawCharacter(pacman);
+
         result = g.generateDirection(&map, goal);
-
         g.move(result);
-        std::cout << "Distance: " << g.distance(g.position, goal) << std::endl;
-        std::cout << "Direction result: (" << result.x << ", " << result.y << ")" << std::endl;
-
-        move_ghost(&map, g, 'W');
-        move_ghost(&map, p, 'C');
-
-        printMap(&map);
-        std::cout << std::endl;
-        std::cout << std::endl;
+        console.drawCharacter(g);
     }
-    // std::cout << "Start position: (" << g.position.x << ", " << g.position.y << ")" << std::endl;
-    // result = g.generateDirection(&map, goal);
-    // g.move(result);
-    // std::cout << "Direction result: (" << result.x << ", " << result.y << ")" << std::endl;
-    // std::cout << "Move result: (" << g.position.x << ", " << g.position.y << ")" << std::endl;
-
-    // std::cout << "Start position: (" << g.position.x << ", " << g.position.y << ")" << std::endl;
-    // result = g.generateDirection(&map, goal);
-    // g.move(result);
-    // std::cout << "Direction result: (" << result.x << ", " << result.y << ")" << std::endl;
-    // std::cout << "Move result: (" << g.position.x << ", " << g.position.y << ")" << std::endl;
-
-    // std::cout << "Start position: (" << g.position.x << ", " << g.position.y << ")" << std::endl;
-    // result = g.generateDirection(&map, goal);
-    // g.move(result);
-    // std::cout << "Direction result: (" << result.x << ", " << result.y << ")" << std::endl;
-    // std::cout << "Move result: (" << g.position.x << ", " << g.position.y << ")" << std::endl;
-
-    // while ((ch = getch()) != 'q'){
-    //     pacman.move(ch);
-    //     console.drawCharacter(pacman);
-    //     result = g.generateDirection(&map, goal);
-    //     g.move(result);
-    //     console.drawCharacter(g);
-    //     // console.drawScore((unsigned int) pacman.get_score());
-    // }
-
     endwin();
     return 0;
 }

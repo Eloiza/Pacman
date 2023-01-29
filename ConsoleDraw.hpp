@@ -12,8 +12,6 @@ class ConsoleDraw{
         void initNcurses(int terminalWidth, int terminalHeight);
         void initColors();
         void endNcurses();
-        
-        void loadGameMap(const std::string& fileName);
 
         void drawScore(unsigned int score);
         void drawCharacter(Character& c) const;
