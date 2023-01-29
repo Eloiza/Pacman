@@ -5,13 +5,13 @@ void Map::loadGameMap(const std::string &fileName){
 
     std::ifstream mapfile(fileName);
     if (mapfile.is_open()){
-        this->lin = 0;
+        this->rows = 0;
         while (getline(mapfile, readtext)){
             this->map += readtext;
-            this->lin++;
+            this->rows++;
         }
 
-        this->col = this->map.size() / this->lin;
+        this->cols = this->map.size() / this->rows;
         mapfile.close();
     }
 };

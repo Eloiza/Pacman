@@ -26,9 +26,9 @@ void ConsoleDraw::initColors(){
 
 void ConsoleDraw::drawGameScreen(Map * gameMap){
     unsigned int i, j;
-    for(i=0; i< (unsigned int) gameMap->lin; i++){
-        for(j=0; j< (unsigned int) gameMap->col; j++){
-            mvaddch(i, j, gameMap->map[i* (unsigned int) gameMap->col+j]);
+    for(i=0; i< (unsigned int) gameMap->rows; i++){
+        for(j=0; j< (unsigned int) gameMap->cols; j++){
+            mvaddch(i, j, gameMap->map[i* (unsigned int) gameMap->cols+j]);
         }
     }
     refresh();
