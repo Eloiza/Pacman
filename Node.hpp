@@ -1,7 +1,8 @@
 #ifndef NODE_HPP
 #define NODE_HPP
+#include "Cell.hpp"
 
-class Node{
+class Node : public Cell{
     public:
         Node();
         Node(unsigned int x, unsigned int y);
@@ -14,13 +15,6 @@ class Node{
         bool operator>(Node const &n) const;
         bool operator==(Node const &n) const;
 
-        unsigned int x;
-        unsigned int y;
-        unsigned int parent_x;
-        unsigned int parent_y;
-
-        // double h;
-        // double g;
         double f;
 };
 #endif
