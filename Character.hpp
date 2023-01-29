@@ -4,6 +4,7 @@
 #include <ncurses.h>
 #include "MapElements.hpp"
 #include "Cell.hpp"
+#include "Map.hpp"
 
 class Character{
     public:
@@ -24,6 +25,10 @@ class Character{
 
         virtual bool isCollision(unsigned int row, unsigned int col);
         virtual bool isCollision(Cell * const position);
+        
+        /*collision without ncurses*/
+        virtual bool isCollision(Map *map, unsigned int row, unsigned int col);
+        virtual bool isCollision(Map *map, Cell *const position);
 
         /*setters*/
         void setPosition(unsigned int row, unsigned int col);

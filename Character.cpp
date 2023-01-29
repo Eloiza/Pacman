@@ -52,6 +52,13 @@ bool Character::isCollision(Cell * const position){
     return (((testch & A_CHARTEXT) == MapElements::WALL));
 };
 
+bool isCollision(Map *map, unsigned int row, unsigned int col){
+    return map->map[row*map->cols+col] == MapElements::WALL;
+};
+
+bool isCollision(Map *map, Cell *const position){
+    return map->map[position->row * map->cols + position->col] == MapElements::WALL;
+};
 
 /*setters*/
 void Character::setPrevPosition(unsigned int row, unsigned int col){
