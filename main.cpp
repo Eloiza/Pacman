@@ -41,21 +41,36 @@ int main(int argc, char **argv){
     console.drawGameScreen(&map);
 
     //init pacman
-    Pacman pacman(2, 12);
+    Pacman pacman(2, 1);
 
     //init ghost
-    Ghost g(2, 1);
-    Cell goal = Cell(2, 12);
+    Ghost g(12, 15);
+    Cell goal = pacman.getPosition();
     Cell result;
 
     unsigned char ch= ' ';
+    unsigned int count = 0;
+    unsigned int update_ghost = 0;
+
     while ((ch = getch()) != 'q'){
         pacman.move(ch);
         console.drawCharacter(pacman);
-        result = g.generateDirection(&map, goal);
-        g.move(&result);
-        napms(150);
+
+        if(count == 100){
+            goal = pacman.getPosition();
+            count = 0;
+        }
+
+        if(update_ghost == 40){
+            result = g.generateDirection(&map, goal);
+            g.move(&result);
+            napms(100);
+            update_ghost = 0;
+        }
         console.drawCharacter(g);
+
+        update_ghost++;
+        count++;
     }
     endwin();
     return 0;

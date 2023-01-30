@@ -47,6 +47,8 @@ class Character{
         void setPrevCol(unsigned int col);
 
         /*getters*/
+        Cell getPosition();
+        Cell getPrevPosition();
         char getSprite();
         unsigned int getColor();
         unsigned int getRow();

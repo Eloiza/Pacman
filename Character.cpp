@@ -110,6 +110,14 @@ void Character::setColor(unsigned int color){
 };
 
 /*getters*/
+Cell Character::getPosition(){
+    return this->position;
+};
+
+Cell Character::getPrevPosition(){
+    return this->prevPosition;
+};
+
 char Character::getSprite(){
     return this->sprite;
 };
