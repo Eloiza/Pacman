@@ -16,13 +16,13 @@ Ghost::Ghost(unsigned int row, unsigned int col){
     this->setColor((unsigned int) Colors::GENERIC_GHOST);
 };
 
-/*implements manhathan distance*/
-double Ghost::distance(Cell p1, Cell p2){
-    return abs(p2.row - p1.row) + abs(p2.col - p1.col);
+/*implements euclidean distance*/
+double Ghost::distance(Cell * p1, Cell * p2){
+    return abs(p2->row - p1->row) + abs(p2->col - p1->col);
 };
 
-double Ghost::distance(unsigned int row, unsigned int col, Cell p2){
-    return abs(p2.row - row) + abs(p2.col - col);
+double Ghost::distance(unsigned int row, unsigned int col, Cell * p2){
+    return abs(p2->row - row) + abs(p2->col - col);
 };
 
 // void Ghost::generateTarget(std::pair<unsigned char, unsigned char> pacman_position){
@@ -30,28 +30,58 @@ double Ghost::distance(unsigned int row, unsigned int col, Cell p2){
 // };
 
 void Ghost::setTarget(Cell * const target){
-    this->target = *target;
+    this->target = target;
 };
 
-Cell Ghost::generateDirection(Map *map, Cell goal){
-    if(this->position.row == goal.row && this->position.col == goal.col){
-        return this->position;
-    }
-    
-    std::priority_queue<Node, std::vector<Node>, std::greater<Node>> neighbors;
-    neighbors = this->getNeighbors(map, this->position, goal);
-    
+Cell Ghost::getDirection(Map *map, Cell * goal){
 
-    if(neighbors.size() == 0){
-        return this->position;
-    }
-
-    Node best = neighbors.top();
-    return best;
 }
 
-std::priority_queue<Node, std::vector<Node>, std::greater<Node>> Ghost::getNeighbors(Map *map, Cell n, Cell goal){
-    std::priority_queue<Node, std::vector<Node>, std::greater<Node>> valid_neighbors;
+std::list<Node> Ghost::generatePath(Map *map, Cell * goal){
+    if(this->position.row == goal->row && this->position.col == goal->col){
+        return this->position;
+    }
+    std::list<Node> openSet;
+    std::list<Node> neighbors;
+
+    //came from declaration
+
+    Node start(this->position, 0, this->distance(&this->position, goal));
+    openSet.push_back(start);
+
+    Node current;
+    double tentative_gScore;
+    while(!openSet.empty()){
+        openSet.sort();
+        current = *openSet.begin();
+        if(current.row == goal->row && current.col == goal->col){
+            return; //return path
+        }
+        neighbors = this->getNeighbors(map, &current, goal);
+        for (auto n : neighbors){
+            tentative_gScore = current.g + 1;
+
+            auto foundNode = std::find_if(openSet.begin(), openSet.end(), [&] (Node const& cNode){
+            return cNode.row == n.row && cNode.col == n.col;});
+
+            //if node not in openSet
+            if (foundNode == openSet.end()){
+                openSet.push_back(n);
+            }
+            
+            else if(tentative_gScore < n.g){
+                //add to cameFrom list 
+                n.g = tentative_gScore;
+                n.f = tentative_gScore + this->distance(&n, goal);
+            }
+        }
+    }
+    
+    return this->position;
+}
+
+std::list<Node> Ghost::getNeighbors(Map *map, Cell * n, Cell * goal){
+    std::list<Node> valid_neighbors;
 
     // Define the possible x and y values of the neighbors
     int dx[4] = {1, -1, 0, 0};
@@ -59,14 +89,14 @@ std::priority_queue<Node, std::vector<Node>, std::greater<Node>> Ghost::getNeigh
 
     // Iterate over the possible x and y values
     for (int i = 0; i < 4; i++){
-        int col = n.col + dx[i];
-        int row = n.row + dy[i];
+        int col = n->col + dx[i];
+        int row = n->row + dy[i];
 
         // Check if the neighbor is within the boundaries of the map
         if (col >= 0 && col < (int) map->cols && row >= 0 && row < (int) map->rows){
             // Check if there is an obstacle at the location
             if (!isCollision(map, row, col)){
-                valid_neighbors.push(Node(row, col, distance(row, col, goal)));
+                valid_neighbors.push_back(Node(row, col, distance(row, col, goal)));
             }
         }
     }

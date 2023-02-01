@@ -5,7 +5,8 @@
 class Node : public Cell{
     public:
         Node();
-        Node(unsigned int row, unsigned int col, double f);
+        Node(unsigned int row, unsigned int col, double g);
+        Node(Cell c, double g, double h);
 
         virtual ~Node() = default;
 
@@ -14,5 +15,7 @@ class Node : public Cell{
         bool operator==(Node const &n) const;
 
         double f;
+        double g;
+        double h;
 };
 #endif

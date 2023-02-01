@@ -4,7 +4,15 @@ Node::Node(){
 };
 
 
-Node::Node(unsigned int row, unsigned int col, double f): Cell(row, col), f{f}{
+Node::Node(unsigned int row, unsigned int col, double g): Cell(row, col), g{g}{
+};
+
+Node::Node(Cell c, double g, double h){
+    this->row = c.row;
+    this->col = c.col;
+    this->g = g;
+    this->h = h;
+    this->f = g + h;
 };
 
 bool Node::operator<(Node const &n) const{

@@ -44,7 +44,7 @@ int main(int argc, char **argv){
     Pacman pacman(2, 1);
 
     //init ghost
-    Ghost g(12, 15);
+    Ghost g(11, 15);
     Cell goal = pacman.getPosition();
     Cell result;
 
@@ -56,12 +56,12 @@ int main(int argc, char **argv){
         pacman.move(ch);
         console.drawCharacter(pacman);
 
-        if(count == 100){
+        if(count == 500){
             goal = pacman.getPosition();
             count = 0;
         }
 
-        if(update_ghost == 40){
+        if(update_ghost == 200){
             result = g.generateDirection(&map, goal);
             g.move(&result);
             napms(100);
