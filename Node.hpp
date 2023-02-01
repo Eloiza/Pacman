@@ -14,6 +14,7 @@ class Node : public Cell{
         bool operator>(Node const &n) const;
         bool operator==(Node const &n) const;
 
+        Node * parent;
         double f;
         double g;
         double h;

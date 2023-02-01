@@ -33,18 +33,28 @@ void Ghost::setTarget(Cell * const target){
     this->target = target;
 };
 
-Cell Ghost::getDirection(Map *map, Cell * goal){
-
+Cell Ghost::getDirection(){
+    if()
 }
 
-std::list<Node> Ghost::generatePath(Map *map, Cell * goal){
-    if(this->position.row == goal->row && this->position.col == goal->col){
-        return this->position;
+std::list<Cell*> reconstructPath(Node * startNode, Node * lastNode){
+    std::list<Cell*> path;
+    Node * current = lastNode;
+    while(current->row != startNode->row && current->col != startNode->col){
+        path.push_front(current);
+        current = current->parent;
     }
+
+    return path;
+};
+
+std::list<Cell*> Ghost::generatePath(Map *map, Cell * goal){
+    if(this->position.row == goal->row && this->position.col == goal->col){
+        return std::list<Cell*>();
+    }
+
     std::list<Node> openSet;
     std::list<Node> neighbors;
-
-    //came from declaration
 
     Node start(this->position, 0, this->distance(&this->position, goal));
     openSet.push_back(start);
@@ -55,7 +65,7 @@ std::list<Node> Ghost::generatePath(Map *map, Cell * goal){
         openSet.sort();
         current = *openSet.begin();
         if(current.row == goal->row && current.col == goal->col){
-            return; //return path
+            return this->reconstructPath(&start, &current);
         }
         neighbors = this->getNeighbors(map, &current, goal);
         for (auto n : neighbors){
@@ -70,14 +80,14 @@ std::list<Node> Ghost::generatePath(Map *map, Cell * goal){
             }
             
             else if(tentative_gScore < n.g){
-                //add to cameFrom list 
                 n.g = tentative_gScore;
                 n.f = tentative_gScore + this->distance(&n, goal);
+                n.parent = &current;
             }
         }
     }
-    
-    return this->position;
+
+    return std::list<Cell*>();
 }
 
 std::list<Node> Ghost::getNeighbors(Map *map, Cell * n, Cell * goal){
