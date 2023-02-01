@@ -22,23 +22,22 @@ class Ghost : public Character{
         Ghost(char sprite, unsigned char color_pair, unsigned char row, unsigned char col);
         Ghost(unsigned int row, unsigned int col);
 
-        double distance(Cell * p1, Cell * p2);
-        double distance(unsigned int x, unsigned int y, Cell * p2);
+        double distance(const Cell *p1, const Cell *p2);
+        double distance(unsigned int x, unsigned int y, const Cell *p2);
         void setDirections(std::list<Cell *>);
 
         void generateTarget(Cell * targetPosition);
         std::list<Cell*> reconstructPath(Node * startNode, Node * lastNode);
-        std::list<Cell*> generatePath(Map *map, Cell * goal);
+        std::list<Cell *> generatePath(const Map *map, const Cell *goal);
         Cell generateDirection();
 
-
-        std::list<Node> getNeighbors(Map *map, Cell * n, Cell * goal);
+        std::list<Node> getNeighbors(const Map *map, const Cell *n, const Cell *goal);
 
         /*setters*/
-        void setTarget(Cell * const target);
+        void setTarget(const Cell * const target);
 
     protected:
-        Cell * target;
+        const Cell * target;
         std::list<Cell*> directions;
 };
 

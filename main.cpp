@@ -45,8 +45,8 @@ int main(int argc, char **argv){
 
     //init ghost
     Ghost g(11, 15);
-    g.setTarget(&pacman.getPosition());
-    Cell *goal = &pacman.getPosition();
+    g.setTarget(pacman.getPosition());
+    const Cell * goal = pacman.getPosition();
     Cell nextPosition;
     std::list<Cell*> path;
 
@@ -59,7 +59,7 @@ int main(int argc, char **argv){
         console.drawCharacter(pacman);
 
         if(count == 500){
-            goal = &pacman.getPosition();
+            goal = pacman.getPosition();
             count = 0;
         }
 

@@ -17,11 +17,11 @@ Ghost::Ghost(unsigned int row, unsigned int col){
 };
 
 /*implements euclidean distance*/
-double Ghost::distance(Cell * p1, Cell * p2){
+double Ghost::distance(const Cell *p1, const Cell *p2){
     return abs(p2->row - p1->row) + abs(p2->col - p1->col);
 };
 
-double Ghost::distance(unsigned int row, unsigned int col, Cell * p2){
+double Ghost::distance(unsigned int row, unsigned int col, const Cell *p2){
     return abs(p2->row - row) + abs(p2->col - col);
 };
 
@@ -31,7 +31,7 @@ void Ghost::generateTarget(Cell * targetPosition){
     this->target = targetPosition;
 };
 
-void Ghost::setTarget(Cell * const target){
+void Ghost::setTarget(const Cell * const target){
     this->target = target;
 };
 
@@ -50,7 +50,7 @@ Cell Ghost::generateDirection(){
     return *ret;
 }
 
-void Ghost::setDirections(std::list<Cell *>){
+void Ghost::setDirections(std::list<Cell *> directions){
     this->directions = directions;
 };
 
@@ -65,7 +65,7 @@ std::list<Cell*> Ghost::reconstructPath(Node * startNode, Node * lastNode){
     return path;
 };
 
-std::list<Cell*> Ghost::generatePath(Map *map, Cell * goal){
+std::list<Cell*> Ghost::generatePath(const Map *map, const Cell *goal){
     std::list<Node> openSet;
     std::list<Node> neighbors;
 
@@ -103,7 +103,7 @@ std::list<Cell*> Ghost::generatePath(Map *map, Cell * goal){
     return std::list<Cell*>();
 }
 
-std::list<Node> Ghost::getNeighbors(Map *map, Cell * n, Cell * goal){
+std::list<Node> Ghost::getNeighbors(const Map *map, const Cell *n, const Cell *goal){
     std::list<Node> valid_neighbors;
 
     // Define the possible x and y values of the neighbors
@@ -118,7 +118,7 @@ std::list<Node> Ghost::getNeighbors(Map *map, Cell * n, Cell * goal){
         // Check if the neighbor is within the boundaries of the map
         if (col >= 0 && col < (int) map->cols && row >= 0 && row < (int) map->rows){
             // Check if there is an obstacle at the location
-            if (!isCollision(map, row, col)){
+            if (!this->isCollision(map, row, col)){
                 valid_neighbors.push_back(Node(row, col, distance(row, col, goal)));
             }
         }
