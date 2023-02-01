@@ -25,10 +25,10 @@ double Ghost::distance(unsigned int row, unsigned int col, Cell * p2){
     return abs(p2->row - row) + abs(p2->col - col);
 };
 
-void Ghost::generateTarget(std::pair<unsigned char, unsigned char> pacman_position){
+void Ghost::generateTarget(Cell * targetPosition){
     //check state and select a new target. Can be cherries or pacman 
 
-    this->target = pacman_position;
+    this->target = targetPosition;
 };
 
 void Ghost::setTarget(Cell * const target){
@@ -37,14 +37,24 @@ void Ghost::setTarget(Cell * const target){
 
 Cell Ghost::generateDirection(){
     if (this->position.row == this->target->row && this->position.col == this->target->col){
-        generateTarget();
-        generatePath();
+        return this->position;
+        // generateTarget();
+        // generatePath();
     }
-
-    return this->directions.pop_front()
+    if(this->directions.empty()){
+        return this->position;
+    }
+    
+    Cell * ret = this->directions.front();
+    this->directions.pop_front();
+    return *ret;
 }
 
-std::list<Cell*> reconstructPath(Node * startNode, Node * lastNode){
+void Ghost::setDirections(std::list<Cell *>){
+    this->directions = directions;
+};
+
+std::list<Cell*> Ghost::reconstructPath(Node * startNode, Node * lastNode){
     std::list<Cell*> path;
     Node * current = lastNode;
     while(current->row != startNode->row && current->col != startNode->col){

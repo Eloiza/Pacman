@@ -24,10 +24,11 @@ class Ghost : public Character{
 
         double distance(Cell * p1, Cell * p2);
         double distance(unsigned int x, unsigned int y, Cell * p2);
+        void setDirections(std::list<Cell *>);
 
-        // void generateTarget(std::pair<unsigned char, unsigned char> pacman_position);
+        void generateTarget(Cell * targetPosition);
         std::list<Cell*> reconstructPath(Node * startNode, Node * lastNode);
-        std::list<Cell*>generatePath(Map *map, Cell * goal);
+        std::list<Cell*> generatePath(Map *map, Cell * goal);
         Cell generateDirection();
 
 

@@ -45,8 +45,10 @@ int main(int argc, char **argv){
 
     //init ghost
     Ghost g(11, 15);
-    Cell goal = pacman.getPosition();
-    Cell result;
+    g.setTarget(&pacman.getPosition());
+    Cell *goal = &pacman.getPosition();
+    Cell nextPosition;
+    std::list<Cell*> path;
 
     unsigned char ch= ' ';
     unsigned int count = 0;
@@ -57,13 +59,15 @@ int main(int argc, char **argv){
         console.drawCharacter(pacman);
 
         if(count == 500){
-            goal = pacman.getPosition();
+            goal = &pacman.getPosition();
             count = 0;
         }
 
         if(update_ghost == 200){
-            result = g.generateDirection(&map, goal);
-            g.move(&result);
+            path = g.generatePath(&map, goal);
+            g.setDirections(path);
+            nextPosition = g.generateDirection();
+            g.move(&nextPosition);
             napms(100);
             update_ghost = 0;
         }
