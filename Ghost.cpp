@@ -60,6 +60,8 @@ Cell Ghost::generateDirection(){
 }
 
 std::list<Cell*> Ghost::reconstructPath(Node * startNode, Node * lastNode){
+    std::cout << "I am in reconstructPath\n";
+
     std::list<Cell*> path;
     Node * current = lastNode;
     while(current->row != startNode->row && current->col != startNode->col){
@@ -70,46 +72,66 @@ std::list<Cell*> Ghost::reconstructPath(Node * startNode, Node * lastNode){
     return path;
 };
 
-std::list<Cell*> Ghost::generatePath(const Map *map, const Cell *goal){
-    std::list<Node> openSet;
-    std::list<Node> neighbors;
+void printList(std::list<Node*> lista){
+    std::list<Node*>::iterator it = lista.begin();
+    for (; it != lista.end(); it++){
+        std::cout << "(" << (*it)->row << "," << (*it)->col << ")" << std::endl;
+    }
+}
 
-    Node start(this->position, 0, this->distance(&this->position, goal));
+std::list<Cell*> Ghost::generatePath(const Map *map, const Cell *goal){
+    std::cout << "I am in generatePath\n";
+    std::list<Node*> openSet;
+    std::list<Node*> neighbors;
+
+    Node * start = new Node(this->position, 0, this->distance(&this->position, goal));
     openSet.push_back(start);
 
-    Node current;
+    Node * current;
     double tentative_gScore;
+    std::list<Node*>::iterator nodeIt;
     while(!openSet.empty()){
+        std::cout << "OPEN SET\n";
+        printList(openSet);
+        std::cout << "\n";
+
         openSet.sort();
-        current = *openSet.begin();
-        if(current.row == goal->row && current.col == goal->col){
-            return this->reconstructPath(&start, &current);
+        current = openSet.front();
+        if(current->row == goal->row && current->col == goal->col){
+            return this->reconstructPath(start, current);
         }
-        neighbors = this->getNeighbors(map, &current, goal);
-        for (auto n : neighbors){
-            tentative_gScore = current.g + 1;
+        openSet.pop_front(); //remove first node
+        neighbors = this->getNeighbors(map, current, goal);
+        std::cout << "I returned from getNeighbors\n";
 
-            auto foundNode = std::find_if(openSet.begin(), openSet.end(), [&] (Node const& cNode){
-            return cNode.row == n.row && cNode.col == n.col;});
 
-            //if node not in openSet
+        for(nodeIt=neighbors.begin(); nodeIt != neighbors.end(); nodeIt++){
+            tentative_gScore = current->g + 1;
+
+            auto foundNode = std::find_if(openSet.begin(), openSet.end(), [&](Node const *cNode)
+                                          {return cNode->row == (*nodeIt)->row && cNode->col == (*nodeIt)->col; });
+
+            // if node not in openSet
             if (foundNode == openSet.end()){
-                openSet.push_back(n);
+                openSet.push_back(*nodeIt);
             }
-            
-            else if(tentative_gScore < n.g){
-                n.g = tentative_gScore;
-                n.f = tentative_gScore + this->distance(&n, goal);
-                n.parent = &current;
+
+            else if (tentative_gScore < (*nodeIt)->g){
+                (*nodeIt)->g = tentative_gScore;
+                (*nodeIt)->f = tentative_gScore + this->distance(*nodeIt, goal);
+                (*nodeIt)->parent = current;
             }
         }
+        
     }
 
     return std::list<Cell*>();
 }
 
-std::list<Node> Ghost::getNeighbors(const Map *map, const Cell *n, const Cell *goal){
-    std::list<Node> valid_neighbors;
+std::list<Node*> Ghost::getNeighbors(const Map *map, const Cell *n, const Cell *goal){
+    std::cout << "I am in getNeighbors\n";
+
+    std::list<Node*> valid_neighbors;
 
     // Define the possible x and y values of the neighbors
     int dx[4] = {1, -1, 0, 0};
@@ -124,7 +146,7 @@ std::list<Node> Ghost::getNeighbors(const Map *map, const Cell *n, const Cell *g
         if (col >= 0 && col < (int) map->cols && row >= 0 && row < (int) map->rows){
             // Check if there is an obstacle at the location
             if (!this->isCollision(map, row, col)){
-                valid_neighbors.push_back(Node(row, col, distance(row, col, goal)));
+                valid_neighbors.push_back(new Node(row, col, distance(row, col, goal)));
             }
         }
     }

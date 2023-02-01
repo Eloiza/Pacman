@@ -51,6 +51,10 @@ int main(int argc, char **argv){
     g.setTarget(pacman.getPosition());
     const Cell * goal = pacman.getPosition();
     path = g.generatePath(&map, goal);
+    std::list<Cell *>::iterator it = path.begin();
+    for(; it != path.end(); it++){
+        std::cout << "(" <<(*it)->row << "," << (*it)->col << ")" << std::endl;
+    }
     //g.setDirections(path);
     
     // unsigned char ch= ' ';

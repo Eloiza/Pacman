@@ -29,7 +29,7 @@ class Ghost : public Character{
         std::list<Cell *> generatePath(const Map *map, const Cell *goal);
         Cell generateDirection();
 
-        std::list<Node> getNeighbors(const Map *map, const Cell *n, const Cell *goal);
+        std::list<Node*> getNeighbors(const Map *map, const Cell *n, const Cell *goal);
 
         /*setters*/
         void setTarget(const Cell * const target);
