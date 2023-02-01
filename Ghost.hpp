@@ -24,8 +24,6 @@ class Ghost : public Character{
 
         double distance(const Cell *p1, const Cell *p2);
         double distance(unsigned int x, unsigned int y, const Cell *p2);
-        void setDirections(std::list<Cell *>);
-
         void generateTarget(Cell * targetPosition);
         std::list<Cell*> reconstructPath(Node * startNode, Node * lastNode);
         std::list<Cell *> generatePath(const Map *map, const Cell *goal);
@@ -35,7 +33,10 @@ class Ghost : public Character{
 
         /*setters*/
         void setTarget(const Cell * const target);
+        void setDirections(std::list<Cell *> directions);
 
+        /*getters*/
+        std::list<Cell*> getDirections();
     protected:
         const Cell * target;
         std::list<Cell*> directions;

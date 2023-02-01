@@ -35,47 +35,52 @@ int main(int argc, char **argv){
     Map map;
     map.loadGameMap("./maps/map.txt");
 
-    ConsoleDraw console = ConsoleDraw();
-    console.initNcurses(40,40);
-    console.initColors();
-    console.drawGameScreen(&map);
+    // ConsoleDraw console = ConsoleDraw();
+    // console.initNcurses(40,40);
+    // console.initColors();
+    // console.drawGameScreen(&map);
 
     //init pacman
     Pacman pacman(2, 1);
 
     //init ghost
+    Cell nextPosition;
+    std::list<Cell *> path;
+
     Ghost g(11, 15);
     g.setTarget(pacman.getPosition());
     const Cell * goal = pacman.getPosition();
-    Cell nextPosition;
-    std::list<Cell*> path;
+    path = g.generatePath(&map, goal);
+    //g.setDirections(path);
+    
+    // unsigned char ch= ' ';
+    // unsigned int count = 0;
+    // unsigned int update_ghost = 0;
+    // unsigned int update_path = 0;
 
-    unsigned char ch= ' ';
-    unsigned int count = 0;
-    unsigned int update_ghost = 0;
+    // while ((ch = getch()) != 'q'){
+    //     pacman.move(ch);
+    //     console.drawCharacter(pacman);
 
-    while ((ch = getch()) != 'q'){
-        pacman.move(ch);
-        console.drawCharacter(pacman);
+    //     if(count == 500){
+    //         goal = pacman.getPosition();
+    //         path = g.generatePath(&map, goal);
+    //         g.setDirections(path);
+    //         count = 0;
+    //     }
 
-        if(count == 500){
-            goal = pacman.getPosition();
-            count = 0;
-        }
+    //     if(update_ghost == 200){
+    //         nextPosition = g.generateDirection();
+    //         g.move(&nextPosition);
+    //         napms(100);
+    //         update_ghost = 0;
+    //     }
+    //     console.drawCharacter(g);
 
-        if(update_ghost == 200){
-            path = g.generatePath(&map, goal);
-            g.setDirections(path);
-            nextPosition = g.generateDirection();
-            g.move(&nextPosition);
-            napms(100);
-            update_ghost = 0;
-        }
-        console.drawCharacter(g);
-
-        update_ghost++;
-        count++;
-    }
-    endwin();
+    //     update_ghost++;
+    //     update_path++;
+    //     count++;
+    // }
+    // endwin();
     return 0;
 }
