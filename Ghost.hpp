@@ -28,7 +28,7 @@ class Ghost : public Character{
         // void generateTarget(std::pair<unsigned char, unsigned char> pacman_position);
         std::list<Cell*> reconstructPath(Node * startNode, Node * lastNode);
         std::list<Cell*>generatePath(Map *map, Cell * goal);
-        Cell getDirection(Map *map, Cell * goal);
+        Cell generateDirection();
 
 
         std::list<Node> getNeighbors(Map *map, Cell * n, Cell * goal);
@@ -38,6 +38,7 @@ class Ghost : public Character{
 
     protected:
         Cell * target;
+        std::list<Cell*> directions;
 };
 
 #endif
