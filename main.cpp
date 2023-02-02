@@ -35,10 +35,10 @@ int main(int argc, char **argv){
     Map map;
     map.loadGameMap("./maps/map.txt");
 
-    // ConsoleDraw console = ConsoleDraw();
-    // console.initNcurses(40,40);
-    // console.initColors();
-    // console.drawGameScreen(&map);
+    ConsoleDraw console = ConsoleDraw();
+    console.initNcurses(40,40);
+    console.initColors();
+    console.drawGameScreen(&map);
 
     //init pacman
     Pacman pacman(2, 1);
@@ -51,40 +51,41 @@ int main(int argc, char **argv){
     g.setTarget(pacman.getPosition());
     const Cell * goal = pacman.getPosition();
     path = g.generatePath(&map, goal);
-    std::list<Cell *>::iterator it = path.begin();
-    for(; it != path.end(); it++){
-        std::cout << "(" <<(*it)->row << "," << (*it)->col << ")" << std::endl;
-    }
-    //g.setDirections(path);
-    
-    // unsigned char ch= ' ';
-    // unsigned int count = 0;
-    // unsigned int update_ghost = 0;
-    // unsigned int update_path = 0;
+    g.setDirections(path);
 
-    // while ((ch = getch()) != 'q'){
-    //     pacman.move(ch);
-    //     console.drawCharacter(pacman);
-
-    //     if(count == 500){
-    //         goal = pacman.getPosition();
-    //         path = g.generatePath(&map, goal);
-    //         g.setDirections(path);
-    //         count = 0;
-    //     }
-
-    //     if(update_ghost == 200){
-    //         nextPosition = g.generateDirection();
-    //         g.move(&nextPosition);
-    //         napms(100);
-    //         update_ghost = 0;
-    //     }
-    //     console.drawCharacter(g);
-
-    //     update_ghost++;
-    //     update_path++;
-    //     count++;
+    // std::list<Cell *>::iterator it = path.begin();
+    // for(; it != path.end(); it++){
+    //     std::cout << "(" <<(*it)->row << "," << (*it)->col << ")" << std::endl;
     // }
-    // endwin();
+    
+    unsigned char ch= ' ';
+    unsigned int count = 0;
+    unsigned int update_ghost = 0;
+    unsigned int update_path = 0;
+
+    while ((ch = getch()) != 'q'){
+        pacman.move(ch);
+        console.drawCharacter(pacman);
+
+        if(count == 500){
+            goal = pacman.getPosition();
+            path = g.generatePath(&map, goal);
+            g.setDirections(path);
+            count = 0;
+        }
+
+        if(update_ghost == 5200){
+            nextPosition = g.generateDirection();
+            g.move(&nextPosition);
+            napms(100);
+            update_ghost = 0;
+        }
+        console.drawCharacter(g);
+
+        update_ghost++;
+        update_path++;
+        count++;
+    }
+    endwin();
     return 0;
 }
