@@ -60,11 +60,9 @@ Cell Ghost::generateDirection(){
 }
 
 std::list<Cell*> Ghost::reconstructPath(Node * startNode, Node * lastNode){
-    std::cout << "I am in reconstructPath\n";
-
     std::list<Cell*> path;
     Node * current = lastNode;
-    while(current->row != startNode->row && current->col != startNode->col){
+    while(current->parent != nullptr){
         path.push_front(current);
         current = current->parent;
     }
@@ -80,33 +78,36 @@ void printList(std::list<Node*> lista){
 }
 
 std::list<Cell*> Ghost::generatePath(const Map *map, const Cell *goal){
-    std::cout << "I am in generatePath\n";
+    // std::cout << "I am in generatePath\n";
     std::list<Node*> openSet;
     std::list<Node*> closeSet;
     std::list<Node*> neighbors;
 
     Node * start = new Node(this->position, 0, this->distance(&this->position, goal));
+    start->parent = nullptr;
     openSet.push_back(start);
-    std::cout << "Start node" << start->row << "," << start->row << "\n";
+    // std::cout << "Start node" << start->row << "," << start->col << "\n";
 
     Node * current;
     double tentative_gScore;
     std::list<Node*>::iterator nodeIt;
     while(!openSet.empty()){
-        std::cout << "OPEN SET\n";
-        printList(openSet);
-        std::cout << "\n";
-
-        openSet.sort();
+        openSet.sort([](const Node* n1, const Node* n2)
+                     {return n1->f < n2->f;});
+        
         current = openSet.front();
+        // std::cout << "OPEN SET\n";
+        // printList(openSet);
+        // std::cout << "\n";
+        // std::cout << "CHECKING NODE" << current->row << "," << current->row << "\n";
+
         if(current->row == goal->row && current->col == goal->col){
             return this->reconstructPath(start, current);
         }
         openSet.pop_front(); //remove first node
         closeSet.push_back(current);
         neighbors = this->getNeighbors(map, current, goal);
-        std::cout << "I returned from getNeighbors\n";
-        std::cout << "Checking node" << current->row << "," << current->row << "\n";
+        // std::cout << "I returned from getNeighbors\n";
 
         for (nodeIt = neighbors.begin(); nodeIt != neighbors.end(); nodeIt++){
             tentative_gScore = current->g + 1;
@@ -119,7 +120,7 @@ std::list<Cell*> Ghost::generatePath(const Map *map, const Cell *goal){
 
             // if node not in openSet or closeSet
             if (foundNodeOpenSet == openSet.end() && foundNodeCloseSet == closeSet.end()){
-                std::cout << "Adding node " << (*nodeIt)->row << "," << (*nodeIt)->col << " to openSet\n";
+                // std::cout << "Adding node " << (*nodeIt)->row << "," << (*nodeIt)->col << " to openSet\n";
                 (*nodeIt)->g = tentative_gScore;
                 (*nodeIt)->f = tentative_gScore + this->distance(*nodeIt, goal);
                 (*nodeIt)->parent = current;
@@ -138,7 +139,7 @@ std::list<Cell*> Ghost::generatePath(const Map *map, const Cell *goal){
 }
 
 std::list<Node*> Ghost::getNeighbors(const Map *map, const Cell *n, const Cell *goal){
-    std::cout << "I am in getNeighbors\n";
+    // std::cout << "I am in getNeighbors\n";
 
     std::list<Node*> valid_neighbors;
 
