@@ -21,6 +21,7 @@ class Ghost : public Character{
         Ghost(char sprite, unsigned char color_pair, unsigned char row, unsigned char col);
         Ghost(unsigned int row, unsigned int col);
         Ghost(const Map *map, unsigned int row, unsigned int col);
+        Ghost(const Map *map, unsigned int row, unsigned int col, const Cell * target);
 
         /*manhathan distance*/
         double distance(const Cell *p1, const Cell *p2);
@@ -29,7 +30,7 @@ class Ghost : public Character{
         void generateTarget(Cell * targetPosition);
         std::list<Cell*> reconstructPath(Node * startNode, Node * lastNode);
         std::list<Cell*> generatePath();
-        std::list<Node *> getNeighbors(const Cell *n);
+        std::list<Node*> getNeighbors(const Cell *n);
         Cell generateDirection();
 
 

@@ -47,10 +47,8 @@ int main(int argc, char **argv){
     Cell nextPosition;
     std::list<Cell *> path;
 
-    Ghost g(11, 15);
-    g.setTarget(pacman.getPosition());
-    const Cell * goal = pacman.getPosition();
-    path = g.generatePath(&map, goal);
+    Ghost g(&map, 11, 15, pacman.getPosition());
+    path = g.generatePath();
     g.setDirections(path);
 
     // std::list<Cell *>::iterator it = path.begin();
@@ -68,8 +66,8 @@ int main(int argc, char **argv){
         console.drawCharacter(pacman);
 
         if(count == 500){
-            goal = pacman.getPosition();
-            path = g.generatePath(&map, goal);
+            g.setTarget(pacman.getPosition());
+            path = g.generatePath();
             g.setDirections(path);
             count = 0;
         }

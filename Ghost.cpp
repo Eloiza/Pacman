@@ -20,6 +20,9 @@ Ghost::Ghost(const Map *map, unsigned int row, unsigned int col) : Ghost(row, co
     this->map = map;
 };
 
+Ghost::Ghost(const Map *map, unsigned int row, unsigned int col, const Cell * target) : Ghost(map, row, col){
+    this->setTarget(target);
+};
 /*implements euclidean distance*/
 double Ghost::distance(const Cell *p1, const Cell *p2){
     return abs(p2->row - p1->row) + abs(p2->col - p1->col);
