@@ -16,6 +16,10 @@ Ghost::Ghost(unsigned int row, unsigned int col){
     this->setColor((unsigned int) Colors::GENERIC_GHOST);
 };
 
+Ghost::Ghost(const Map *map, unsigned int row, unsigned int col) : Ghost(row, col){
+    this->map = map;
+};
+
 /*implements euclidean distance*/
 double Ghost::distance(const Cell *p1, const Cell *p2){
     return abs(p2->row - p1->row) + abs(p2->col - p1->col);
@@ -27,6 +31,7 @@ double Ghost::distance(unsigned int row, unsigned int col, const Cell *p2){
 
 /*setters*/
 void Ghost::setTarget(const Cell * const target){
+    
     this->target = target;
 };
 
@@ -45,13 +50,10 @@ void Ghost::generateTarget(Cell *targetPosition){
 };
 
 Cell Ghost::generateDirection(){
-    if (this->position.row == this->target->row && this->position.col == this->target->col){
+    if ((this->position.row == this->target->row && this->position.col == this->target->col) || this->directions.empty()){
         return this->position;
         // generateTarget();
         // generatePath();
-    }
-    if (this->directions.empty()){
-        return this->position;
     }
 
     Cell *ret = this->directions.front();
@@ -77,13 +79,13 @@ void printList(std::list<Node*> lista){
     }
 }
 
-std::list<Cell*> Ghost::generatePath(const Map *map, const Cell *goal){
+std::list<Cell*> Ghost::generatePath(){
     // std::cout << "I am in generatePath\n";
     std::list<Node*> openSet;
     std::list<Node*> closeSet;
     std::list<Node*> neighbors;
 
-    Node * start = new Node(this->position, 0, this->distance(&this->position, goal));
+    Node * start = new Node(this->position, 0, this->distance(&this->position, this->target));
     start->parent = nullptr;
     openSet.push_back(start);
     // std::cout << "Start node" << start->row << "," << start->col << "\n";
@@ -101,35 +103,35 @@ std::list<Cell*> Ghost::generatePath(const Map *map, const Cell *goal){
         // std::cout << "\n";
         // std::cout << "CHECKING NODE" << current->row << "," << current->row << "\n";
 
-        if(current->row == goal->row && current->col == goal->col){
+        if(current->row == this->target->row && current->col == this->target->col){
             return this->reconstructPath(start, current);
         }
         openSet.pop_front(); //remove first node
         closeSet.push_back(current);
-        neighbors = this->getNeighbors(map, current, goal);
+        neighbors = this->getNeighbors(current);
         // std::cout << "I returned from getNeighbors\n";
 
         for (nodeIt = neighbors.begin(); nodeIt != neighbors.end(); nodeIt++){
             tentative_gScore = current->g + 1;
 
             auto foundNodeOpenSet = std::find_if(openSet.begin(), openSet.end(), [&](Node const *cNode)
-                                          {return cNode->row == (*nodeIt)->row && cNode->col == (*nodeIt)->col; });
+                                                {return cNode->row == (*nodeIt)->row && cNode->col == (*nodeIt)->col; });
             
             auto foundNodeCloseSet = std::find_if(closeSet.begin(), closeSet.end(), [&](Node const *cNode)
-                                                  { return cNode->row == (*nodeIt)->row && cNode->col == (*nodeIt)->col; });
+                                                  {return cNode->row == (*nodeIt)->row && cNode->col == (*nodeIt)->col; });
 
             // if node not in openSet or closeSet
             if (foundNodeOpenSet == openSet.end() && foundNodeCloseSet == closeSet.end()){
                 // std::cout << "Adding node " << (*nodeIt)->row << "," << (*nodeIt)->col << " to openSet\n";
                 (*nodeIt)->g = tentative_gScore;
-                (*nodeIt)->f = tentative_gScore + this->distance(*nodeIt, goal);
+                (*nodeIt)->f = tentative_gScore + this->distance(*nodeIt, target);
                 (*nodeIt)->parent = current;
                 openSet.push_back(*nodeIt);
             }
 
             else if (tentative_gScore < (*nodeIt)->g){
                 (*nodeIt)->g = tentative_gScore;
-                (*nodeIt)->f = tentative_gScore + this->distance(*nodeIt, goal);
+                (*nodeIt)->f = tentative_gScore + this->distance(*nodeIt, target);
                 (*nodeIt)->parent = current;
             }
         }
@@ -138,7 +140,7 @@ std::list<Cell*> Ghost::generatePath(const Map *map, const Cell *goal){
     return std::list<Cell*>();
 }
 
-std::list<Node*> Ghost::getNeighbors(const Map *map, const Cell *n, const Cell *goal){
+std::list<Node*> Ghost::getNeighbors(const Cell *n){
     // std::cout << "I am in getNeighbors\n";
 
     std::list<Node*> valid_neighbors;
@@ -156,7 +158,7 @@ std::list<Node*> Ghost::getNeighbors(const Map *map, const Cell *n, const Cell *
         if (col >= 0 && col < (int) map->cols && row >= 0 && row < (int) map->rows){
             // Check if there is an obstacle at the location
             if (!this->isCollision(map, row, col)){
-                valid_neighbors.push_back(new Node(row, col, distance(row, col, goal)));
+                valid_neighbors.push_back(new Node(row, col, distance(row, col, this->target)));
             }
         }
     }
