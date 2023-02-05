@@ -24,18 +24,23 @@ class Ghost : public Character{
         Ghost(const Map *map, unsigned int row, unsigned int col, const Cell * target);
 
         /*manhathan distance*/
-        double distance(const Cell *p1, const Cell *p2);
-        double distance(unsigned int x, unsigned int y, const Cell *p2);
+        // double distance(const Cell *p1, const Cell *p2);
+        // double distance(unsigned int x, unsigned int y, const Cell *p2);
 
-        void generateTarget(Cell * targetPosition);
-        Cell * generateDirection();
-        std::list<Cell*> reconstructPath(Node * startNode, Node * lastNode);
-        std::list<Cell*> generatePath();
-        std::list<Node*> getNeighbors(const Cell *n);
+        /*A-start pathfinding functions*/
+        // void generateTarget(Cell * targetPosition);
+        // Cell * generateDirection();
+        // std::list<Cell*> reconstructPath(Node * startNode, Node * lastNode);
+        // std::list<Cell*> generatePath();
+        // std::list<Node*> getNeighbors(const Cell *n);
         void move();
 
+        /*Behaviors functions*/
+        // setChaseBehavior();
+        // setRandomBehavior();
+
         /*setters*/
-        void setTarget(const Cell * const target);
+        // void setTarget(const Cell * const target);
         void setDirections(std::list<Cell *> directions);
 
         /*getters*/

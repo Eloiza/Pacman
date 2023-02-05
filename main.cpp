@@ -12,6 +12,7 @@
 #include "Node.hpp"
 #include "Map.hpp"
 #include "Ghost.hpp"
+#include "ChaseBehavior.hpp"
 
 using namespace gameColors;
 
@@ -33,51 +34,65 @@ using namespace gameColors;
 
 int main(int argc, char **argv){
     /*init game map*/
+
     Map map;
     map.loadGameMap("./maps/map.txt");
 
-    /*init ncurses and console*/
-    ConsoleDraw console = ConsoleDraw();
-    console.initNcurses(40,40);
-    console.initColors();
-    console.drawGameScreen(&map);
+    Cell ghost_position = Cell(11,15);
+    Cell pacman_position = Cell(2, 1);
 
-    //init pacman
-    Pacman pacman(2, 1);
-
-    //init ghost
-    Ghost g(&map, 11, 15, pacman.getPosition());
-
-    // std::list<Cell *>::iterator it = path.begin();
-    // for(; it != path.end(); it++){
-    //     std::cout << "(" <<(*it)->row << "," << (*it)->col << ")" << std::endl;
-    // }
+    ChaseBehavior bh = ChaseBehavior(&map, &ghost_position, &pacman_position);
+    Cell * direc =  bh.generateDirection();
+    std::cout << direc->row << ", " << direc->col << std::endl;
     
-    unsigned char ch= ' ';
-    unsigned int count = 0;
-    unsigned int update_ghost = 0;
-    unsigned int update_path = 0;
+    direc = bh.generateDirection();
+    std::cout << direc->row << ", " << direc->col << std::endl;
+    
+    direc = bh.generateDirection();
+    std::cout << direc->row << ", " << direc->col << std::endl;
 
-    while ((ch = getch()) != 'q'){
-        pacman.move(ch);
-        console.drawCharacter(pacman);
+    // /*init ncurses and console*/
+    // ConsoleDraw console = ConsoleDraw();
+    // console.initNcurses(40,40);
+    // console.initColors();
+    // console.drawGameScreen(&map);
 
-        if(count == 500){
-            g.setTarget(pacman.getPosition());
-            count = 0;
-        }
+    // //init pacman
+    // Pacman pacman(2, 1);
 
-        if(update_ghost == 4200){
-            g.move();
-            napms(100);
-            update_ghost = 0;
-        }
-        console.drawCharacter(g);
+    // //init ghost
+    // Ghost g(&map, 11, 15, pacman.getPosition());
 
-        update_ghost++;
-        update_path++;
-        count++;
-    }
-    endwin();
-    return 0;
+    // // std::list<Cell *>::iterator it = path.begin();
+    // // for(; it != path.end(); it++){
+    // //     std::cout << "(" <<(*it)->row << "," << (*it)->col << ")" << std::endl;
+    // // }
+    
+    // unsigned char ch= ' ';
+    // unsigned int count = 0;
+    // unsigned int update_ghost = 0;
+    // unsigned int update_path = 0;
+
+    // while ((ch = getch()) != 'q'){
+    //     pacman.move(ch);
+    //     console.drawCharacter(pacman);
+
+    //     if(count == 500){
+    //         g.setTarget(pacman.getPosition());
+    //         count = 0;
+    //     }
+
+    //     if(update_ghost == 4200){
+    //         g.move();
+    //         napms(100);
+    //         update_ghost = 0;
+    //     }
+    //     console.drawCharacter(g);
+
+    //     update_ghost++;
+    //     update_path++;
+    //     count++;
+    // }
+    // endwin();
+    // return 0;
 }
