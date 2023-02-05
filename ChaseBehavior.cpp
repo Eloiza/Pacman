@@ -11,29 +11,6 @@ ChaseBehavior::ChaseBehavior(Map *map, Cell *position, Cell *target){
 };
 
 /*setters*/
-void ChaseBehavior::setDirections(std::list<Cell *> directions){
-    this->directions = directions;
-};
-
-void ChaseBehavior::setTarget(Cell * const target){
-    bool map_range = target->col < map->cols && target->row < map->rows;
-    bool not_collison = !Character::isCollision(this->map, target);
-    
-    if (map_range && not_collison){
-        if(target != this->position){
-            this->target = target;
-            this->setDirections(this->generatePath());
-        }
-        else{
-            // set target with empty list
-            this->target = target;
-            this->setDirections(std::list<Cell *>());
-        }
-    }
-    //throw invalid position exception
-};
-
-
 double ChaseBehavior::distance(const Cell *p1, const Cell *p2){
     return abs(p2->row - p1->row) + abs(p2->col - p1->col);
 };
@@ -42,25 +19,10 @@ double ChaseBehavior::distance(unsigned int row, unsigned int col, const Cell *p
     return abs(p2->row - row) + abs(p2->col - col);
 };
 
-void ChaseBehavior::generateTarget(Cell * targetPosition){
-    this->target = targetPosition;
-};
-
-Cell * ChaseBehavior::generateDirection(){
-    if(!this->directions.empty()){
-        Cell* ret = this->directions.front();
-        this->directions.pop_front();
-        return ret;
-    }
-    
-    return this->position;
-}
-
 std::list<Cell *> ChaseBehavior::reconstructPath(Node *startNode, Node *lastNode){
     std::list<Cell *> path;
     Node *current = lastNode;
-    while (current->parent != nullptr)
-    {
+    while (current->parent != nullptr){
         path.push_front(current);
         current = current->parent;
     }
@@ -77,7 +39,7 @@ std::list<Cell *> ChaseBehavior::reconstructPath(Node *startNode, Node *lastNode
 //     }
 // }
 
-std::list<Cell *> ChaseBehavior::generatePath(){
+std::list<Cell *> ChaseBehavior::generateTargetPath(){
     std::list<Node *> openSet;
     std::list<Node *> closeSet;
     std::list<Node *> neighbors;

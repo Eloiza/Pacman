@@ -1,5 +1,9 @@
 #include "Behavior.hpp"
 
+void Behavior::setMap(Map *map){
+    this->map = map;
+};
+
 void Behavior::setTarget(Cell *target){
     bool within_map_range = target->col < map->cols && target->row < map->rows;
     bool not_collison = !Character::isCollision(this->map, target);
@@ -7,7 +11,7 @@ void Behavior::setTarget(Cell *target){
     if (within_map_range && not_collison){
         if (target != this->position){
             this->target = target;
-            this->setTargetPath(this->getTargetPath());
+            this->setTargetPath(this->generateTargetPath());
         }
         else{
             // set target with empty list
@@ -15,7 +19,9 @@ void Behavior::setTarget(Cell *target){
             this->setTargetPath(std::list<Cell *>());
         }
     }
-    throw InvalidPositionException(target);
+    else{
+        throw InvalidPositionException(target);
+    }
 };
 
 void Behavior::setPosition(Cell *position){

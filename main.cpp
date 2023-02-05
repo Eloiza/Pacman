@@ -41,8 +41,8 @@ int main(int argc, char **argv){
     Cell ghost_position = Cell(11,15);
     Cell pacman_position = Cell(2, 1);
 
-    ChaseBehavior bh = ChaseBehavior(&map, &ghost_position, &pacman_position);
-    Ghost g = Ghost(11, 15, &bh);
+    ChaseBehavior chase_bh = ChaseBehavior(&map, &ghost_position, &pacman_position);
+    Ghost g = Ghost(11, 15, &chase_bh);
     std::cout << g.getPosition()->row << "," << g.getPosition()->col << std::endl;
     g.move();
     std::cout << g.getPosition()->row << "," << g.getPosition()->col << std::endl;

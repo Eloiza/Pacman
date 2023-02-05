@@ -24,12 +24,12 @@ Ghost::Ghost(const Map *map, unsigned int row, unsigned int col, Cell * target) 
     this->setTarget(target);
 };
 
-Ghost::Ghost(unsigned int row, unsigned int col, ChaseBehavior *behavior): Ghost(row, col){
+Ghost::Ghost(unsigned int row, unsigned int col, Behavior *behavior): Ghost(row, col){
     this->setBehavior(behavior);
 };
 
 /*setters*/
-void Ghost::setBehavior(ChaseBehavior *behavior){
+void Ghost::setBehavior(Behavior *behavior){
     this->behavior = behavior;
 };
 
@@ -39,7 +39,7 @@ void Ghost::setTarget(Cell * const target){
 };
 
 void Ghost::move(){
-    Character::move(this->behavior->generateDirection());
+    Character::move(this->behavior->getNextPosition());
 };
 
 /*getters*/

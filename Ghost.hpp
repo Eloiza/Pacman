@@ -13,7 +13,7 @@
 #include "Colors.hpp"
 #include "Character.hpp"
 #include "MapElements.hpp"
-#include "ChaseBehavior.hpp"
+#include "Behavior.hpp"
 
 class Ghost : public Character{
     public:
@@ -23,7 +23,7 @@ class Ghost : public Character{
         Ghost(unsigned int row, unsigned int col);
         Ghost(const Map *map, unsigned int row, unsigned int col);
         Ghost(const Map *map, unsigned int row, unsigned int col, Cell * target);
-        Ghost(unsigned int row, unsigned int col, ChaseBehavior * behavior);
+        Ghost(unsigned int row, unsigned int col, Behavior * behavior);
 
         virtual ~Ghost() = default;
 
@@ -31,7 +31,7 @@ class Ghost : public Character{
 
         /*setters*/
         void setTarget(Cell * const target);
-        void setBehavior(ChaseBehavior * behavior);
+        void setBehavior(Behavior * behavior);
 
         /*getters*/
     
@@ -39,7 +39,7 @@ class Ghost : public Character{
         const Cell * target;
         std::list<Cell*> directions;
         const Map * map;
-        ChaseBehavior * behavior;
+        Behavior * behavior;
 };
 
 #endif

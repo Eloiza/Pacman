@@ -3,8 +3,8 @@ nomePrograma=pacman
 
 all: $(nomePrograma)
 
-$(nomePrograma): main.o Coordenada.o Pacman.o ConsoleDraw.o Character.o Node.o Map.o Ghost.o Cell.o ChaseBehavior.o
-	g++ -o $(nomePrograma) main.o Coordenada.o Pacman.o ConsoleDraw.o Character.o Node.o Map.o Ghost.o Cell.o ChaseBehavior.o $(parametrosCompilacao)
+$(nomePrograma): main.o Coordenada.o Pacman.o ConsoleDraw.o Character.o Node.o Map.o Ghost.o Cell.o ChaseBehavior.o Behavior.o InvalidPositionException.o
+	g++ -o $(nomePrograma) main.o Coordenada.o Pacman.o ConsoleDraw.o Character.o Node.o Map.o Ghost.o Cell.o ChaseBehavior.o Behavior.o InvalidPositionException.o $(parametrosCompilacao)
 
 main.o: main.cpp
 	g++ -c main.cpp $(parametrosCompilacao)
@@ -33,8 +33,14 @@ Map.o: Map.hpp Map.cpp
 Ghost.o: Ghost.hpp Ghost.cpp 
 	g++ -c Ghost.cpp $(parametrosCompilacao)
 
+Behavior.o: Behavior.hpp Behavior.cpp 
+	g++ -c Behavior.cpp $(parametrosCompilacao)
+
 ChaseBehavior.o: ChaseBehavior.hpp ChaseBehavior.cpp 
 	g++ -c ChaseBehavior.cpp $(parametrosCompilacao)
+
+InvalidPositionException.o: InvalidPositionException.hpp InvalidPositionException.cpp 
+	g++ -c InvalidPositionException.cpp $(parametrosCompilacao)
 
 clean:
 	rm -f *.o *.gch $(nomePrograma)
