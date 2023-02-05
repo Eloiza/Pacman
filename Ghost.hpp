@@ -28,11 +28,11 @@ class Ghost : public Character{
         double distance(unsigned int x, unsigned int y, const Cell *p2);
 
         void generateTarget(Cell * targetPosition);
+        Cell * generateDirection();
         std::list<Cell*> reconstructPath(Node * startNode, Node * lastNode);
         std::list<Cell*> generatePath();
         std::list<Node*> getNeighbors(const Cell *n);
-        Cell generateDirection();
-
+        void move();
 
         /*setters*/
         void setTarget(const Cell * const target);

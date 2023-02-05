@@ -34,8 +34,8 @@ double Ghost::distance(unsigned int row, unsigned int col, const Cell *p2){
 
 /*setters*/
 void Ghost::setTarget(const Cell * const target){
-    if (this->target->col < map->cols && 
-        this->target->row < map->rows && 
+    if (target->col < map->cols && 
+        target->row < map->rows && 
         !this->isCollision(this->map, target)){
             this->target = target;
             this->setDirections(this->generatePath());
@@ -56,16 +56,16 @@ void Ghost::generateTarget(Cell *targetPosition){
     this->target = targetPosition;
 };
 
-Cell Ghost::generateDirection(){
+Cell * Ghost::generateDirection(){
     if ((this->position.row == this->target->row && this->position.col == this->target->col) || this->directions.empty()){
-        return this->position;
+        return &this->position;
         // generateTarget();
         // generatePath();
     }
 
     Cell *ret = this->directions.front();
     this->directions.pop_front();
-    return *ret;
+    return ret;
 }
 
 std::list<Cell*> Ghost::reconstructPath(Node * startNode, Node * lastNode){
@@ -172,3 +172,7 @@ std::list<Node*> Ghost::getNeighbors(const Cell *n){
 
     return valid_neighbors;
 }
+
+void Ghost::move(){
+    Character::move(this->generateDirection());
+};

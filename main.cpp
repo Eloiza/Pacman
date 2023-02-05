@@ -32,9 +32,11 @@ using namespace gameColors;
 // }
 
 int main(int argc, char **argv){
+    /*init game map*/
     Map map;
     map.loadGameMap("./maps/map.txt");
 
+    /*init ncurses and console*/
     ConsoleDraw console = ConsoleDraw();
     console.initNcurses(40,40);
     console.initColors();
@@ -44,9 +46,6 @@ int main(int argc, char **argv){
     Pacman pacman(2, 1);
 
     //init ghost
-    Cell nextPosition;
-    std::list<Cell *> path;
-
     Ghost g(&map, 11, 15, pacman.getPosition());
 
     // std::list<Cell *>::iterator it = path.begin();
@@ -69,8 +68,7 @@ int main(int argc, char **argv){
         }
 
         if(update_ghost == 4200){
-            nextPosition = g.generateDirection();
-            g.move(&nextPosition);
+            g.move();
             napms(100);
             update_ghost = 0;
         }
