@@ -34,8 +34,12 @@ double Ghost::distance(unsigned int row, unsigned int col, const Cell *p2){
 
 /*setters*/
 void Ghost::setTarget(const Cell * const target){
-    
-    this->target = target;
+    if (this->target->col < map->cols && 
+        this->target->row < map->rows && 
+        !this->isCollision(this->map, target)){
+            this->target = target;
+            this->setDirections(this->generatePath());
+        }
 };
 
 void Ghost::setDirections(std::list<Cell *> directions){
