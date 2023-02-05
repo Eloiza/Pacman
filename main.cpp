@@ -42,14 +42,13 @@ int main(int argc, char **argv){
     Cell pacman_position = Cell(2, 1);
 
     ChaseBehavior bh = ChaseBehavior(&map, &ghost_position, &pacman_position);
-    Cell * direc =  bh.generateDirection();
-    std::cout << direc->row << ", " << direc->col << std::endl;
-    
-    direc = bh.generateDirection();
-    std::cout << direc->row << ", " << direc->col << std::endl;
-    
-    direc = bh.generateDirection();
-    std::cout << direc->row << ", " << direc->col << std::endl;
+    Ghost g = Ghost(11, 15, &bh);
+    std::cout << g.getPosition()->row << "," << g.getPosition()->col << std::endl;
+    g.move();
+    std::cout << g.getPosition()->row << "," << g.getPosition()->col << std::endl;
+
+    g.move();
+    std::cout << g.getPosition()->row << "," << g.getPosition()->col << std::endl;
 
     // /*init ncurses and console*/
     // ConsoleDraw console = ConsoleDraw();

@@ -1,5 +1,9 @@
 #include "ChaseBehavior.hpp"
 
+/*constructors*/
+ChaseBehavior::ChaseBehavior(){
+};
+
 ChaseBehavior::ChaseBehavior(Map *map, Cell *position, Cell *target){
     this->map = map;
     this->position= position;

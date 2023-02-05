@@ -13,8 +13,11 @@
 class ChaseBehavior{
     public:
         /*Constructors*/
+        ChaseBehavior();
         ChaseBehavior(Map* map, Cell * position, Cell *target);
 
+        virtual ~ChaseBehavior() = default;
+        
         double distance(const Cell *p1, const Cell *p2);
         double distance(unsigned int x, unsigned int y, const Cell *p2);
 

@@ -13,6 +13,7 @@
 #include "Colors.hpp"
 #include "Character.hpp"
 #include "MapElements.hpp"
+#include "ChaseBehavior.hpp"
 
 class Ghost : public Character{
     public:
@@ -21,35 +22,24 @@ class Ghost : public Character{
         Ghost(char sprite, unsigned char color_pair, unsigned char row, unsigned char col);
         Ghost(unsigned int row, unsigned int col);
         Ghost(const Map *map, unsigned int row, unsigned int col);
-        Ghost(const Map *map, unsigned int row, unsigned int col, const Cell * target);
+        Ghost(const Map *map, unsigned int row, unsigned int col, Cell * target);
+        Ghost(unsigned int row, unsigned int col, ChaseBehavior * behavior);
 
-        /*manhathan distance*/
-        // double distance(const Cell *p1, const Cell *p2);
-        // double distance(unsigned int x, unsigned int y, const Cell *p2);
+        virtual ~Ghost() = default;
 
-        /*A-start pathfinding functions*/
-        // void generateTarget(Cell * targetPosition);
-        // Cell * generateDirection();
-        // std::list<Cell*> reconstructPath(Node * startNode, Node * lastNode);
-        // std::list<Cell*> generatePath();
-        // std::list<Node*> getNeighbors(const Cell *n);
         void move();
 
-        /*Behaviors functions*/
-        // setChaseBehavior();
-        // setRandomBehavior();
-
         /*setters*/
-        // void setTarget(const Cell * const target);
-        void setDirections(std::list<Cell *> directions);
+        void setTarget(Cell * const target);
+        void setBehavior(ChaseBehavior * behavior);
 
         /*getters*/
-        std::list<Cell*> getDirections();
     
     protected:
         const Cell * target;
         std::list<Cell*> directions;
         const Map * map;
+        ChaseBehavior * behavior;
 };
 
 #endif
