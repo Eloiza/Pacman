@@ -2,10 +2,14 @@
 #define BEHAVIOR_HPP
 
 #include "Map.hpp"
+#include "Node.hpp"
 #include "Cell.hpp"
 #include "Character.hpp"
 #include "InvalidPositionException.hpp"
+
 #include <list>
+#include <cmath>
+#include <algorithm>
 
 class Behavior{
     /*abstract class to implement a behavior basic structures*/
@@ -21,7 +25,16 @@ class Behavior{
         /*getters*/
         virtual Cell * getTarget();
         virtual Cell * getNextPosition();
-        virtual std::list<Cell *> generateTargetPath() = 0;
+
+        /*generators*/
+        virtual std::list<Cell *> generateTargetPath();
+        virtual Cell * generateTarget() = 0;
+
+        /*aux functions to generateTargetPath*/
+        double distance(const Cell *p1, const Cell *p2);
+        double distance(unsigned int x, unsigned int y, const Cell *p2);
+        std::list<Cell *> reconstructPath(Node *startNode, Node *lastNode);
+        std::list<Node *> getNeighbors(const Cell *n);
 
     protected:
         Cell * target;
