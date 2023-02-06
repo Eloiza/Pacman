@@ -2,8 +2,6 @@
 #define CHASE_BEHAVIOR_HPP
 
 #include "Behavior.hpp"
-#include "Cell.hpp"
-#include "Map.hpp"
 #include <iostream>
 
 class ChaseBehavior : public Behavior{

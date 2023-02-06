@@ -12,6 +12,8 @@
 #include "Node.hpp"
 #include "Map.hpp"
 #include "Ghost.hpp"
+
+#include "RandomBehavior.hpp"
 #include "ChaseBehavior.hpp"
 
 using namespace gameColors;
@@ -44,6 +46,17 @@ int main(int argc, char **argv){
     ChaseBehavior chase_bh = ChaseBehavior(&map, &ghost_position, &pacman_position);
     Ghost g = Ghost(11, 15, &chase_bh);
     std::cout << g.getPosition()->row << "," << g.getPosition()->col << std::endl;
+    g.move();
+    std::cout << g.getPosition()->row << "," << g.getPosition()->col << std::endl;
+
+    g.move();
+    std::cout << g.getPosition()->row << "," << g.getPosition()->col << std::endl;
+
+    RandomBehavior random_bh = RandomBehavior(&map, &ghost_position);
+    g.setBehavior(&random_bh);
+
+    std::cout << "Setted Random Behavior" << std::endl;
+
     g.move();
     std::cout << g.getPosition()->row << "," << g.getPosition()->col << std::endl;
 
