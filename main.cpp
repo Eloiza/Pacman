@@ -15,6 +15,7 @@
 
 #include "RandomBehavior.hpp"
 #include "ChaseBehavior.hpp"
+#include "AmbushBehavior.hpp"
 
 using namespace gameColors;
 
@@ -54,12 +55,18 @@ int main(int argc, char **argv){
 
     RandomBehavior random_bh = RandomBehavior(&map, &ghost_position);
     g.setBehavior(&random_bh);
-
     std::cout << "Setted Random Behavior" << std::endl;
 
     g.move();
     std::cout << g.getPosition()->row << "," << g.getPosition()->col << std::endl;
+    g.move();
+    std::cout << g.getPosition()->row << "," << g.getPosition()->col << std::endl;
 
+    AmbushBehavior ambush_bh = AmbushBehavior(&map, &ghost_position, &pacman_position, 4);
+    g.setBehavior(&ambush_bh);
+    std::cout << "Setted Ambush Behavior" << std::endl;
+    g.move();
+    std::cout << g.getPosition()->row << "," << g.getPosition()->col << std::endl;
     g.move();
     std::cout << g.getPosition()->row << "," << g.getPosition()->col << std::endl;
 
