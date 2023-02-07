@@ -74,13 +74,11 @@ int main(int argc, char **argv){
 
     //init ghost
     Cell ghost_position = Cell(11, 15);
-    ChaseBehavior chase_bh = ChaseBehavior(&map, &ghost_position, pacman.getPosition());
-    Ghost g = Ghost(11, 15, &chase_bh);
+    // ChaseBehavior chase_bh = ChaseBehavior(&map, &ghost_position, pacman.getPosition());
+    // Ghost g = Ghost(11, 15, &chase_bh);
 
-    // std::list<Cell *>::iterator it = path.begin();
-    // for(; it != path.end(); it++){
-    //     std::cout << "(" <<(*it)->row << "," << (*it)->col << ")" << std::endl;
-    // }
+    RandomBehavior random_bh = RandomBehavior(&map, &ghost_position);
+    Ghost g = Ghost(11, 15, &random_bh);
     
     unsigned char ch= ' ';
     unsigned int count = 0;
@@ -91,9 +89,9 @@ int main(int argc, char **argv){
         pacman.move(ch);
         console.drawCharacter(pacman);
 
-        if(update_ghost == 4200){
+        if(update_ghost == 30200){
             g.move();
-            napms(90);
+            // napms(90);
             update_ghost = 0;
         }
         console.drawCharacter(g);
