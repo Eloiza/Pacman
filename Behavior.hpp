@@ -17,18 +17,18 @@ class Behavior{
         virtual ~Behavior() = default;
 
         /*setters*/
-        virtual void setTarget(Cell *target);
-        virtual void setPosition(Cell *position);
+        virtual void setTarget(const Cell * target);
+        virtual void setPosition(Cell * position);
         virtual void setTargetPath(std::list<Cell *> targetPath);
         virtual void setMap(Map * map);
 
         /*getters*/
-        virtual Cell * getTarget();
+        virtual const Cell * getTarget();
         virtual Cell * getNextPosition();
 
         /*generators*/
         virtual std::list<Cell *> generateTargetPath();
-        virtual Cell * generateTarget() = 0;
+        virtual const Cell * generateTarget() = 0;
 
         /*aux functions to generateTargetPath*/
         double distance(const Cell *p1, const Cell *p2);
@@ -37,7 +37,7 @@ class Behavior{
         std::list<Node *> getNeighbors(const Cell *n);
 
     protected:
-        Cell * target;
+        const Cell * target;
         Cell * position;
         std::list<Cell *> targetPath;
         Map * map;

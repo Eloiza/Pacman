@@ -17,7 +17,7 @@ void AmbushBehavior::setPacmanPosition(Cell * pacmanPosition){
     this->pacmanPosition = pacmanPosition;
 }
 
-Cell * AmbushBehavior::generateTarget(){
+const Cell * AmbushBehavior::generateTarget(){
     //try to set target as pacmanPosition +4/-4 columns or +4/-4 rows
     int dist;
     unsigned int pointsAheadcopy = this->pointsAhead;

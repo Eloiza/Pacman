@@ -4,7 +4,7 @@ void Behavior::setMap(Map *map){
     this->map = map;
 };
 
-void Behavior::setTarget(Cell *target){
+void Behavior::setTarget(const Cell * target){
     bool within_map_range = target->col < map->cols && target->row < map->rows;
     bool not_collison = !Character::isCollision(this->map, target);
 
@@ -24,7 +24,7 @@ void Behavior::setTarget(Cell *target){
     }
 };
 
-void Behavior::setPosition(Cell *position){
+void Behavior::setPosition(Cell * position){
     this->position = position;
 };
 
@@ -33,7 +33,7 @@ void Behavior::setTargetPath(std::list<Cell *> targetPath){
 };
 
 /*getters*/
-Cell * Behavior::getTarget(){
+const Cell * Behavior::getTarget(){
     return this->target;
 };
 
@@ -46,6 +46,7 @@ Cell * Behavior::getNextPosition(){
     if(!this->targetPath.empty()){
         Cell * ret = this->targetPath.front();
         this->targetPath.pop_front();
+        this->setPosition(ret);
         return ret;
     }
 

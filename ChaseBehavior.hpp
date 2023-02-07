@@ -8,17 +8,17 @@ class ChaseBehavior : public Behavior{
     public:
         /*Constructors*/
         ChaseBehavior();
-        ChaseBehavior(Map* map, Cell * position, Cell * pacmanPosition);
+        ChaseBehavior(Map* map, Cell * position, const Cell * pacmanPosition);
 
         virtual ~ChaseBehavior() = default;
 
-        virtual Cell * generateTarget();
+        virtual const Cell * generateTarget();
 
         /*setters*/
-        void setPacmanPosition(Cell * pacmanPosition);
+        void setPacmanPosition(const Cell * pacmanPosition);
 
     private:
-        Cell * pacmanPosition;
+        const Cell * pacmanPosition;
 };
 
 #endif

@@ -4,7 +4,7 @@
 ChaseBehavior::ChaseBehavior(){
 };
 
-ChaseBehavior::ChaseBehavior(Map *map, Cell *position, Cell * pacmanPosition){
+ChaseBehavior::ChaseBehavior(Map *map, Cell *position, const Cell * pacmanPosition){
     this->map = map;
     this->position= position;
     this->setPacmanPosition(pacmanPosition);
@@ -12,10 +12,10 @@ ChaseBehavior::ChaseBehavior(Map *map, Cell *position, Cell * pacmanPosition){
 };
 
 /*setters*/
-void ChaseBehavior::setPacmanPosition(Cell * pacmanPosition){
+void ChaseBehavior::setPacmanPosition(const Cell * pacmanPosition){
     this->pacmanPosition = pacmanPosition;
 }
 
-Cell * ChaseBehavior::generateTarget(){
+const Cell * ChaseBehavior::generateTarget(){
     return this->pacmanPosition;
 };

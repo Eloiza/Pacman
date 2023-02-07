@@ -7,12 +7,12 @@ class AmbushBehavior : public Behavior{
 
         virtual ~AmbushBehavior() = default;
 
-        virtual Cell * generateTarget();
+        virtual const Cell * generateTarget();
 
         /*setters*/
         void setPacmanPosition(Cell *pacmanPosition);
 
     private:
-        Cell * pacmanPosition;
+        const Cell * pacmanPosition;
         unsigned int pointsAhead;
 };
