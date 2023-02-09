@@ -3,8 +3,8 @@ nomePrograma=pacman
 
 all: $(nomePrograma)
 
-$(nomePrograma): main.o Coordenada.o Pacman.o ConsoleDraw.o Character.o Node.o Map.o Ghost.o Cell.o ChaseBehavior.o Behavior.o InvalidPositionException.o RandomBehavior.o AmbushBehavior.o
-	g++ -o $(nomePrograma) main.o Coordenada.o Pacman.o ConsoleDraw.o Character.o Node.o Map.o Ghost.o Cell.o ChaseBehavior.o Behavior.o InvalidPositionException.o RandomBehavior.o AmbushBehavior.o $(parametrosCompilacao)
+$(nomePrograma): main.o Coordenada.o Pacman.o ConsoleDraw.o Character.o Node.o Map.o Ghost.o Cell.o ChaseBehavior.o Behavior.o InvalidPositionException.o ScatterBehavior.o AmbushBehavior.o FrightenedBehavior.o
+	g++ -o $(nomePrograma) main.o Coordenada.o Pacman.o ConsoleDraw.o Character.o Node.o Map.o Ghost.o Cell.o ChaseBehavior.o Behavior.o InvalidPositionException.o ScatterBehavior.o AmbushBehavior.o FrightenedBehavior.o $(parametrosCompilacao)
 
 main.o: main.cpp
 	g++ -c main.cpp $(parametrosCompilacao)
@@ -39,8 +39,11 @@ Behavior.o: Behavior.hpp Behavior.cpp
 ChaseBehavior.o: ChaseBehavior.hpp ChaseBehavior.cpp 
 	g++ -c ChaseBehavior.cpp $(parametrosCompilacao)
 
-RandomBehavior.o: RandomBehavior.hpp RandomBehavior.cpp 
-	g++ -c RandomBehavior.cpp $(parametrosCompilacao)
+FrightenedBehavior.o: FrightenedBehavior.hpp FrightenedBehavior.cpp 
+	g++ -c FrightenedBehavior.cpp $(parametrosCompilacao)
+
+ScatterBehavior.o: ScatterBehavior.hpp ScatterBehavior.cpp 
+	g++ -c ScatterBehavior.cpp $(parametrosCompilacao)
 
 AmbushBehavior.o: AmbushBehavior.hpp AmbushBehavior.cpp 
 	g++ -c AmbushBehavior.cpp $(parametrosCompilacao)

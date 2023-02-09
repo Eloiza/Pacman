@@ -13,7 +13,7 @@
 #include "Map.hpp"
 #include "Ghost.hpp"
 
-#include "RandomBehavior.hpp"
+#include "ScatterBehavior.hpp"
 #include "ChaseBehavior.hpp"
 #include "AmbushBehavior.hpp"
 
@@ -74,31 +74,62 @@ int main(int argc, char **argv){
 
     //init ghost
     Cell ghost_position = Cell(11, 15);
-    // ChaseBehavior chase_bh = ChaseBehavior(&map, &ghost_position, pacman.getPosition());
-    // Ghost g = Ghost(11, 15, &chase_bh);
-    AmbushBehavior ambush_bh = AmbushBehavior(&map, &ghost_position, pacman.getPosition(), 4);
 
-    Ghost g = Ghost(11, 15, &ambush_bh);
-    
-    unsigned char ch= ' ';
-    unsigned int count = 0;
-    unsigned int update_ghost = 0;
-    unsigned int update_path = 0;
+    //scatter left-top
+    Cell cornerA1 = Cell(2, 1);
+    Cell cornerB1 = Cell(5, 6);
+    ScatterBehavior scatter_bh1 = ScatterBehavior(&map, &ghost_position, &cornerA1, &cornerB1);
+    Ghost g1 = Ghost(11, 15, &scatter_bh1);
 
-    while ((ch = getch()) != 'q'){
-        pacman.move(ch);
-        console.drawCharacter(pacman);
+    //scatter right-top
+    Cell cornerA2 = Cell(2, 26);
+    Cell cornerB2 = Cell(5, 21);
+    ScatterBehavior scatter_bh2 = ScatterBehavior(&map, &ghost_position, &cornerA2, &cornerB2);
+    Ghost g2 = Ghost(11, 14, &scatter_bh2);
 
-        if(update_ghost == 30200){
-            g.move();
-            // napms(90);
-            update_ghost = 0;
-        }
-        console.drawCharacter(g);
+    //scatter left-down
+    Cell cornerA3 = Cell(23, 2);
+    Cell cornerB3 = Cell(21, 9);
+    ScatterBehavior scatter_bh3 = ScatterBehavior(&map, &ghost_position, &cornerA3, &cornerB3);
+    Ghost g3 = Ghost(11, 14, &scatter_bh3);
 
-        update_ghost++;
-        update_path++;
-        count++;
+    // scatter right-down
+    Cell cornerB4 = Cell(21, 17);
+    Cell cornerA4 = Cell(23, 26);
+    ScatterBehavior scatter_bh4 = ScatterBehavior(&map, &ghost_position, &cornerA4, &cornerB4);
+    Ghost g4 = Ghost(11, 13, &scatter_bh4);
+
+     // ChaseBehavior chase_bh = ChaseBehavior(&map, &ghost_position, pacman.getPosition());
+     // Ghost g = Ghost(11, 15, &chase_bh);
+     // AmbushBehavior ambush_bh = AmbushBehavior(&map, &ghost_position, pacman.getPosition(), 4);
+
+     unsigned char ch = ' ';
+     unsigned int count = 0;
+     unsigned int update_ghost = 0;
+     unsigned int update_path = 0;
+
+     while ((ch = getch()) != 'q')
+     {
+         pacman.move(ch);
+         console.drawCharacter(pacman);
+
+         if (update_ghost == 30200)
+         {
+             g1.move();
+             g2.move();
+             g3.move();
+             g4.move();
+             // napms(90);
+             update_ghost = 0;
+         }
+         console.drawCharacter(g1);
+         console.drawCharacter(g2);
+         console.drawCharacter(g3);
+         console.drawCharacter(g4);
+
+         update_ghost++;
+         update_path++;
+         count++;
     }
     endwin();
     return 0;

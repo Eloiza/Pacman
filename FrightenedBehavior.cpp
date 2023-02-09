@@ -1,15 +1,15 @@
-#include "RandomBehavior.hpp"
+#include "FrightenedBehavior.hpp"
 #include <iostream>
 
-RandomBehavior::RandomBehavior(){
+FrightenedBehavior::FrightenedBehavior(){
 };
 
-RandomBehavior::RandomBehavior(Map *map, Cell *ghostPosition){
+FrightenedBehavior::FrightenedBehavior(Map *map, Cell *ghostPosition){
     this->setMap(map);
     this->setPosition(ghostPosition);
 };
 
-Cell * RandomBehavior::generateTarget(){
+Cell * FrightenedBehavior::generateTarget(){
     /*generate a number between -3 and 3*/
     unsigned int random_row;
     unsigned int random_col;

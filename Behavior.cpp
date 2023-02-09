@@ -39,11 +39,11 @@ const Cell * Behavior::getTarget(){
 
 Cell * Behavior::getNextPosition(){
     //case reached goal generate more steps
-    if (this->position == this->target || this->targetPath.empty()){
+    if (this->targetPath.empty()){
         this->setTarget(this->generateTarget());
     }
 
-    if(!this->targetPath.empty()){
+    else{
         Cell * ret = this->targetPath.front();
         this->targetPath.pop_front();
         this->setPosition(ret);
