@@ -76,9 +76,9 @@ int main(int argc, char **argv){
     Cell ghost_position = Cell(11, 15);
     // ChaseBehavior chase_bh = ChaseBehavior(&map, &ghost_position, pacman.getPosition());
     // Ghost g = Ghost(11, 15, &chase_bh);
+    AmbushBehavior ambush_bh = AmbushBehavior(&map, &ghost_position, pacman.getPosition(), 4);
 
-    RandomBehavior random_bh = RandomBehavior(&map, &ghost_position);
-    Ghost g = Ghost(11, 15, &random_bh);
+    Ghost g = Ghost(11, 15, &ambush_bh);
     
     unsigned char ch= ' ';
     unsigned int count = 0;

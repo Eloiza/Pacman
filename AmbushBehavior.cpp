@@ -4,7 +4,7 @@
 AmbushBehavior::AmbushBehavior(){
 };
 
-AmbushBehavior::AmbushBehavior(Map *map, Cell *position, Cell * pacmanPosition, unsigned int pointsAhead){
+AmbushBehavior::AmbushBehavior(Map *map, Cell *position, const Cell * pacmanPosition, unsigned int pointsAhead){
     this->map = map;
     this->position= position;
     this->setPacmanPosition(pacmanPosition);
@@ -13,7 +13,7 @@ AmbushBehavior::AmbushBehavior(Map *map, Cell *position, Cell * pacmanPosition, 
 };
 
 /*setters*/
-void AmbushBehavior::setPacmanPosition(Cell * pacmanPosition){
+void AmbushBehavior::setPacmanPosition(const Cell * pacmanPosition){
     this->pacmanPosition = pacmanPosition;
 }
 

@@ -10,7 +10,6 @@ RandomBehavior::RandomBehavior(Map *map, Cell *ghostPosition){
 };
 
 Cell * RandomBehavior::generateTarget(){
-    // std::cout << "Generating new random target " << std::endl;
     /*generate a number between -3 and 3*/
     unsigned int random_row;
     unsigned int random_col;
