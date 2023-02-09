@@ -15,6 +15,9 @@ Node::Node(Cell c, double g, double h){
     this->f = g + h;
 };
 
+Node::Node(const Cell * c, double g, double h): Node(*c, g, h){
+};
+
 bool Node::operator<(Node const &n) const{
     return this->f < n.f;
 };

@@ -13,6 +13,10 @@
 #include "Map.hpp"
 #include "Ghost.hpp"
 
+#include "RandomBehavior.hpp"
+#include "ChaseBehavior.hpp"
+#include "AmbushBehavior.hpp"
+
 using namespace gameColors;
 
 // void printMap(Map * gameMap){
@@ -32,9 +36,34 @@ using namespace gameColors;
 // }
 
 int main(int argc, char **argv){
+    /*init game map*/
     Map map;
     map.loadGameMap("./maps/map.txt");
+    // std::cout << g.getPosition()->row << "," << g.getPosition()->col << std::endl;
+    // g.move();
+    // std::cout << g.getPosition()->row << "," << g.getPosition()->col << std::endl;
 
+    // g.move();
+    // std::cout << g.getPosition()->row << "," << g.getPosition()->col << std::endl;
+
+    // RandomBehavior random_bh = RandomBehavior(&map, &ghost_position);
+    // g.setBehavior(&random_bh);
+    // std::cout << "Setted Random Behavior" << std::endl;
+
+    // g.move();
+    // std::cout << g.getPosition()->row << "," << g.getPosition()->col << std::endl;
+    // g.move();
+    // std::cout << g.getPosition()->row << "," << g.getPosition()->col << std::endl;
+
+    // AmbushBehavior ambush_bh = AmbushBehavior(&map, &ghost_position, &pacman_position, 4);
+    // g.setBehavior(&ambush_bh);
+    // std::cout << "Setted Ambush Behavior" << std::endl;
+    // g.move();
+    // std::cout << g.getPosition()->row << "," << g.getPosition()->col << std::endl;
+    // g.move();
+    // std::cout << g.getPosition()->row << "," << g.getPosition()->col << std::endl;
+
+    /*init ncurses and console*/
     ConsoleDraw console = ConsoleDraw();
     console.initNcurses(40,40);
     console.initColors();
@@ -44,17 +73,12 @@ int main(int argc, char **argv){
     Pacman pacman(2, 1);
 
     //init ghost
-    Cell nextPosition;
-    std::list<Cell *> path;
+    Cell ghost_position = Cell(11, 15);
+    // ChaseBehavior chase_bh = ChaseBehavior(&map, &ghost_position, pacman.getPosition());
+    // Ghost g = Ghost(11, 15, &chase_bh);
+    AmbushBehavior ambush_bh = AmbushBehavior(&map, &ghost_position, pacman.getPosition(), 4);
 
-    Ghost g(&map, 11, 15, pacman.getPosition());
-    path = g.generatePath();
-    g.setDirections(path);
-
-    // std::list<Cell *>::iterator it = path.begin();
-    // for(; it != path.end(); it++){
-    //     std::cout << "(" <<(*it)->row << "," << (*it)->col << ")" << std::endl;
-    // }
+    Ghost g = Ghost(11, 15, &ambush_bh);
     
     unsigned char ch= ' ';
     unsigned int count = 0;
@@ -65,17 +89,9 @@ int main(int argc, char **argv){
         pacman.move(ch);
         console.drawCharacter(pacman);
 
-        if(count == 500){
-            g.setTarget(pacman.getPosition());
-            path = g.generatePath();
-            g.setDirections(path);
-            count = 0;
-        }
-
-        if(update_ghost == 5200){
-            nextPosition = g.generateDirection();
-            g.move(&nextPosition);
-            napms(100);
+        if(update_ghost == 30200){
+            g.move();
+            // napms(90);
             update_ghost = 0;
         }
         console.drawCharacter(g);

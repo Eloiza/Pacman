@@ -7,6 +7,7 @@ class Node : public Cell{
         Node();
         Node(unsigned int row, unsigned int col, double g);
         Node(Cell c, double g, double h);
+        Node(const Cell * c, double g, double h);
 
         virtual ~Node() = default;
 

@@ -27,10 +27,10 @@ class Character{
         virtual bool isCollision(Cell * const position);
         
         /*collision without ncurses*/
-        virtual bool isCollision(const Map *map, unsigned int row, unsigned int col);
-        virtual bool isCollision(const Map *map, const Cell * const position);
+        static bool isCollision(const Map *map, unsigned int row, unsigned int col);
+        static bool isCollision(const Map *map, const Cell * const position);
+        
         /*setters*/
-
         void setPosition(unsigned int row, unsigned int col);
         void setPosition(Cell * const position);
 

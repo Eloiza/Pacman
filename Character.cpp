@@ -53,10 +53,16 @@ bool Character::isCollision(Cell * const position){
 };
 
 bool Character::isCollision(const Map *map, unsigned int row, unsigned int col){
+    if(row >= map->rows || col >= map->cols )
+        return 1;
+
     return map->map[row*map->cols+col] == MapElements::WALL;
 };
 
 bool Character::isCollision(const Map *map, const Cell* const position){
+    if (position->row >= map->rows || position->col >= map->cols)
+        return 1;
+        
     return map->map[position->row * map->cols + position->col] == MapElements::WALL;
 };
 
