@@ -2,18 +2,13 @@
 #define GHOST_HPP 
 
 #include <list>
-#include <cmath>
-#include <string> 
-#include <iostream>
-#include <algorithm>
-
-#include "Map.hpp"
-#include "Node.hpp"
-#include "Cell.hpp"
 #include "Colors.hpp"
 #include "Character.hpp"
-#include "MapElements.hpp"
+
+#include "Chase.hpp"
+#include "Scatter.hpp"
 #include "Behavior.hpp"
+#include "FrightenedBehavior.hpp"
 
 class Ghost : public Character{
     public:
@@ -31,15 +26,24 @@ class Ghost : public Character{
 
         /*setters*/
         void setTarget(Cell * const target);
-        void setBehavior(Behavior * behavior);
+        void setActiveBehavior(Behavior * behavior);
 
-        /*getters*/
-    
+        void setChaseBehavior(Chase * chase);
+        void setScatterBehavior(Scatter * scatter);
+        void setFrightenedBehavior(FrightenedBehavior * frightened);
+
+        void activateChaseBehavior();
+        void activateScatterBehavior();
+        void activateFrightenedBehavior();
+
     protected:
         const Cell * target;
         std::list<Cell*> directions;
         const Map * map;
-        Behavior * behavior;
+        Behavior * activeBehavior;
+        Scatter * scatter;
+        Chase * chase;
+        FrightenedBehavior *frightened;
 };
 
 #endif

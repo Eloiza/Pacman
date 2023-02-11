@@ -25,21 +25,44 @@ Ghost::Ghost(const Map *map, unsigned int row, unsigned int col, Cell * target) 
 };
 
 Ghost::Ghost(unsigned int row, unsigned int col, Behavior *behavior): Ghost(row, col){
-    this->setBehavior(behavior);
+    this->setActiveBehavior(behavior);
 };
 
 /*setters*/
-void Ghost::setBehavior(Behavior *behavior){
-    this->behavior = behavior;
+void Ghost::move(){
+    Character::move(this->activeBehavior->getNextPosition());
 };
 
-void Ghost::setTarget(Cell * const target){
-    this->behavior->setTarget(target);
+void Ghost::setTarget(Cell *const target){
+    this->activeBehavior->setTarget(target);
     this->target = target;
 };
 
-void Ghost::move(){
-    Character::move(this->behavior->getNextPosition());
+void Ghost::setActiveBehavior(Behavior *behavior){
+    this->activeBehavior = behavior;
 };
 
-/*getters*/
+void Ghost::setChaseBehavior(Chase *chase){
+    this->chase = chase;
+};
+
+void Ghost::setScatterBehavior(Scatter *scatter){
+    this->scatter = scatter;
+};
+
+void Ghost::setFrightenedBehavior(FrightenedBehavior *frightened){
+    this->frightened = frightened;
+};
+
+void Ghost::activateChaseBehavior(){
+    this->setActiveBehavior(this->chase);
+};
+
+void Ghost::activateScatterBehavior(){
+    this->setActiveBehavior(this->scatter);
+};
+
+void Ghost::activateFrightenedBehavior(){
+    this->setActiveBehavior(this->frightened);
+};
+
