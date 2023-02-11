@@ -3,8 +3,8 @@ nomePrograma=pacman
 
 all: $(nomePrograma)
 
-$(nomePrograma): main.o Coordenada.o Pacman.o ConsoleDraw.o Character.o Node.o Map.o Ghost.o Cell.o ChaseBehavior.o Behavior.o InvalidPositionException.o ScatterBehavior.o AmbushBehavior.o FrightenedBehavior.o InkyBehavior.o PokeyBehavior.o
-	g++ -o $(nomePrograma) main.o Coordenada.o Pacman.o ConsoleDraw.o Character.o Node.o Map.o Ghost.o Cell.o ChaseBehavior.o Behavior.o InvalidPositionException.o ScatterBehavior.o AmbushBehavior.o FrightenedBehavior.o InkyBehavior.o PokeyBehavior.o $(parametrosCompilacao)
+$(nomePrograma): main.o Coordenada.o Pacman.o ConsoleDraw.o Character.o Node.o Map.o Ghost.o Cell.o Behavior.o InvalidPositionException.o ScatterBehavior.o FrightenedBehavior.o ChaseAggresive.o ChaseAmbush.o ChaseSiege.o ChaseRandom.o
+	g++ -o $(nomePrograma) main.o Coordenada.o Pacman.o ConsoleDraw.o Character.o Node.o Map.o Ghost.o Cell.o Behavior.o InvalidPositionException.o ScatterBehavior.o FrightenedBehavior.o ChaseAggresive.o ChaseAmbush.o ChaseSiege.o ChaseRandom.o $(parametrosCompilacao)
 
 main.o: main.cpp
 	g++ -c main.cpp $(parametrosCompilacao)
@@ -36,8 +36,8 @@ Ghost.o: Ghost.hpp Ghost.cpp
 Behavior.o: Behavior.hpp Behavior.cpp 
 	g++ -c Behavior.cpp $(parametrosCompilacao)
 
-ChaseBehavior.o: ChaseBehavior.hpp ChaseBehavior.cpp 
-	g++ -c ChaseBehavior.cpp $(parametrosCompilacao)
+ChaseAggresive.o: ChaseAggresive.hpp ChaseAggresive.cpp 
+	g++ -c ChaseAggresive.cpp $(parametrosCompilacao)
 
 FrightenedBehavior.o: FrightenedBehavior.hpp FrightenedBehavior.cpp 
 	g++ -c FrightenedBehavior.cpp $(parametrosCompilacao)
@@ -45,14 +45,14 @@ FrightenedBehavior.o: FrightenedBehavior.hpp FrightenedBehavior.cpp
 ScatterBehavior.o: ScatterBehavior.hpp ScatterBehavior.cpp 
 	g++ -c ScatterBehavior.cpp $(parametrosCompilacao)
 
-AmbushBehavior.o: AmbushBehavior.hpp AmbushBehavior.cpp 
-	g++ -c AmbushBehavior.cpp $(parametrosCompilacao)
+ChaseAmbush.o: ChaseAmbush.hpp ChaseAmbush.cpp 
+	g++ -c ChaseAmbush.cpp $(parametrosCompilacao)
 
-InkyBehavior.o: InkyBehavior.hpp InkyBehavior.cpp 
-	g++ -c InkyBehavior.cpp $(parametrosCompilacao)
+ChaseSiege.o: ChaseSiege.hpp ChaseSiege.cpp 
+	g++ -c ChaseSiege.cpp $(parametrosCompilacao)
 
-PokeyBehavior.o: PokeyBehavior.hpp PokeyBehavior.cpp 
-	g++ -c PokeyBehavior.cpp $(parametrosCompilacao)
+ChaseRandom.o: ChaseRandom.hpp ChaseRandom.cpp 
+	g++ -c ChaseRandom.cpp $(parametrosCompilacao)
 
 InvalidPositionException.o: InvalidPositionException.hpp InvalidPositionException.cpp 
 	g++ -c InvalidPositionException.cpp $(parametrosCompilacao)

@@ -15,7 +15,7 @@ const Cell * ChaseSiege::generateTarget(){
     int row, col;
     col = this->pacmanPosition->col + 2;
 
-    if(col > this->map->cols - 1){
+    if(col > (int) this->map->cols - 1){
         row = this->pacmanPosition->row - 2;
     }
 
@@ -36,9 +36,11 @@ const Cell * ChaseSiege::generateTarget(){
 
         //adjust the row
         for (int i = 0; i < 7; i++){
+            auxRow = auxRow + directions[i];
             for (int i = 0; i < 7; i++){
                 // adjust the col
-                if (!Character::isCollision(this->map, auxRow, auxCol) && col > 0 && col < this->map->cols - 1){
+                auxCol = auxCol + directions[i];
+                if (!Character::isCollision(this->map, auxRow, auxCol) && col > 0 && col < (int) this->map->cols - 1){
                     return new Cell(auxRow, auxCol);
                 }
             }
