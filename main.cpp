@@ -44,16 +44,11 @@ int main(int argc, char **argv){
     FrightenedBehavior frightened_bh = FrightenedBehavior(&map, &ghost_position);
 
     Ghost g1 = Ghost(&map, (unsigned int)11, (unsigned int) 15, &pokey_bh, &scatter_bh, &frightened_bh);
-
     unsigned char ch = ' ';
     
     //init clock
     using ms = std::chrono::duration<double, std::milli>;
     Clock ghostMoveClock = Clock();
-
-    // for(int i=0; i<50; i++){
-    //     g1.updateBehavior();
-    // }
 
     ghostMoveClock.start();
     g1.startClock();

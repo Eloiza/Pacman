@@ -6,9 +6,9 @@ ChaseAggresive::ChaseAggresive(){
 
 ChaseAggresive::ChaseAggresive(Map *map, Cell *position, const Cell * pacmanPosition){
     this->map = map;
-    this->position= position;
     this->setPacmanPosition(pacmanPosition);
     this->setTarget(pacmanPosition);
+    this->position= position;
 };
 
 /*setters*/

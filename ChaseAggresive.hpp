@@ -16,6 +16,7 @@ class ChaseAggresive : public Chase{
         /*setters*/
         void setPacmanPosition(const Cell * pacmanPosition);
 
+
     private:
         const Cell * pacmanPosition;
 };

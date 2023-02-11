@@ -1,15 +1,10 @@
 #include "Scatter.hpp"
 
-// Scatter::~Scatter(){
-//     delete this->cornerA;
-//     delete this->cornerB;
-// };
-
 Scatter::Scatter(Map *map, Cell *position, Cell *cornerA, Cell *cornerB){
     this->setMap(map);
-    this->setPosition(position);
     this->cornerA = cornerA;
     this->cornerB = cornerB;
+    this->setPosition(position);
 };
 
 void Scatter::setCornersPosition(const Cell *cornerA, const Cell *cornerB){
@@ -23,3 +18,8 @@ const Cell * Scatter::generateTarget(){
     }
     return this->cornerA;
 };
+
+// void Scatter::setPosition(Cell *position){
+//     this->position = position;
+//     this->setTarget(this->generateTarget());
+// };
