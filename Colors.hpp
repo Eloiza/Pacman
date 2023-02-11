@@ -6,7 +6,8 @@ namespace gameColors{
         DEFAULT,
         PACMAN, 
         WALL,
-        GENERIC_GHOST
+        GENERIC_GHOST, 
+        FRIGHTENED_GHOST
     };
 }
 

@@ -13,6 +13,7 @@ Pacman::Pacman(unsigned int row, unsigned int col){
     this->setSprite(MapElements::PACMAN);
     this->lives = 3;
     this->score = 0;
+    this->invencibleDuration = (ms) 8000;
 };
 
 bool Pacman::isCollision(unsigned int row, unsigned int col){
@@ -20,28 +21,26 @@ bool Pacman::isCollision(unsigned int row, unsigned int col){
     testch = mvinch(row, col);
     testch = testch & A_CHARTEXT;
 
-    if(MapElements::POINT){
+    if(testch == MapElements::POINT){
         this->score += 10;
         return 0;
     }
-    else if (MapElements::WALL){
+    else if (testch == MapElements::WALL){
         return 1;
     }
-    else if (MapElements::VITAMIN){
+    else if (testch == MapElements::VITAMIN){
         this->score += 50;
         this->activateInvencible();
         return 0;
     }
-    else if(MapElements::GHOST && this->isInvencible()){
+    else if(testch == MapElements::GHOST && this->isInvencible()){
         this->score +=200;
         return 0;
     }
-    else if(MapElements::GHOST && !this->isInvencible()){
+    else if(testch == MapElements::GHOST && !this->isInvencible()){
         this->lives--;
         return 1;
     }
-
-
     return 0;
 };
 
@@ -77,13 +76,16 @@ bool Pacman::isInvencible(){
 }
 
 bool Pacman::isDead(){
-    return this->lives > 0;
+    return this->lives <= 0;
 };
 
 void Pacman::updateState(){
-    ms duration = this->stateClock.end();
-    if(this->isInvencible() && duration > this->invencibleDuration){
-        this->deactivateInvencible();
-        this->stateClock.start();
-    }
+    if(this->isInvencible()){
+        ms duration = this->stateClock.end();
+        if(duration > this->invencibleDuration){
+            this->deactivateInvencible();
+            this->stateClock.start();
+        }
+    } 
+
 }

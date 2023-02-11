@@ -34,12 +34,14 @@ class Ghost : public Character{
         void activateChaseBehavior();
         void activateScatterBehavior();
         void activateFrightenedBehavior();
+        void deactivateFrightenedBehavior();
 
-        void updateBehavior();
+        void updateBehavior(bool pacmanInvencible);
         void startClock();
 
     protected:
         const Map * map;
+        short int defaultColor;
         Chase *chase;
         Scatter *scatter;
         Behavior * activeBehavior;

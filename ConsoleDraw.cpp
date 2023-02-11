@@ -19,10 +19,11 @@ void ConsoleDraw::initColors(){
     start_color();
     wattron(stdscr, A_BOLD);
 
-    init_pair((short int) Colors::DEFAULT, COLOR_BLACK, COLOR_WHITE); // maze-color
-    init_pair((short int) Colors::WALL, COLOR_BLUE, COLOR_BLUE);  // maze-color
-    init_pair((short int) Colors::PACMAN, COLOR_YELLOW, COLOR_YELLOW); // pacman-color
-    init_pair((short int) Colors::GENERIC_GHOST, COLOR_WHITE, COLOR_WHITE);  // pacman-color
+    init_pair((short int) Colors::DEFAULT, COLOR_BLACK, COLOR_WHITE);
+    init_pair((short int) Colors::WALL, COLOR_BLUE, COLOR_BLUE); 
+    init_pair((short int) Colors::PACMAN, COLOR_YELLOW, COLOR_YELLOW); 
+    init_pair((short int) Colors::GENERIC_GHOST, COLOR_WHITE, COLOR_WHITE);
+    init_pair((short int) Colors::FRIGHTENED_GHOST, COLOR_WHITE, COLOR_BLUE);
 };
 
 void ConsoleDraw::drawGameScreen(Map * gameMap){

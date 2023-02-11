@@ -51,9 +51,10 @@ int main(int argc, char **argv){
 
     ghostMoveClock.start();
     g1.startClock();
-    while ((ch = getch()) != 'q'){
+    while ((ch = getch()) != 'q' && !pacman.isDead()){
         /*update pacman*/
         pacman.move(ch);
+        pacman.updateState();
         console.drawCharacter(pacman);
 
         //update ghost position every 100ms
@@ -62,7 +63,7 @@ int main(int argc, char **argv){
             ghostMoveClock.start();
         }
 
-        g1.updateBehavior();
+        g1.updateBehavior(pacman.isInvencible());
         console.drawCharacter(g1);
     }
     endwin();
