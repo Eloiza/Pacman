@@ -2,7 +2,6 @@
 #define CHASE_SIEGE_HPP
 
 #include "Chase.hpp"
-#include <algorithm>
 
 class ChaseSiege : public Chase{
     public:

@@ -1,3 +1,6 @@
+#ifndef CHASE_AMBUSH_HPP
+#define CHASE_AMBUSH_HPP
+
 #include "Chase.hpp"
 
 class ChaseAmbush : public Chase{
@@ -16,3 +19,4 @@ class ChaseAmbush : public Chase{
         const Cell * pacmanPosition;
         unsigned int pointsAhead;
 };
+#endif
