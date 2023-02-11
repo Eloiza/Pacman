@@ -70,8 +70,6 @@ void Ghost::activateFrightenedBehavior(){
 };
 
 void Ghost::updateBehavior(){
-    using ms = std::chrono::duration<double, std::milli>;
-
     ms duration = this->behaviorClock.end();
     /*transition chase->scatter*/
     if(this->curBehaviorId == (short int)GhostBehaviorId::CHASE && duration > this->chaseDuration){

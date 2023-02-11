@@ -3,6 +3,7 @@
 
 #include "Character.hpp"
 #include "Colors.hpp"
+#include "Clock.hpp"
 
 class Pacman : public Character{
     public:
@@ -21,9 +22,20 @@ class Pacman : public Character{
         void setLives(const unsigned int lives);
         void setScore(const unsigned int score);
 
+        void activateInvencible();
+        void deactivateInvencible();
+        bool isInvencible();
+        bool isDead();
+        void updateState();
+
     private:
+        Clock stateClock;
+        using ms = std::chrono::duration<double, std::milli>;
+        ms invencibleDuration;
+
         unsigned int score;
         unsigned int lives;
+        bool invencible;
 };
 
 #endif
