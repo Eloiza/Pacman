@@ -1,9 +1,9 @@
 #include "Scatter.hpp"
 
-Scatter::~Scatter(){
-    delete this->cornerA;
-    delete this->cornerB;
-};
+// Scatter::~Scatter(){
+//     delete this->cornerA;
+//     delete this->cornerB;
+// };
 
 Scatter::Scatter(Map *map, Cell *position, Cell *cornerA, Cell *cornerB){
     this->setMap(map);

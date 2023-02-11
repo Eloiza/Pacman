@@ -7,7 +7,7 @@ class Scatter : public Behavior{
     public:
         Scatter(Map *map, Cell *position, Cell *cornerA, Cell *cornerB);
 
-        virtual ~Scatter();
+        virtual ~Scatter() = default;
         virtual void setCornersPosition(const Cell *cornerA, const Cell *cornerB);
         const Cell * generateTarget();
 

@@ -1,13 +1,13 @@
 #include <iostream>
 #include <string>
 #include <list>
+// #include <chrono>
 
 #include "ConsoleDraw.hpp"
 #include "Colors.hpp"
 #include "Pacman.hpp"
 #include "Map.hpp"
 #include "Ghost.hpp"
-
 #include "Scatter.hpp"
 
 #include "ChaseAggresive.hpp"
@@ -15,7 +15,9 @@
 #include "ChaseSiege.hpp"
 #include "ChaseRandom.hpp"
 
+#include "Clock.hpp"
 using namespace gameColors;
+
 
 int main(int argc, char **argv){
     /*init game map*/
@@ -42,24 +44,23 @@ int main(int argc, char **argv){
     Scatter scatter_bh = Scatter(&map, &ghost_position, &corner_positionA, &corner_positionB);
     Ghost g1 = Ghost(11, 15, &scatter_bh);
 
-     unsigned char ch = ' ';
-     unsigned int count = 0;
-     unsigned int update_ghost = 0;
-     unsigned int update_path = 0;
+    unsigned char ch = ' ';
+    
+    //init clock
+    using sec = std::chrono::duration<double, std::milli>;
+    Clock ghostMoveClock = Clock();
+    ghostMoveClock.start();
 
-     while ((ch = getch()) != 'q')
-     {
-         pacman.move(ch);
-         console.drawCharacter(pacman);
+    while ((ch = getch()) != 'q'){
+        pacman.move(ch);
+        console.drawCharacter(pacman);
 
-         if (update_ghost == 30200){
-             g1.move();
-             update_ghost = 0;
-         }
-         console.drawCharacter(g1);
-         update_ghost++;
-         update_path++;
-         count++;
+        //update ghost position every 100ms
+        if (ghostMoveClock.end() > (sec) 100.0){
+            g1.move();
+            ghostMoveClock.start();
+        }
+        console.drawCharacter(g1);
     }
     endwin();
     return 0;
