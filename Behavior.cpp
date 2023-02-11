@@ -26,6 +26,7 @@ void Behavior::setTarget(const Cell * target){
 
 void Behavior::setPosition(Cell * position){
     this->position = position;
+    // this->setTarget(this->generateTarget());
 };
 
 void Behavior::setTargetPath(std::list<Cell *> targetPath){

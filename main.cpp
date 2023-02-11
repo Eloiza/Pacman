@@ -26,10 +26,10 @@ int main(int argc, char **argv){
     map.loadGameMap("./maps/map.txt");
 
     /*init ncurses and console*/
-    // ConsoleDraw console = ConsoleDraw();
-    // console.initNcurses(40,40);
-    // console.initColors();
-    // console.drawGameScreen(&map);
+    ConsoleDraw console = ConsoleDraw();
+    console.initNcurses(40,40);
+    console.initColors();
+    console.drawGameScreen(&map);
 
     // //init pacman
     Pacman pacman(2, 1);
@@ -51,26 +51,26 @@ int main(int argc, char **argv){
     using ms = std::chrono::duration<double, std::milli>;
     Clock ghostMoveClock = Clock();
 
-    for(int i=0; i<50; i++){
-        g1.updateBehavior();
-    }
-
-    // ghostMoveClock.start();
-    // ghostBehaviorClock.start();
-    // while ((ch = getch()) != 'q'){
-    //     /*update pacman*/
-    //     pacman.move(ch);
-    //     console.drawCharacter(pacman);
-
-    //     //update ghost position every 100ms
-    //     if (ghostMoveClock.end() > (ms) 100.0){
-    //         g1.move();
-    //         ghostMoveClock.start();
-    //     }
-
+    // for(int i=0; i<50; i++){
     //     g1.updateBehavior();
-    //     console.drawCharacter(g1);
     // }
-    // endwin();
+
+    ghostMoveClock.start();
+    g1.startClock();
+    while ((ch = getch()) != 'q'){
+        /*update pacman*/
+        pacman.move(ch);
+        console.drawCharacter(pacman);
+
+        //update ghost position every 100ms
+        if (ghostMoveClock.end() > (ms) 100.0){
+            g1.move();
+            ghostMoveClock.start();
+        }
+
+        g1.updateBehavior();
+        console.drawCharacter(g1);
+    }
+    endwin();
     return 0;
 }

@@ -36,9 +36,9 @@ class Ghost : public Character{
         void activateFrightenedBehavior();
 
         void updateBehavior();
+        void startClock();
 
     protected:
-        std::list<Cell*> directions;
         const Map * map;
         Chase *chase;
         Scatter *scatter;
@@ -49,10 +49,11 @@ class Ghost : public Character{
         short int curBehaviorId;
 
         Clock behaviorClock;
-        double chaseDuration;
-        double scatterDuration;
-        double deadDuration;
-        double frightenedDuration;
+        using ms = std::chrono::duration<double, std::milli>;
+        ms chaseDuration;
+        ms scatterDuration;
+        ms deadDuration;
+        ms frightenedDuration;
 };
 
 #endif
