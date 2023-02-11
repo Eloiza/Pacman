@@ -1,23 +1,19 @@
 #include <iostream>
-#include <fstream>
 #include <string>
 #include <list>
-#include <vector>
-#include <bits/stdc++.h>
 
 #include "ConsoleDraw.hpp"
-#include "Character.hpp"
 #include "Colors.hpp"
 #include "Pacman.hpp"
-#include "Node.hpp"
 #include "Map.hpp"
 #include "Ghost.hpp"
 
 #include "ScatterBehavior.hpp"
-#include "ChaseBehavior.hpp"
-#include "AmbushBehavior.hpp"
-#include "InkyBehavior.hpp"
-#include "PokeyBehavior.hpp"
+
+#include "ChaseAggresive.hpp"
+#include "ChaseAmbush.hpp"
+#include "ChaseSiege.hpp"
+#include "ChaseRandom.hpp"
 
 using namespace gameColors;
 
@@ -79,7 +75,7 @@ int main(int argc, char **argv){
     Cell corner_positionA = Cell(23, 2);
     Cell corner_positionB = Cell(21, 9);
 
-    PokeyBehavior pokey_bh = PokeyBehavior(&map, &ghost_position, pacman.getPosition(), &corner_positionA, &corner_positionB);
+    ChaseRandom pokey_bh = ChaseRandom(&map, &ghost_position, pacman.getPosition());
     Ghost g1 = Ghost(11, 15, &pokey_bh);
 
     // Cell ghost_position2 = Cell(11, 15);
