@@ -34,7 +34,7 @@ int main(int argc, char **argv){
     Pacman pacman(2, 1);
 
     // //init ghost
-    Cell ghost_position = Cell(11, 15);
+    Cell ghost_position = Cell(2, 1);
     Cell corner_positionA = Cell(23, 2);
     Cell corner_positionB = Cell(21, 9);
 
@@ -42,7 +42,7 @@ int main(int argc, char **argv){
     Scatter scatter_bh = Scatter(&map, &ghost_position, &corner_positionA, &corner_positionB);
     FrightenedBehavior frightened_bh = FrightenedBehavior(&map, &ghost_position);
 
-    Ghost g1 = Ghost(&map, (unsigned int)11, (unsigned int) 15, &pokey_bh, &scatter_bh, &frightened_bh);
+    Ghost g1 = Ghost(&map, (unsigned int)2, (unsigned int) 1, &pokey_bh, &scatter_bh, &frightened_bh);
     unsigned char ch = ' ';
     
     //init clock
@@ -51,6 +51,7 @@ int main(int argc, char **argv){
 
     ghostMoveClock.start();
     g1.startClock();
+
     while ((ch = getch()) != 'q' && !pacman.isDead()){
         /*update pacman*/
         pacman.move(ch);
@@ -58,8 +59,8 @@ int main(int argc, char **argv){
         console.drawCharacter(pacman);
 
         //update ghost position every 100ms
-        if (ghostMoveClock.end() > (ms) 100.0){
-            g1.move();
+        if (ghostMoveClock.end() > (ms) 200.0){
+            g1.move(pacman.isInvencible());
             ghostMoveClock.start();
         }
 

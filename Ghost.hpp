@@ -21,7 +21,7 @@ class Ghost : public Character{
 
         virtual ~Ghost() = default;
 
-        void move();
+        void move(bool pacmanInvencible);
 
         /*setters*/
         void setTarget(Cell * const target);
@@ -33,22 +33,25 @@ class Ghost : public Character{
 
         void activateChaseBehavior();
         void activateScatterBehavior();
+        void activateRetreatBehavior();
+        void deactivateRetreatBehavior();
+
         void activateFrightenedBehavior();
         void deactivateFrightenedBehavior();
 
         void updateBehavior(bool pacmanInvencible);
         void startClock();
+        Behavior *activeBehavior;
+        short int curBehaviorId;
 
     protected:
         const Map * map;
         short int defaultColor;
+        Cell * startPosition;
         Chase *chase;
         Scatter *scatter;
-        Behavior * activeBehavior;
         FrightenedBehavior *frightened;
-
         /*Behavior internal control*/
-        short int curBehaviorId;
 
         Clock behaviorClock;
         using ms = std::chrono::duration<double, std::milli>;

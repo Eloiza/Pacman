@@ -1,4 +1,5 @@
 #include "Character.hpp"
+#include <iostream>
 
 /*constructors*/
 Character::Character(){
@@ -36,8 +37,18 @@ void Character::move(unsigned int direction){
 };
 
 void Character::move(Cell * const new_position){
+    // std::cout << "I am in move" << std::endl;
+
     this->setPrevPosition(&this->position);
     this->setPosition(new_position);
+    // std::cout << "Finished move" << std::endl;
+    
+};
+
+bool Character::isCollision(Cell * const position, char element){
+    int testch;
+    testch = mvinch(position->row, position->col);
+    return (((testch & A_CHARTEXT) == (unsigned int) element));
 };
 
 bool Character::isCollision(unsigned int row, unsigned int col){
@@ -92,6 +103,7 @@ void Character::setPosition(unsigned int row, unsigned int col){
 };
 
 void Character::setPosition(Cell * position){
+    // std::cout << "I am in character setPosition" << std::endl;
     this->position = *position;
 };
 

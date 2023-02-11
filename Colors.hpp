@@ -7,7 +7,8 @@ namespace gameColors{
         PACMAN, 
         WALL,
         GENERIC_GHOST, 
-        FRIGHTENED_GHOST
+        FRIGHTENED_GHOST, 
+        RETREAT_GHOST
     };
 }
 

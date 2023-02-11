@@ -5,6 +5,7 @@ using namespace behaviorsId;
 
 /*constructors*/
 Ghost::Ghost(unsigned int row, unsigned int col){
+    this->startPosition = new Cell(11, 15);
     this->setPosition(row, col);
     this->setPrevPosition(row, col);
     this->setSprite(MapElements::GHOST);
@@ -28,8 +29,11 @@ Ghost::Ghost(const Map *map, unsigned int row, unsigned int col, Chase *chaseBh,
 };
 
 /*setters*/
-void Ghost::move(){
+void Ghost::move(bool pacmanInvencible){
     Character::move(this->activeBehavior->getNextPosition());
+    if (this->isCollision(&this->position, (char)MapElements::PACMAN) && this->curBehaviorId == (short int) GhostBehaviorId::FRIGHTENED){
+        this->activateRetreatBehavior();
+    }
 };
 
 void Ghost::setTarget(Cell *const target){
@@ -55,18 +59,33 @@ void Ghost::setFrightenedBehavior(FrightenedBehavior *frightened){
 void Ghost::activateChaseBehavior(){
     this->curBehaviorId = (short int)GhostBehaviorId::CHASE;
     this->chase->setPosition(&this->position);
+    this->chase->setTarget(this->chase->generateTarget());
     this->setActiveBehavior(this->chase);
 };
 
 void Ghost::activateScatterBehavior(){
     this->curBehaviorId = (short int) GhostBehaviorId::SCATTER;
     this->scatter->setPosition(&this->position);
+    this->scatter->setTarget(this->scatter->generateTarget());
     this->setActiveBehavior(this->scatter);
+};
+
+void Ghost::activateRetreatBehavior(){
+    this->curBehaviorId = (short int)GhostBehaviorId::RETREAT;
+
+    this->activeBehavior->setPosition(&this->position);
+    this->activeBehavior->setTarget(this->startPosition);
+    this->setColor((unsigned int) Colors::DEFAULT);
+};
+
+void Ghost::deactivateRetreatBehavior(){
+    this->setColor((unsigned int) this->defaultColor);
 };
 
 void Ghost::activateFrightenedBehavior(){
     this->curBehaviorId = (short int) GhostBehaviorId::FRIGHTENED;
     this->frightened->setPosition(&this->position);
+    this->frightened->setTarget(this->frightened->generateTarget());
     this->setActiveBehavior(this->frightened);
 
     this->setColor((unsigned int) Colors::FRIGHTENED_GHOST);
@@ -90,12 +109,6 @@ void Ghost::updateBehavior(bool pacmanInvencible){
         this->behaviorClock.start();
     }
 
-    /*transition dead->scatter*/
-    else if(this->curBehaviorId == (short int)GhostBehaviorId::DEAD && duration > this->deadDuration){
-        this->activateScatterBehavior();
-        this->behaviorClock.start();
-    }
-
     /*transition frightened->scatter*/
     else if(this->curBehaviorId == (short int)GhostBehaviorId::FRIGHTENED && duration > this->frightenedDuration){
         this->activateScatterBehavior();
@@ -104,9 +117,16 @@ void Ghost::updateBehavior(bool pacmanInvencible){
     }
 
     /*transition any->frightened*/
-    else if (this->curBehaviorId != (short int)GhostBehaviorId::FRIGHTENED && pacmanInvencible){
+    else if (this->curBehaviorId != (short int)GhostBehaviorId::FRIGHTENED && (this->curBehaviorId != (short int)GhostBehaviorId::RETREAT) && pacmanInvencible)
+    {
         this->activateFrightenedBehavior();
         this->behaviorClock.start();
+    }
+
+    else if (this->curBehaviorId == (short int)GhostBehaviorId::RETREAT){
+        if(this->position == *this->startPosition){
+            this->activateScatterBehavior();
+        }
     }
 };
 

@@ -18,8 +18,3 @@ const Cell * Scatter::generateTarget(){
     }
     return this->cornerA;
 };
-
-// void Scatter::setPosition(Cell *position){
-//     this->position = position;
-//     this->setTarget(this->generateTarget());
-// };

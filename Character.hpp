@@ -23,9 +23,11 @@ class Character{
         virtual void move(unsigned int direction);
         virtual void move(Cell * const new_position);
 
+        /*collision with ncurses*/
         virtual bool isCollision(unsigned int row, unsigned int col);
         virtual bool isCollision(Cell * const position);
-        
+        virtual bool isCollision(Cell * position, char element);
+
         /*collision without ncurses*/
         static bool isCollision(const Map *map, unsigned int row, unsigned int col);
         static bool isCollision(const Map *map, const Cell * const position);

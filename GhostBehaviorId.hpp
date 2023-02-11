@@ -6,7 +6,8 @@ namespace behaviorsId{
         DEAD,
         FRIGHTENED,
         CHASE, 
-        SCATTER
+        SCATTER, 
+        RETREAT
     };
 }
 
