@@ -13,16 +13,18 @@ Ghost::Ghost(unsigned int row, unsigned int col){
 
 Ghost::Ghost(const Map *map, unsigned int row, unsigned int col, Chase *chaseBh, Scatter *scatterBh, FrightenedBehavior * frightenedBh) : Ghost(row, col){
     this->map = map;
-    this->behaviorClock = Clock();
-    this->chaseDuration = (std::chrono::duration<double, std::milli>)20000.;
-    this->scatterDuration = (std::chrono::duration<double, std::milli>)7000.0;
-    this->deadDuration = (std::chrono::duration<double, std::milli>)8000.0;
-    this->frightenedDuration = (std::chrono::duration<double, std::milli>)8000.0;
+    this->chaseDuration = 0.001000;
+    this->scatterDuration = 0.001000;
+    this->deadDuration = 8000.0;
+    this->frightenedDuration = 8000.0;
 
     this->setChaseBehavior(chaseBh);
     this->setScatterBehavior(scatterBh);
     this->setFrightenedBehavior(frightenedBh);
     this->activateChaseBehavior();
+
+    this->behaviorClock = Clock();
+    this->behaviorClock.start();
 };
 
 /*setters*/
@@ -70,20 +72,27 @@ void Ghost::updateBehavior(){
 
     ms duration = this->behaviorClock.end();
     /*transition chase->scatter*/
-    if(this->curBehaviorId == (short int)GhostBehaviorId::CHASE && (ms) duration > this->chaseDuration)
+    if(this->curBehaviorId == (short int)GhostBehaviorId::CHASE && duration.count() > this->chaseDuration){
         this->activateScatterBehavior();
+        this->behaviorClock.start();
+    }
 
     /*transition scatter->chase*/
-    else if(this->curBehaviorId == (short int)GhostBehaviorId::SCATTER && (ms)duration > this->scatterDuration)
+    else if(this->curBehaviorId == (short int)GhostBehaviorId::SCATTER && duration.count() > this->scatterDuration){
         this->activateChaseBehavior();
+        this->behaviorClock.start();
+    }
 
     /*transition dead->scatter*/
-    else if(this->curBehaviorId == (short int)GhostBehaviorId::DEAD && (ms)duration > this->deadDuration)
+    else if(this->curBehaviorId == (short int)GhostBehaviorId::DEAD && duration.count() > this->deadDuration){
         this->activateScatterBehavior();
+        this->behaviorClock.start();
+    }
 
     /*transition frightened->scatter*/
-    else if(this->curBehaviorId == (short int)GhostBehaviorId::FRIGHTENED && (ms)duration > this->frightenedDuration)
+    else if(this->curBehaviorId == (short int)GhostBehaviorId::FRIGHTENED && duration.count() > this->frightenedDuration){
         this->activateScatterBehavior();
+        this->behaviorClock.start();
+    }
 
-    this->behaviorClock.start();
 };

@@ -2,6 +2,7 @@
 #define GHOST_HPP 
 
 #include <list>
+#include <iostream>
 #include "Clock.hpp"
 #include "Colors.hpp"
 #include "GhostBehaviorId.hpp"
@@ -48,10 +49,10 @@ class Ghost : public Character{
         short int curBehaviorId;
 
         Clock behaviorClock;
-        std::chrono::duration<double, std::milli> chaseDuration;
-        std::chrono::duration<double, std::milli> scatterDuration;
-        std::chrono::duration<double, std::milli> deadDuration;
-        std::chrono::duration<double, std::milli> frightenedDuration;
+        double chaseDuration;
+        double scatterDuration;
+        double deadDuration;
+        double frightenedDuration;
 };
 
 #endif
