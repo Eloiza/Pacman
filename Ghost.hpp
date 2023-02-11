@@ -2,7 +2,9 @@
 #define GHOST_HPP 
 
 #include <list>
+#include "Clock.hpp"
 #include "Colors.hpp"
+#include "GhostBehaviorId.hpp"
 #include "Character.hpp"
 
 #include "Chase.hpp"
@@ -13,12 +15,8 @@
 class Ghost : public Character{
     public:
         /*constructors*/
-        Ghost();
-        Ghost(char sprite, unsigned char color_pair, unsigned char row, unsigned char col);
         Ghost(unsigned int row, unsigned int col);
-        Ghost(const Map *map, unsigned int row, unsigned int col);
-        Ghost(const Map *map, unsigned int row, unsigned int col, Cell * target);
-        Ghost(unsigned int row, unsigned int col, Behavior * behavior);
+        Ghost(const Map * map, unsigned int row, unsigned int col, Chase * chaseBh, Scatter * scatterBh, FrightenedBehavior * frightenedBh);
 
         virtual ~Ghost() = default;
 
@@ -36,14 +34,24 @@ class Ghost : public Character{
         void activateScatterBehavior();
         void activateFrightenedBehavior();
 
+        void updateBehavior();
+
     protected:
-        const Cell * target;
         std::list<Cell*> directions;
         const Map * map;
+        Chase *chase;
+        Scatter *scatter;
         Behavior * activeBehavior;
-        Scatter * scatter;
-        Chase * chase;
         FrightenedBehavior *frightened;
+
+        /*Behavior internal control*/
+        short int curBehaviorId;
+
+        Clock behaviorClock;
+        std::chrono::duration<double, std::milli> chaseDuration;
+        std::chrono::duration<double, std::milli> scatterDuration;
+        std::chrono::duration<double, std::milli> deadDuration;
+        std::chrono::duration<double, std::milli> frightenedDuration;
 };
 
 #endif

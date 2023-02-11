@@ -1,14 +1,9 @@
 #include "Ghost.hpp"
 
 using namespace gameColors;
+using namespace behaviorsId;
+
 /*constructors*/
-Ghost::Ghost(){
-};
-
-Ghost::Ghost(char sprite, unsigned char color_pair, unsigned char y, unsigned char x)
-: Character(sprite, color_pair, y, x){
-};
-
 Ghost::Ghost(unsigned int row, unsigned int col){
     this->setPosition(row, col);
     this->setPrevPosition(row, col);
@@ -16,16 +11,18 @@ Ghost::Ghost(unsigned int row, unsigned int col){
     this->setColor((unsigned int) Colors::GENERIC_GHOST);
 };
 
-Ghost::Ghost(const Map *map, unsigned int row, unsigned int col) : Ghost(row, col){
+Ghost::Ghost(const Map *map, unsigned int row, unsigned int col, Chase *chaseBh, Scatter *scatterBh, FrightenedBehavior * frightenedBh) : Ghost(row, col){
     this->map = map;
-};
+    this->behaviorClock = Clock();
+    this->chaseDuration = (std::chrono::duration<double, std::milli>)20000.;
+    this->scatterDuration = (std::chrono::duration<double, std::milli>)7000.0;
+    this->deadDuration = (std::chrono::duration<double, std::milli>)8000.0;
+    this->frightenedDuration = (std::chrono::duration<double, std::milli>)8000.0;
 
-Ghost::Ghost(const Map *map, unsigned int row, unsigned int col, Cell * target) : Ghost(map, row, col){
-    this->setTarget(target);
-};
-
-Ghost::Ghost(unsigned int row, unsigned int col, Behavior *behavior): Ghost(row, col){
-    this->setActiveBehavior(behavior);
+    this->setChaseBehavior(chaseBh);
+    this->setScatterBehavior(scatterBh);
+    this->setFrightenedBehavior(frightenedBh);
+    this->activateChaseBehavior();
 };
 
 /*setters*/
@@ -35,7 +32,6 @@ void Ghost::move(){
 
 void Ghost::setTarget(Cell *const target){
     this->activeBehavior->setTarget(target);
-    this->target = target;
 };
 
 void Ghost::setActiveBehavior(Behavior *behavior){
@@ -55,14 +51,39 @@ void Ghost::setFrightenedBehavior(FrightenedBehavior *frightened){
 };
 
 void Ghost::activateChaseBehavior(){
+    this->curBehaviorId = (short int)GhostBehaviorId::CHASE;
     this->setActiveBehavior(this->chase);
 };
 
 void Ghost::activateScatterBehavior(){
+    this->curBehaviorId = (short int) GhostBehaviorId::SCATTER;
     this->setActiveBehavior(this->scatter);
 };
 
 void Ghost::activateFrightenedBehavior(){
+    this->curBehaviorId = (short int) GhostBehaviorId::FRIGHTENED;
     this->setActiveBehavior(this->frightened);
 };
 
+void Ghost::updateBehavior(){
+    using ms = std::chrono::duration<double, std::milli>;
+
+    ms duration = this->behaviorClock.end();
+    /*transition chase->scatter*/
+    if(this->curBehaviorId == (short int)GhostBehaviorId::CHASE && (ms) duration > this->chaseDuration)
+        this->activateScatterBehavior();
+
+    /*transition scatter->chase*/
+    else if(this->curBehaviorId == (short int)GhostBehaviorId::SCATTER && (ms)duration > this->scatterDuration)
+        this->activateChaseBehavior();
+
+    /*transition dead->scatter*/
+    else if(this->curBehaviorId == (short int)GhostBehaviorId::DEAD && (ms)duration > this->deadDuration)
+        this->activateScatterBehavior();
+
+    /*transition frightened->scatter*/
+    else if(this->curBehaviorId == (short int)GhostBehaviorId::FRIGHTENED && (ms)duration > this->frightenedDuration)
+        this->activateScatterBehavior();
+
+    this->behaviorClock.start();
+};
