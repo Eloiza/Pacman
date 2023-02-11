@@ -125,6 +125,7 @@ void Ghost::updateBehavior(bool pacmanInvencible){
 
     else if (this->curBehaviorId == (short int)GhostBehaviorId::RETREAT){
         if(this->position == *this->startPosition){
+            this->deactivateRetreatBehavior();
             this->activateScatterBehavior();
         }
     }
