@@ -1,23 +1,22 @@
-#include "AmbushBehavior.hpp"
+#include "ChaseAmbush.hpp"
 
 /*constructors*/
-AmbushBehavior::AmbushBehavior(){
+ChaseAmbush::ChaseAmbush(){
 };
 
-AmbushBehavior::AmbushBehavior(Map *map, Cell *position, const Cell * pacmanPosition, unsigned int pointsAhead){
+ChaseAmbush::ChaseAmbush(Map *map, Cell *position, const Cell * pacmanPosition, unsigned int pointsAhead){
     this->map = map;
     this->position= position;
     this->setPacmanPosition(pacmanPosition);
-    this->setTarget(pacmanPosition);
     this->pointsAhead = pointsAhead;
 };
 
 /*setters*/
-void AmbushBehavior::setPacmanPosition(const Cell * pacmanPosition){
+void ChaseAmbush::setPacmanPosition(const Cell * pacmanPosition){
     this->pacmanPosition = pacmanPosition;
 }
 
-const Cell * AmbushBehavior::generateTarget(){
+const Cell * ChaseAmbush::generateTarget(){
     //try to set target as pacmanPosition +4/-4 columns or +4/-4 rows
     int dist;
     unsigned int pointsAheadcopy = this->pointsAhead;

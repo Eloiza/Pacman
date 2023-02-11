@@ -1,5 +1,4 @@
 #include "FrightenedBehavior.hpp"
-#include <iostream>
 
 FrightenedBehavior::FrightenedBehavior(){
 };
