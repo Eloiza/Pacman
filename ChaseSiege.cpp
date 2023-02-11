@@ -1,17 +1,17 @@
-#include "InkyBehavior.hpp"
+#include "ChaseSiege.hpp"
 
 /*Constructors*/
-InkyBehavior::InkyBehavior(){
+ChaseSiege::ChaseSiege(){
 };
 
-InkyBehavior::InkyBehavior(Map *map, Cell *position, const Cell *pacmanPosition, const Cell *blinkyPosition){
+ChaseSiege::ChaseSiege(Map *map, Cell *position, const Cell *pacmanPosition, const Cell *pairGhostPosition){
     this->map = map;
     this->position = position;
     this->setPacmanPosition(pacmanPosition);
-    this->setBlinkyPosition(blinkyPosition);
+    this->setPairGhostPosition(pairGhostPosition);
 };
 
-const Cell * InkyBehavior::generateTarget(){
+const Cell * ChaseSiege::generateTarget(){
     int row, col;
     col = this->pacmanPosition->col + 2;
 
@@ -19,7 +19,7 @@ const Cell * InkyBehavior::generateTarget(){
         row = this->pacmanPosition->row - 2;
     }
 
-    float auxDistance = this->distance(this->blinkyPosition, this->pacmanPosition);
+    float auxDistance = this->distance(this->pairGhostPosition, this->pacmanPosition);
 
     if(this->pacmanPosition->row < this->position->row){
         row -= auxDistance;
@@ -52,10 +52,10 @@ const Cell * InkyBehavior::generateTarget(){
 };
 
 /*setters*/
-void InkyBehavior::setPacmanPosition(const Cell * pacmanPosition){
+void ChaseSiege::setPacmanPosition(const Cell * pacmanPosition){
     this->pacmanPosition = pacmanPosition;
 };
 
-void InkyBehavior::setBlinkyPosition(const Cell * blinkyPosition){
-    this->blinkyPosition = blinkyPosition;
+void ChaseSiege::setPairGhostPosition(const Cell * pairGhostPosition){
+    this->pairGhostPosition = pairGhostPosition;
 };

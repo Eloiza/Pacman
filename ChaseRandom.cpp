@@ -1,30 +1,20 @@
-#include "PokeyBehavior.hpp"
+#include "ChaseRandom.hpp"
 
 /*constructors*/
-PokeyBehavior::PokeyBehavior(){};
+ChaseRandom::ChaseRandom(){};
 
-PokeyBehavior::PokeyBehavior(Map *map, Cell *position, const Cell *pacmanPosition, const Cell *cornerA, const Cell *cornerB){
+ChaseRandom::ChaseRandom(Map *map, Cell *position, const Cell *pacmanPosition){
     this->map = map;
     this->position = position;
     this->setPacmanPosition(pacmanPosition);
-    this->setCornerA(cornerA);
-    this->setCornerB(cornerB);
 };
 
 /*setters*/
-void PokeyBehavior::setPacmanPosition(const Cell *pacmanPosition){
+void ChaseRandom::setPacmanPosition(const Cell *pacmanPosition){
     this->pacmanPosition = pacmanPosition;
 }
 
-void PokeyBehavior::setCornerA(const Cell * cornerA){
-    this->cornerA = cornerA;
-}
-
-void PokeyBehavior::setCornerB(const Cell * cornerB){
-    this->cornerB = cornerB;
-}
-
-const Cell *PokeyBehavior::generateTarget(){
+const Cell *ChaseRandom::generateTarget(){
     if(this->distance(this->position, this->pacmanPosition) > 8){
         return this->pacmanPosition;
     }
