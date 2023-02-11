@@ -17,6 +17,7 @@
 #include "ChaseBehavior.hpp"
 #include "AmbushBehavior.hpp"
 #include "InkyBehavior.hpp"
+#include "PokeyBehavior.hpp"
 
 using namespace gameColors;
 
@@ -75,13 +76,19 @@ int main(int argc, char **argv){
 
     //init ghost
     Cell ghost_position = Cell(11, 15);
-    Cell ghost_position2 = Cell(11, 15);
+    Cell corner_positionA = Cell(23, 2);
+    Cell corner_positionB = Cell(21, 9);
 
-    InkyBehavior inky_bh = InkyBehavior(&map, &ghost_position, pacman.getPosition(), &ghost_position2);
-    Ghost g1 = Ghost(11, 15, &inky_bh);
+    PokeyBehavior pokey_bh = PokeyBehavior(&map, &ghost_position, pacman.getPosition(), &corner_positionA, &corner_positionB);
+    Ghost g1 = Ghost(11, 15, &pokey_bh);
 
-    AmbushBehavior ambush_bh = AmbushBehavior(&map, &ghost_position2, pacman.getPosition(), 4);
-    Ghost g2 = Ghost(11, 14, &ambush_bh);
+    // Cell ghost_position2 = Cell(11, 15);
+
+    // InkyBehavior inky_bh = InkyBehavior(&map, &ghost_position, pacman.getPosition(), &ghost_position2);
+    // Ghost g1 = Ghost(11, 15, &inky_bh);
+
+    // AmbushBehavior ambush_bh = AmbushBehavior(&map, &ghost_position2, pacman.getPosition(), 4);
+    // Ghost g2 = Ghost(11, 14, &ambush_bh);
 
     //scatter left-top
     // Cell cornerA1 = Cell(2, 1);
@@ -124,14 +131,14 @@ int main(int argc, char **argv){
          if (update_ghost == 30200)
          {
              g1.move();
-             g2.move();
+            //  g2.move();
             //  g3.move();
             //  g4.move();
              // napms(90);
              update_ghost = 0;
          }
          console.drawCharacter(g1);
-         console.drawCharacter(g2);
+        //  console.drawCharacter(g2);
         //  console.drawCharacter(g3);
         //  console.drawCharacter(g4);
 

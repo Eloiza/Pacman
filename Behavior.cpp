@@ -42,7 +42,7 @@ Cell * Behavior::getNextPosition(){
     if (this->targetPath.empty()){
         this->setTarget(this->generateTarget());
     }
-
+    
     else{
         Cell * ret = this->targetPath.front();
         this->targetPath.pop_front();

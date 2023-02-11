@@ -3,8 +3,8 @@ nomePrograma=pacman
 
 all: $(nomePrograma)
 
-$(nomePrograma): main.o Coordenada.o Pacman.o ConsoleDraw.o Character.o Node.o Map.o Ghost.o Cell.o ChaseBehavior.o Behavior.o InvalidPositionException.o ScatterBehavior.o AmbushBehavior.o FrightenedBehavior.o InkyBehavior.o
-	g++ -o $(nomePrograma) main.o Coordenada.o Pacman.o ConsoleDraw.o Character.o Node.o Map.o Ghost.o Cell.o ChaseBehavior.o Behavior.o InvalidPositionException.o ScatterBehavior.o AmbushBehavior.o FrightenedBehavior.o InkyBehavior.o $(parametrosCompilacao)
+$(nomePrograma): main.o Coordenada.o Pacman.o ConsoleDraw.o Character.o Node.o Map.o Ghost.o Cell.o ChaseBehavior.o Behavior.o InvalidPositionException.o ScatterBehavior.o AmbushBehavior.o FrightenedBehavior.o InkyBehavior.o PokeyBehavior.o
+	g++ -o $(nomePrograma) main.o Coordenada.o Pacman.o ConsoleDraw.o Character.o Node.o Map.o Ghost.o Cell.o ChaseBehavior.o Behavior.o InvalidPositionException.o ScatterBehavior.o AmbushBehavior.o FrightenedBehavior.o InkyBehavior.o PokeyBehavior.o $(parametrosCompilacao)
 
 main.o: main.cpp
 	g++ -c main.cpp $(parametrosCompilacao)
@@ -48,8 +48,11 @@ ScatterBehavior.o: ScatterBehavior.hpp ScatterBehavior.cpp
 AmbushBehavior.o: AmbushBehavior.hpp AmbushBehavior.cpp 
 	g++ -c AmbushBehavior.cpp $(parametrosCompilacao)
 
-InkyBehavior.o.o: InkyBehavior.o.hpp InkyBehavior.o.cpp 
-	g++ -c InkyBehavior.o.cpp $(parametrosCompilacao)
+InkyBehavior.o: InkyBehavior.hpp InkyBehavior.cpp 
+	g++ -c InkyBehavior.cpp $(parametrosCompilacao)
+
+PokeyBehavior.o: PokeyBehavior.hpp PokeyBehavior.cpp 
+	g++ -c PokeyBehavior.cpp $(parametrosCompilacao)
 
 InvalidPositionException.o: InvalidPositionException.hpp InvalidPositionException.cpp 
 	g++ -c InvalidPositionException.cpp $(parametrosCompilacao)
