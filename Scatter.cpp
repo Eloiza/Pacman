@@ -18,3 +18,10 @@ const Cell * Scatter::generateTarget(){
     }
     return this->cornerA;
 };
+
+const Cell * Scatter::getCornerA(){
+    return this->cornerA;
+};
+const Cell * Scatter::getCornerB(){
+    return this->cornerB;
+};

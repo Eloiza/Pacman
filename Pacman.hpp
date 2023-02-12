@@ -27,7 +27,6 @@ class Pacman : public Character{
         void deactivateInvencible();
         bool isInvencible();
         bool isDead();
-        bool hasLostLive();
         void updateState();
 
     private:

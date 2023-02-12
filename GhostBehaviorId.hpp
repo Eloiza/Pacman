@@ -7,7 +7,8 @@ namespace behaviorsId{
         FRIGHTENED,
         CHASE, 
         SCATTER, 
-        RETREAT
+        RETREAT, 
+        IN_JAIL,
     };
 }
 

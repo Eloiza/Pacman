@@ -11,6 +11,9 @@ class Scatter : public Behavior{
         virtual void setCornersPosition(const Cell *cornerA, const Cell *cornerB);
         const Cell * generateTarget();
 
+        const Cell * getCornerA();
+        const Cell * getCornerB();
+
     protected:
         const Cell * cornerA;
         const Cell * cornerB;

@@ -39,11 +39,6 @@ bool Pacman::isCollision(unsigned int row, unsigned int col){
         this->score +=200;
         return 0;
     }
-    // else if(testch == MapElements::GHOST && !this->isInvencible()){
-    //     this->lives--;
-    //     this->lostLive = 1;
-    //     return 1;
-    // }
     return 0;
 };
 
@@ -96,7 +91,3 @@ void Pacman::updateState(){
     } 
 
 }
-
-bool Pacman::hasLostLive(){
-    return this->lostLive;
-};

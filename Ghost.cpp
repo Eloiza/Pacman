@@ -28,13 +28,31 @@ Ghost::Ghost(const Map *map, unsigned int row, unsigned int col, Chase *chaseBh,
     this->behaviorClock = Clock();
 };
 
+Ghost::Ghost(const Map *map, unsigned int row, unsigned int col, Chase *chaseBh, Scatter *scatterBh, FrightenedBehavior *frightenedBh, bool startJail, double jailTimeMS) 
+    : Ghost(map, row, col, chaseBh, scatterBh, frightenedBh){
+    
+    this->startInJail = 1;
+    this->jailDuration = (ms) jailTimeMS;
+    this->curBehaviorId = (short int) GhostBehaviorId::IN_JAIL;
+    this->cornerA = this->scatter->getCornerA();
+    this->cornerA = this->scatter->getCornerB();
+    this->activateInJailBehavior();
+};
+
 void Ghost::move(bool pacmanInvencible){
     Character::move(this->activeBehavior->getNextPosition());
 };
 
 void Ghost::restart(){;
     Character::move(this->startPosition);
-    this->activateScatterBehavior();
+    if(this->startInJail){
+        this->activateInJailBehavior();
+        this->behaviorClock.start();
+    }
+    else{
+        this->activateScatterBehavior();
+        this->behaviorClock.start();
+    }
 };
 
 /*setters*/
@@ -80,6 +98,17 @@ void Ghost::activateRetreatBehavior(){
     this->setColor((unsigned int) Colors::DEFAULT);
 };
 
+void Ghost::activateInJailBehavior(){
+    this->curBehaviorId = (short int)GhostBehaviorId::IN_JAIL;
+    Cell *aux = new Cell(this->startPosition->row + 2 , this->startPosition->col);
+    this->scatter->setCornersPosition(this->startPosition, aux);
+    this->activateScatterBehavior();
+};
+
+void Ghost::deactivateInJailBehavior(){
+    this->scatter->setCornersPosition(this->cornerA, this->cornerB);
+};
+
 void Ghost::deactivateRetreatBehavior(){
     this->setColor((unsigned int) this->defaultColor);
 };
@@ -102,6 +131,14 @@ void Ghost::updateBehavior(bool pacmanInvencible){
     if(!pacmanInvencible){
         this->enableFrightened = 1;
     }
+
+    /*transition inJail->scatter*/
+    if (this->curBehaviorId == (short int)GhostBehaviorId::IN_JAIL && duration > this->jailDuration){
+        this->deactivateInJailBehavior();
+        this->activateScatterBehavior();
+        this->behaviorClock.start();
+    }
+
     /*transition chase->scatter*/
     if(this->curBehaviorId == (short int)GhostBehaviorId::CHASE && duration > this->chaseDuration){
         this->activateScatterBehavior();
