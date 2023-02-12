@@ -46,6 +46,16 @@ void ConsoleDraw::drawCharacter(Character &c) const{
     attroff(COLOR_PAIR(c.getColor()));
 };
 
+// void ConsoleDraw::drawCharacter(Ghost &c) const{
+//     attron(COLOR_PAIR(Colors::DEFAULT));
+//     mvaddch(c.getPrevRow(), c.getPrevCol(), this->map[c.getPrevRow() * (unsigned int)gameMap->cols + c.getPrevCol()]);
+//     attroff(COLOR_PAIR(Colors::DEFAULT));
+
+//     attron(COLOR_PAIR(c.getColor()));
+//     mvaddch(c.getRow(), c.getCol(), c.getSprite());
+//     attroff(COLOR_PAIR(c.getColor()));
+// };
+
 void ConsoleDraw::drawScore(unsigned int score){
     std::string score_str = std::to_string(score);
     for (std::string::size_type i = 0; i < score_str.size(); ++i){

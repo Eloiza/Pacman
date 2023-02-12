@@ -8,7 +8,7 @@ class CharacterCollisionController{
     public:
         CharacterCollisionController();
         CharacterCollisionController(Pacman *pacman, std::list<Ghost *> ghosts);
-        void checkCollisions();
+        bool checkCollisions();
         void restartGhosts();
     private:
         Pacman * pacman;

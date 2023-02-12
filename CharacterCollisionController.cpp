@@ -6,7 +6,7 @@ CharacterCollisionController::CharacterCollisionController(){
 CharacterCollisionController::CharacterCollisionController(Pacman * pacman, std::list<Ghost *> ghosts) : pacman{pacman}, ghosts{ghosts}{
 };
 
-void CharacterCollisionController::checkCollisions(){
+bool CharacterCollisionController::checkCollisions(){
     std::list<Ghost *>::iterator ghost_it = this->ghosts.begin();
     for(; ghost_it != this->ghosts.end(); ghost_it ++){
         if ((*ghost_it)->getPosition()->row == this->pacman->getPosition()->row &&
@@ -14,15 +14,17 @@ void CharacterCollisionController::checkCollisions(){
             if(this->pacman->isInvencible()){
                 (*ghost_it)->activateRetreatBehavior();
                 std::cout << "GHOST RETREAT" << std::endl;
+                return 0;
             }
             else{
                 this->pacman->decreaseLive();
                 this->pacman->restart();
                 this->restartGhosts();
-                return;
+                return 1;
             }
         }
     }
+    return 0;
 };
 
 void CharacterCollisionController::restartGhosts(){

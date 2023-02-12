@@ -6,6 +6,7 @@
 
 #include "Character.hpp"
 #include "Map.hpp"
+#include "Ghost.hpp"
 
 class ConsoleDraw{
     public:
@@ -16,6 +17,8 @@ class ConsoleDraw{
         void drawScore(unsigned int score);
         void drawLives(unsigned int nLives);
         void drawCharacter(Character& c) const;
+        // void drawCharacter(Ghost &c) const;
+
         void drawGameScreen(Map * gameMap);
 
         /*getters*/
@@ -31,6 +34,7 @@ class ConsoleDraw{
     private:
         int terminalWidth;
         int terminalHeight;
+        Map * map;
 };
 
 #endif

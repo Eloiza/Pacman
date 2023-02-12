@@ -57,19 +57,17 @@ int main(int argc, char **argv){
     ghostMoveClock.start();
     g1.startClock();
     while ((ch = getch()) != 'q' && !pacman.isDead()){
-        /*update pacman*/
-        pacman.move(ch);
-
-        //update ghost position every 100ms
-        if (ghostMoveClock.end() > (ms) 100.0){
-            g1.move(pacman.isInvencible());
-            // charCollision.checkCollisions();
-            ghostMoveClock.start();
+        if (!charCollision.checkCollisions()){
+            /*update pacman*/
+            pacman.move(ch);
+            // update ghost position every 100ms
+            if (ghostMoveClock.end() > (ms)100.0){
+                g1.move(pacman.isInvencible());
+                ghostMoveClock.start();
+            }
+            pacman.updateState();
+            g1.updateBehavior(pacman.isInvencible());
         }
-        charCollision.checkCollisions();
-
-        pacman.updateState();
-        g1.updateBehavior(pacman.isInvencible());
 
         console.drawCharacter(g1);
         console.drawCharacter(pacman);
