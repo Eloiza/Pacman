@@ -71,8 +71,7 @@ int main(int argc, char **argv){
 
         console.drawCharacter(g1);
         console.drawCharacter(pacman);
-        // console.drawScore(pacman.getScore());
-        // console.drawScore(pacman.getLives());
+        console.drawHeader(pacman.getScore(), pacman.getLives());
     }
     endwin();
     return 0;

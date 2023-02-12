@@ -16,6 +16,7 @@ class ConsoleDraw{
 
         void drawScore(unsigned int score);
         void drawLives(unsigned int nLives);
+        void drawHeader(unsigned int score, unsigned int nLives);
         void drawCharacter(Character& c) const;
         void drawCharacter(Ghost &c) const;
 

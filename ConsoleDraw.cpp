@@ -72,6 +72,21 @@ void ConsoleDraw::drawLives(unsigned int nLives){
     refresh();
 };
 
+void ConsoleDraw::drawHeader(unsigned int score, unsigned int nLives){
+    std::string score_str = std::to_string(score);
+    for (std::string::size_type i = 0; i < score_str.size(); ++i){
+        mvaddch(0, 8 + i, score_str[i]);
+    }
+    for (unsigned int i = 0; i < 3; ++i){
+        mvaddch(0, 24 + i, ' ');
+    }
+
+    for (unsigned int i = 0; i < nLives; ++i){
+        mvaddch(0, 24 + i, 'C');
+    }
+    refresh();
+}
+
 void ConsoleDraw::endNcurses(){
     endwin();
 };
