@@ -97,6 +97,9 @@ void Ghost::deactivateFrightenedBehavior(){
 
 void Ghost::updateBehavior(bool pacmanInvencible){
     ms duration = this->behaviorClock.end();
+    if(!pacmanInvencible){
+        this->enableFrightened = 1;
+    }
     /*transition chase->scatter*/
     if(this->curBehaviorId == (short int)GhostBehaviorId::CHASE && duration > this->chaseDuration){
         this->activateScatterBehavior();
@@ -117,8 +120,10 @@ void Ghost::updateBehavior(bool pacmanInvencible){
     }
 
     /*transition any->frightened*/
-    else if (this->curBehaviorId != (short int)GhostBehaviorId::FRIGHTENED && (this->curBehaviorId != (short int)GhostBehaviorId::RETREAT) && pacmanInvencible)
-    {
+    else if (this->curBehaviorId != (short int)GhostBehaviorId::FRIGHTENED && 
+            (this->curBehaviorId != (short int)GhostBehaviorId::RETREAT) && 
+            pacmanInvencible &&
+            this->enableFrightened){
         this->activateFrightenedBehavior();
         this->behaviorClock.start();
     }
@@ -127,6 +132,7 @@ void Ghost::updateBehavior(bool pacmanInvencible){
         if(this->position == *this->startPosition){
             this->deactivateRetreatBehavior();
             this->activateScatterBehavior();
+            this->enableFrightened = 0;
         }
     }
 };

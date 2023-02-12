@@ -51,6 +51,7 @@ class Ghost : public Character{
         Chase *chase;
         Scatter *scatter;
         FrightenedBehavior *frightened;
+        bool enableFrightened;
         /*Behavior internal control*/
 
         Clock behaviorClock;
