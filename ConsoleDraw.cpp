@@ -19,15 +19,24 @@ void ConsoleDraw::initColors(){
     start_color();
     wattron(stdscr, A_BOLD);
 
+    init_color(COLOR_YELLOW, 1000, 1000, 0);
+    init_color(COLOR_RED, 1000, 0, 0);
+    init_color(COLOR_CYAN, 0, 1000, 1000);
+    init_color(COLOR_BLUE, 0, 0, 1000);
+    init_color(COLOR_MAGENTA, 1000, 600, 800);
+    //set orange color
+    init_color(COLOR_GREEN, 1000, 600, 200);
+
     init_pair((short int) Colors::DEFAULT, COLOR_BLACK, COLOR_WHITE);
     init_pair((short int) Colors::WALL, COLOR_BLUE, COLOR_BLUE); 
-    init_pair((short int) Colors::PACMAN, COLOR_YELLOW, COLOR_YELLOW); 
+    init_pair((short int) Colors::PACMAN, COLOR_WHITE, COLOR_YELLOW); 
     init_pair((short int) Colors::GENERIC_GHOST, COLOR_WHITE, COLOR_WHITE);
     init_pair((short int) Colors::FRIGHTENED_GHOST, COLOR_WHITE, COLOR_BLUE);
     init_pair((short int) Colors::BLINKY, COLOR_WHITE, COLOR_RED);
     init_pair((short int) Colors::PINKY, COLOR_WHITE, COLOR_MAGENTA);
     init_pair((short int) Colors::INKY, COLOR_WHITE, COLOR_CYAN);
-    // init_pair((short int) Colors::CLYDE, COLOR_WHITE, COLOR_CYAN);
+    //set color to orange
+    init_pair((short int) Colors::CLYDE, COLOR_WHITE, COLOR_GREEN);
 };
 
 void ConsoleDraw::drawGameScreen(Map * gameMap){
