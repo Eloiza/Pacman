@@ -41,7 +41,7 @@ void Character::move(Cell * const new_position){
     this->setPosition(new_position);
 };
 void Character::restart(){
-    this->setPosition(this->startPosition);
+    this->move(this->startPosition);
 };
 
 bool Character::isCollision(Cell * const position, char element){

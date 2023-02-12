@@ -21,6 +21,7 @@ class Pacman : public Character{
         /*setters*/
         void setLives(const unsigned int lives);
         void setScore(const unsigned int score);
+        void decreaseLive();
 
         void activateInvencible();
         void deactivateInvencible();

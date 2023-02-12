@@ -7,6 +7,7 @@ Pacman::Pacman(){
 };
 
 Pacman::Pacman(unsigned int row, unsigned int col){
+    this->startPosition = new Cell(row, col);
     this->setPosition(row, col);
     this->setPrevPosition(row, col);
     this->setColor((unsigned int) Colors::PACMAN);
@@ -38,11 +39,11 @@ bool Pacman::isCollision(unsigned int row, unsigned int col){
         this->score +=200;
         return 0;
     }
-    else if(testch == MapElements::GHOST && !this->isInvencible()){
-        this->lives--;
-        this->lostLive = 1;
-        return 1;
-    }
+    // else if(testch == MapElements::GHOST && !this->isInvencible()){
+    //     this->lives--;
+    //     this->lostLive = 1;
+    //     return 1;
+    // }
     return 0;
 };
 
@@ -62,6 +63,10 @@ void Pacman::setLives(const unsigned int lives){
 
 void Pacman::setScore(const unsigned int score){
     this->score = score;
+};
+
+void Pacman::decreaseLive(){
+    this->lives = lives - 1;
 };
 
 void Pacman::activateInvencible(){

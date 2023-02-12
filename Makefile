@@ -3,8 +3,8 @@ nomePrograma=pacman
 
 all: $(nomePrograma)
 
-$(nomePrograma): main.o Pacman.o ConsoleDraw.o Character.o Node.o Map.o Ghost.o Cell.o Behavior.o InvalidPositionException.o Scatter.o FrightenedBehavior.o ChaseAggresive.o ChaseAmbush.o ChaseSiege.o ChaseRandom.o Clock.o
-	g++ -o $(nomePrograma) main.o Pacman.o ConsoleDraw.o Character.o Node.o Map.o Ghost.o Cell.o Behavior.o InvalidPositionException.o Scatter.o FrightenedBehavior.o ChaseAggresive.o ChaseAmbush.o ChaseSiege.o ChaseRandom.o Clock.o $(parametrosCompilacao)
+$(nomePrograma): main.o Pacman.o ConsoleDraw.o Character.o Node.o Map.o Ghost.o Cell.o Behavior.o InvalidPositionException.o Scatter.o FrightenedBehavior.o ChaseAggresive.o ChaseAmbush.o ChaseSiege.o ChaseRandom.o Clock.o CharacterCollisionController.o
+	g++ -o $(nomePrograma) main.o Pacman.o ConsoleDraw.o Character.o Node.o Map.o Ghost.o Cell.o Behavior.o InvalidPositionException.o Scatter.o FrightenedBehavior.o ChaseAggresive.o ChaseAmbush.o ChaseSiege.o ChaseRandom.o Clock.o CharacterCollisionController.o $(parametrosCompilacao)
 
 main.o: main.cpp
 	g++ -c main.cpp $(parametrosCompilacao)
@@ -53,6 +53,9 @@ ChaseRandom.o: ChaseRandom.hpp ChaseRandom.cpp
 
 InvalidPositionException.o: InvalidPositionException.hpp InvalidPositionException.cpp 
 	g++ -c InvalidPositionException.cpp $(parametrosCompilacao)
+
+CharacterCollisionController.o: CharacterCollisionController.hpp CharacterCollisionController.cpp 
+	g++ -c CharacterCollisionController.cpp $(parametrosCompilacao)
 
 Clock.o: Clock.hpp Clock.cpp 
 	g++ -c Clock.cpp $(parametrosCompilacao)

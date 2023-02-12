@@ -30,13 +30,13 @@ Ghost::Ghost(const Map *map, unsigned int row, unsigned int col, Chase *chaseBh,
 
 void Ghost::move(bool pacmanInvencible){
     Character::move(this->activeBehavior->getNextPosition());
-    if (this->isCollision(&this->position, (char)MapElements::PACMAN) && this->curBehaviorId == (short int) GhostBehaviorId::FRIGHTENED){
-        this->activateRetreatBehavior();
-    }
+    // if (this->isCollision(&this->position, (char)MapElements::PACMAN) && this->curBehaviorId == (short int) GhostBehaviorId::FRIGHTENED){
+    //     this->activateRetreatBehavior();
+    // }
 };
 
-void Ghost::restart(){
-    this->setPosition(this->startPosition);
+void Ghost::restart(){;
+    Character::move(this->startPosition);
     this->activateScatterBehavior();
 };
 

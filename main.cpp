@@ -15,6 +15,7 @@
 #include "ChaseRandom.hpp"
 #include "FrightenedBehavior.hpp"
 
+#include "CharacterCollisionController.hpp"
 #include "Clock.hpp"
 using namespace gameColors;
 
@@ -49,25 +50,31 @@ int main(int argc, char **argv){
     using ms = std::chrono::duration<double, std::milli>;
     Clock ghostMoveClock = Clock();
 
+    std::list<Ghost *> ghost_list;
+    ghost_list.push_back(&g1);
+    CharacterCollisionController charCollision = CharacterCollisionController(&pacman, ghost_list);
+
     ghostMoveClock.start();
     g1.startClock();
-
     while ((ch = getch()) != 'q' && !pacman.isDead()){
         /*update pacman*/
         pacman.move(ch);
-        pacman.updateState();
-        console.drawCharacter(pacman);
 
         //update ghost position every 100ms
-        if (ghostMoveClock.end() > (ms) 200.0){
+        if (ghostMoveClock.end() > (ms) 100.0){
             g1.move(pacman.isInvencible());
+            // charCollision.checkCollisions();
             ghostMoveClock.start();
         }
+        charCollision.checkCollisions();
 
+        pacman.updateState();
         g1.updateBehavior(pacman.isInvencible());
+
         console.drawCharacter(g1);
-        console.drawScore(pacman.getScore());
-        console.drawScore(pacman.getLives());
+        console.drawCharacter(pacman);
+        // console.drawScore(pacman.getScore());
+        // console.drawScore(pacman.getLives());
     }
     endwin();
     return 0;
