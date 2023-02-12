@@ -3,7 +3,7 @@
 /*constructors*/
 ChaseRandom::ChaseRandom(){};
 
-ChaseRandom::ChaseRandom(Map *map, Cell *position, const Cell *pacmanPosition){
+ChaseRandom::ChaseRandom(const Map *map, Cell *position, const Cell *pacmanPosition){
     this->map = map;
     this->position = position;
     this->setPacmanPosition(pacmanPosition);

@@ -10,6 +10,7 @@
 #include "Blinky.hpp"
 #include "Pinky.hpp"
 #include "Inky.hpp"
+#include "Clyde.hpp"
 
 #include "CharacterCollisionController.hpp"
 #include "Clock.hpp"
@@ -34,6 +35,8 @@ int main(int argc, char **argv){
     Blinky blinky = Blinky(&map, pacman.getPosition());
     Pinky pinky = Pinky(&map, pacman.getPosition());
     Inky inky = Inky(&map, pacman.getPosition(), blinky.getPosition());
+    Clyde clyde = Clyde(&map, pacman.getPosition());
+
     unsigned char ch = ' ';
 
     //init clock
@@ -41,16 +44,18 @@ int main(int argc, char **argv){
     Clock ghostMoveClock = Clock();
 
     std::list<Ghost *> ghost_list;
-    // ghost_list.push_back(&blinky);
-    // ghost_list.push_back(&pinky);
+    ghost_list.push_back(&blinky);
+    ghost_list.push_back(&pinky);
     ghost_list.push_back(&inky);
+    ghost_list.push_back(&clyde);
 
     CharacterCollisionController charCollision = CharacterCollisionController(&pacman, ghost_list);
 
     ghostMoveClock.start();
-    // blinky.startClock();
-    // pinky.startClock();
+    blinky.startClock();
+    pinky.startClock();
     inky.startClock();
+    clyde.startClock();
 
     while ((ch = getch()) != 'q' && !pacman.isDead()){
         if (!charCollision.checkCollisions()){
@@ -61,17 +66,20 @@ int main(int argc, char **argv){
                 blinky.move(pacman.isInvencible());
                 pinky.move(pacman.isInvencible());
                 inky.move(pacman.isInvencible());
+                clyde.move(pacman.isInvencible());
                 ghostMoveClock.start();
             }
             pacman.updateState();
-            // blinky.updateBehavior(pacman.isInvencible());
-            // pinky.updateBehavior(pacman.isInvencible());
+            blinky.updateBehavior(pacman.isInvencible());
+            pinky.updateBehavior(pacman.isInvencible());
             inky.updateBehavior(pacman.isInvencible());
+            clyde.updateBehavior(pacman.isInvencible());
         }
 
-        // console.drawCharacter(blinky);
-        // console.drawCharacter(pinky);
+        console.drawCharacter(blinky);
+        console.drawCharacter(pinky);
         console.drawCharacter(inky);
+        console.drawCharacter(clyde);
         console.drawCharacter(pacman);
         console.drawHeader(pacman.getScore(), pacman.getLives());
     }

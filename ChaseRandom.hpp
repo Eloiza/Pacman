@@ -7,7 +7,7 @@ class ChaseRandom : public Chase{
 public:
     /*Constructors*/
     ChaseRandom();
-    ChaseRandom(Map *map, Cell *position, const Cell *pacmanPosition);
+    ChaseRandom(const Map *map, Cell *position, const Cell *pacmanPosition);
 
     virtual ~ChaseRandom() = default;
 

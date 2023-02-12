@@ -3,8 +3,8 @@ nomePrograma=pacman
 
 all: $(nomePrograma)
 
-$(nomePrograma): main.o Pacman.o ConsoleDraw.o Character.o Node.o Map.o Ghost.o Cell.o Behavior.o InvalidPositionException.o Scatter.o FrightenedBehavior.o ChaseAggresive.o ChaseAmbush.o ChaseSiege.o ChaseRandom.o Clock.o CharacterCollisionController.o Blinky.o Pinky.o Inky.o
-	g++ -o $(nomePrograma) main.o Pacman.o ConsoleDraw.o Character.o Node.o Map.o Ghost.o Cell.o Behavior.o InvalidPositionException.o Scatter.o FrightenedBehavior.o ChaseAggresive.o ChaseAmbush.o ChaseSiege.o ChaseRandom.o Clock.o CharacterCollisionController.o Blinky.o Pinky.o Inky.o $(parametrosCompilacao)
+$(nomePrograma): main.o Pacman.o ConsoleDraw.o Character.o Node.o Map.o Ghost.o Cell.o Behavior.o InvalidPositionException.o Scatter.o FrightenedBehavior.o ChaseAggresive.o ChaseAmbush.o ChaseSiege.o ChaseRandom.o Clock.o CharacterCollisionController.o Blinky.o Pinky.o Inky.o Clyde.o
+	g++ -o $(nomePrograma) main.o Pacman.o ConsoleDraw.o Character.o Node.o Map.o Ghost.o Cell.o Behavior.o InvalidPositionException.o Scatter.o FrightenedBehavior.o ChaseAggresive.o ChaseAmbush.o ChaseSiege.o ChaseRandom.o Clock.o CharacterCollisionController.o Blinky.o Pinky.o Inky.o Clyde.o $(parametrosCompilacao)
 
 main.o: main.cpp
 	g++ -c main.cpp $(parametrosCompilacao)
@@ -65,6 +65,9 @@ Pinky.o: Pinky.hpp Pinky.cpp
 
 Inky.o: Inky.hpp Inky.cpp 
 	g++ -c Inky.cpp $(parametrosCompilacao)
+
+Clyde.o: Clyde.hpp Clyde.cpp 
+	g++ -c Clyde.cpp $(parametrosCompilacao)
 
 Clock.o: Clock.hpp Clock.cpp 
 	g++ -c Clock.cpp $(parametrosCompilacao)

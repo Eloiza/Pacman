@@ -3,7 +3,7 @@
 using namespace gameColors;
 using namespace behaviorsId;
 
-Inky::Inky(Map *map, const Cell *pacmanPosition, const Cell *pairGhost) : Ghost(map, 11, 13, (unsigned int)Colors::INKY)
+Inky::Inky(Map *map, const Cell *pacmanPosition, const Cell *pairGhost) : Ghost(map, 11, 12, (unsigned int)Colors::INKY)
 {
     this->pacmanPosition = pacmanPosition;
     this->setCornerA(new Cell(21, 17));
