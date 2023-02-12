@@ -1,6 +1,6 @@
 #include "Scatter.hpp"
 
-Scatter::Scatter(Map *map, Cell *position, Cell *cornerA, Cell *cornerB){
+Scatter::Scatter(const Map *map, Cell *position, const Cell *cornerA, const Cell *cornerB){
     this->setMap(map);
     this->cornerA = cornerA;
     this->cornerB = cornerB;

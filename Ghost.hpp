@@ -17,7 +17,8 @@ class Ghost : public Character{
     public:
         /*constructors*/
         Ghost(unsigned int row, unsigned int col);
-        Ghost(const Map * map, unsigned int row, unsigned int col, Chase * chaseBh, Scatter * scatterBh, FrightenedBehavior * frightenedBh);
+        Ghost(const Map *map, unsigned int row, unsigned int col, unsigned int color);
+        Ghost(const Map *map, unsigned int row, unsigned int col, Chase *chaseBh, Scatter *scatterBh, FrightenedBehavior *frightenedBh);
         Ghost(const Map *map, unsigned int row, unsigned int col, Chase *chaseBh, Scatter *scatterBh, FrightenedBehavior *frightenedBh, bool startJail, double jailTimeMS);
 
         virtual ~Ghost() = default;

@@ -24,6 +24,10 @@ void ConsoleDraw::initColors(){
     init_pair((short int) Colors::PACMAN, COLOR_YELLOW, COLOR_YELLOW); 
     init_pair((short int) Colors::GENERIC_GHOST, COLOR_WHITE, COLOR_WHITE);
     init_pair((short int) Colors::FRIGHTENED_GHOST, COLOR_WHITE, COLOR_BLUE);
+    init_pair((short int) Colors::BLINKY, COLOR_WHITE, COLOR_RED);
+    init_pair((short int) Colors::PINKY, COLOR_WHITE, COLOR_MAGENTA);
+    init_pair((short int) Colors::INKY, COLOR_WHITE, COLOR_CYAN);
+    // init_pair((short int) Colors::CLYDE, COLOR_WHITE, COLOR_CYAN);
 };
 
 void ConsoleDraw::drawGameScreen(Map * gameMap){

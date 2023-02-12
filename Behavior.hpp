@@ -20,7 +20,7 @@ class Behavior{
         virtual void setTarget(const Cell * target);
         virtual void setPosition(Cell * position);
         virtual void setTargetPath(std::list<Cell *> targetPath);
-        virtual void setMap(Map * map);
+        virtual void setMap(const Map * map);
 
         /*getters*/
         virtual const Cell * getTarget();
@@ -40,7 +40,7 @@ class Behavior{
         const Cell * target;
         Cell * position;
         std::list<Cell *> targetPath;
-        Map * map;
+        const Map * map;
 };
 
 #endif

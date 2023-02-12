@@ -8,7 +8,7 @@ class FrightenedBehavior: public Behavior{
     public:
         /*constructors*/
         FrightenedBehavior();
-        FrightenedBehavior(Map* map, Cell* ghostPosition);
+        FrightenedBehavior(const Map* map, Cell* ghostPosition);
 
         virtual ~FrightenedBehavior() = default;
         virtual Cell * generateTarget() override;

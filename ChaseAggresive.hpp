@@ -7,7 +7,7 @@ class ChaseAggresive : public Chase{
     public:
         /*Constructors*/
         ChaseAggresive();
-        ChaseAggresive(Map* map, Cell * position, const Cell * pacmanPosition);
+        ChaseAggresive(const Map* map, Cell * position, const Cell * pacmanPosition);
 
         virtual ~ChaseAggresive() = default;
 

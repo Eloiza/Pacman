@@ -3,7 +3,7 @@
 FrightenedBehavior::FrightenedBehavior(){
 };
 
-FrightenedBehavior::FrightenedBehavior(Map *map, Cell *ghostPosition){
+FrightenedBehavior::FrightenedBehavior(const Map *map, Cell *ghostPosition){
     this->setMap(map);
     this->setPosition(ghostPosition);
 };

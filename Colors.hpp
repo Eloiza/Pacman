@@ -8,7 +8,11 @@ namespace gameColors{
         WALL,
         GENERIC_GHOST, 
         FRIGHTENED_GHOST, 
-        RETREAT_GHOST
+        RETREAT_GHOST,
+        BLINKY, 
+        PINKY,
+        INKY, 
+        CLYDE
     };
 }
 

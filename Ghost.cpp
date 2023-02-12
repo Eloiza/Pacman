@@ -4,6 +4,22 @@ using namespace gameColors;
 using namespace behaviorsId;
 
 /*constructors*/
+Ghost::Ghost(const Map * map, unsigned int row, unsigned int col, unsigned int color){
+    this->map = map;
+    this->startPosition = new Cell(row, col);
+    this->setPosition(row, col);
+    this->setPrevPosition(row, col);
+    this->setSprite(MapElements::GHOST);
+    this->setColor((unsigned int)color);
+    this->defaultColor = (unsigned int)color;
+
+    this->chaseDuration = (ms)20000;
+    this->scatterDuration = (ms)7000;
+    this->deadDuration = (ms)8000;
+    this->frightenedDuration = (ms)1000;
+    this->behaviorClock = Clock();
+};
+
 Ghost::Ghost(unsigned int row, unsigned int col){
     this->startPosition = new Cell(row, col);
     this->setPosition(row, col);
@@ -92,7 +108,6 @@ void Ghost::activateScatterBehavior(){
 
 void Ghost::activateRetreatBehavior(){
     this->curBehaviorId = (short int)GhostBehaviorId::RETREAT;
-
     this->activeBehavior->setPosition(&this->position);
     this->activeBehavior->setTarget(this->startPosition);
     this->setColor((unsigned int) Colors::DEFAULT);

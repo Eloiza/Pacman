@@ -1,7 +1,7 @@
 #include "Behavior.hpp"
 #include <iostream> 
 
-void Behavior::setMap(Map *map){
+void Behavior::setMap(const Map *map){
     this->map = map;
 };
 
