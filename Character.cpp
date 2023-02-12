@@ -37,12 +37,11 @@ void Character::move(unsigned int direction){
 };
 
 void Character::move(Cell * const new_position){
-    // std::cout << "I am in move" << std::endl;
-
     this->setPrevPosition(&this->position);
     this->setPosition(new_position);
-    // std::cout << "Finished move" << std::endl;
-    
+};
+void Character::restart(){
+    this->setPosition(this->startPosition);
 };
 
 bool Character::isCollision(Cell * const position, char element){

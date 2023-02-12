@@ -20,6 +20,7 @@ bool Pacman::isCollision(unsigned int row, unsigned int col){
     int testch;
     testch = mvinch(row, col);
     testch = testch & A_CHARTEXT;
+    this->lostLive = 0;
 
     if(testch == MapElements::POINT){
         this->score += 10;
@@ -39,6 +40,7 @@ bool Pacman::isCollision(unsigned int row, unsigned int col){
     }
     else if(testch == MapElements::GHOST && !this->isInvencible()){
         this->lives--;
+        this->lostLive = 1;
         return 1;
     }
     return 0;
@@ -89,3 +91,7 @@ void Pacman::updateState(){
     } 
 
 }
+
+bool Pacman::hasLostLive(){
+    return this->lostLive;
+};

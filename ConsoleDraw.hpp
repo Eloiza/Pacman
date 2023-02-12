@@ -14,6 +14,7 @@ class ConsoleDraw{
         void endNcurses();
 
         void drawScore(unsigned int score);
+        void drawLives(unsigned int nLives);
         void drawCharacter(Character& c) const;
         void drawGameScreen(Map * gameMap);
 

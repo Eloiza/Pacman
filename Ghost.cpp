@@ -5,7 +5,7 @@ using namespace behaviorsId;
 
 /*constructors*/
 Ghost::Ghost(unsigned int row, unsigned int col){
-    this->startPosition = new Cell(11, 15);
+    this->startPosition = new Cell(row, col);
     this->setPosition(row, col);
     this->setPrevPosition(row, col);
     this->setSprite(MapElements::GHOST);
@@ -28,7 +28,6 @@ Ghost::Ghost(const Map *map, unsigned int row, unsigned int col, Chase *chaseBh,
     this->behaviorClock = Clock();
 };
 
-/*setters*/
 void Ghost::move(bool pacmanInvencible){
     Character::move(this->activeBehavior->getNextPosition());
     if (this->isCollision(&this->position, (char)MapElements::PACMAN) && this->curBehaviorId == (short int) GhostBehaviorId::FRIGHTENED){
@@ -36,6 +35,12 @@ void Ghost::move(bool pacmanInvencible){
     }
 };
 
+void Ghost::restart(){
+    this->setPosition(this->startPosition);
+    this->activateScatterBehavior();
+};
+
+/*setters*/
 void Ghost::setTarget(Cell *const target){
     this->activeBehavior->setTarget(target);
 };

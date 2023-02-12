@@ -34,7 +34,7 @@ int main(int argc, char **argv){
     Pacman pacman(2, 1);
 
     // //init ghost
-    Cell ghost_position = Cell(2, 1);
+    Cell ghost_position = Cell(12, 16);
     Cell corner_positionA = Cell(23, 2);
     Cell corner_positionB = Cell(21, 9);
 
@@ -42,7 +42,7 @@ int main(int argc, char **argv){
     Scatter scatter_bh = Scatter(&map, &ghost_position, &corner_positionA, &corner_positionB);
     FrightenedBehavior frightened_bh = FrightenedBehavior(&map, &ghost_position);
 
-    Ghost g1 = Ghost(&map, (unsigned int)2, (unsigned int) 1, &pokey_bh, &scatter_bh, &frightened_bh);
+    Ghost g1 = Ghost(&map, (unsigned int)12, (unsigned int) 16, &pokey_bh, &scatter_bh, &frightened_bh);
     unsigned char ch = ' ';
     
     //init clock
@@ -66,6 +66,8 @@ int main(int argc, char **argv){
 
         g1.updateBehavior(pacman.isInvencible());
         console.drawCharacter(g1);
+        console.drawScore(pacman.getScore());
+        console.drawScore(pacman.getLives());
     }
     endwin();
     return 0;

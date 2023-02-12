@@ -22,6 +22,7 @@ class Ghost : public Character{
         virtual ~Ghost() = default;
 
         void move(bool pacmanInvencible);
+        void restart() override;
 
         /*setters*/
         void setTarget(Cell * const target);

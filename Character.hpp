@@ -22,7 +22,8 @@ class Character{
         /*class methods*/
         virtual void move(unsigned int direction);
         virtual void move(Cell * const new_position);
-
+        virtual void restart();
+        
         /*collision with ncurses*/
         virtual bool isCollision(unsigned int row, unsigned int col);
         virtual bool isCollision(Cell * const position);
@@ -62,11 +63,8 @@ class Character{
         char sprite;
         unsigned int color;
 
-        //store current position
         Cell position;
-
-        // store previous position
         Cell prevPosition;
-
+        Cell * startPosition;
 };
 #endif

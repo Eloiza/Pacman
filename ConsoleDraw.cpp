@@ -47,7 +47,17 @@ void ConsoleDraw::drawCharacter(Character &c) const{
 };
 
 void ConsoleDraw::drawScore(unsigned int score){
-    mvaddch(0, 8, (char) score);
+    std::string score_str = std::to_string(score);
+    for (std::string::size_type i = 0; i < score_str.size(); ++i){
+        mvaddch(0, 8+i, score_str[i]);
+    }
+    refresh();
+};
+
+void ConsoleDraw::drawLives(unsigned int nLives){
+    for (unsigned int i = 0; i < nLives; ++i){
+        mvaddch(0, 24 + i, 'C');
+    }
     refresh();
 };
 
