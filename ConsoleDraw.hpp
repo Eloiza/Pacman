@@ -17,7 +17,7 @@ class ConsoleDraw{
         void drawScore(unsigned int score);
         void drawLives(unsigned int nLives);
         void drawCharacter(Character& c) const;
-        // void drawCharacter(Ghost &c) const;
+        void drawCharacter(Ghost &c) const;
 
         void drawGameScreen(Map * gameMap);
 
@@ -26,11 +26,12 @@ class ConsoleDraw{
         int getTerminalWidth() const;
         int getTerminalHeight() const;
 
-                /*setters*/
+        /*setters*/
         void setTerminalSize(int width, int height);
         void setTerminalWidth(int width);
         void setTerminalHeight(int height);
-
+        void setMap(Map * map);
+    
     private:
         int terminalWidth;
         int terminalHeight;

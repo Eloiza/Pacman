@@ -37,6 +37,7 @@ void ConsoleDraw::drawGameScreen(Map * gameMap){
 };
 
 void ConsoleDraw::drawCharacter(Character &c) const{
+    this->map->map[c.getPrevRow() * this->map->cols + c.getPrevCol()] = MapElements::EMPTY_SPACE;
     attron(COLOR_PAIR(Colors::DEFAULT));
     mvaddch(c.getPrevRow(), c.getPrevCol(), MapElements::EMPTY_SPACE);
     attroff(COLOR_PAIR(Colors::DEFAULT));
@@ -46,15 +47,15 @@ void ConsoleDraw::drawCharacter(Character &c) const{
     attroff(COLOR_PAIR(c.getColor()));
 };
 
-// void ConsoleDraw::drawCharacter(Ghost &c) const{
-//     attron(COLOR_PAIR(Colors::DEFAULT));
-//     mvaddch(c.getPrevRow(), c.getPrevCol(), this->map[c.getPrevRow() * (unsigned int)gameMap->cols + c.getPrevCol()]);
-//     attroff(COLOR_PAIR(Colors::DEFAULT));
+void ConsoleDraw::drawCharacter(Ghost &c) const{
+    attron(COLOR_PAIR(Colors::DEFAULT));
+    mvaddch(c.getPrevRow(), c.getPrevCol(), (char) this->map->map[c.getPrevRow() * this->map->cols + c.getPrevCol()]);
+    attroff(COLOR_PAIR(Colors::DEFAULT));
 
-//     attron(COLOR_PAIR(c.getColor()));
-//     mvaddch(c.getRow(), c.getCol(), c.getSprite());
-//     attroff(COLOR_PAIR(c.getColor()));
-// };
+    attron(COLOR_PAIR(c.getColor()));
+    mvaddch(c.getRow(), c.getCol(), c.getSprite());
+    attroff(COLOR_PAIR(c.getColor()));
+};
 
 void ConsoleDraw::drawScore(unsigned int score){
     std::string score_str = std::to_string(score);
@@ -103,4 +104,8 @@ void ConsoleDraw::setTerminalWidth(int width){
 
 void ConsoleDraw::setTerminalHeight(int height){
     this->terminalHeight = height;
+};
+
+void ConsoleDraw::setMap(Map *map){
+    this->map = map;
 };

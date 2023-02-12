@@ -13,7 +13,6 @@ bool CharacterCollisionController::checkCollisions(){
             (*ghost_it)->getPosition()->col == this->pacman->getPosition()->col){
             if(this->pacman->isInvencible()){
                 (*ghost_it)->activateRetreatBehavior();
-                std::cout << "GHOST RETREAT" << std::endl;
                 return 0;
             }
             else{

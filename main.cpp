@@ -30,7 +30,7 @@ int main(int argc, char **argv){
     console.initNcurses(40,40);
     console.initColors();
     console.drawGameScreen(&map);
-
+    console.setMap(&map);
     // //init pacman
     Pacman pacman(2, 1);
 
@@ -61,7 +61,7 @@ int main(int argc, char **argv){
             /*update pacman*/
             pacman.move(ch);
             // update ghost position every 100ms
-            if (ghostMoveClock.end() > (ms)100.0){
+            if (ghostMoveClock.end() > (ms)160.0){
                 g1.move(pacman.isInvencible());
                 ghostMoveClock.start();
             }
