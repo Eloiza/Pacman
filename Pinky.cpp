@@ -13,7 +13,7 @@ Pinky::Pinky(Map *map, const Cell *pacmanPosition) : Ghost(map, 11, 14, (unsigne
     this->setFrightenedBehavior(new FrightenedBehavior(this->map, &this->position));
 
     this->startInJail = 1;
-    this->jailDuration = (ms)5000;
+    this->jailDuration = (ms)2000;
     this->activateInJailBehavior();
 };
 
