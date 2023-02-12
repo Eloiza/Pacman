@@ -49,9 +49,8 @@ Ghost::Ghost(const Map *map, unsigned int row, unsigned int col, Chase *chaseBh,
     
     this->startInJail = 1;
     this->jailDuration = (ms) jailTimeMS;
-    this->curBehaviorId = (short int) GhostBehaviorId::IN_JAIL;
     this->cornerA = this->scatter->getCornerA();
-    this->cornerA = this->scatter->getCornerB();
+    this->cornerB = this->scatter->getCornerB();
     this->activateInJailBehavior();
 };
 
@@ -114,10 +113,10 @@ void Ghost::activateRetreatBehavior(){
 };
 
 void Ghost::activateInJailBehavior(){
-    this->curBehaviorId = (short int)GhostBehaviorId::IN_JAIL;
     Cell *aux = new Cell(this->startPosition->row + 2 , this->startPosition->col);
     this->scatter->setCornersPosition(this->startPosition, aux);
     this->activateScatterBehavior();
+    this->curBehaviorId = (short int)GhostBehaviorId::IN_JAIL;
 };
 
 void Ghost::deactivateInJailBehavior(){
@@ -181,12 +180,13 @@ void Ghost::updateBehavior(bool pacmanInvencible){
         this->activateFrightenedBehavior();
         this->behaviorClock.start();
     }
-
+    /*transition retreat->scatter*/
     else if (this->curBehaviorId == (short int)GhostBehaviorId::RETREAT){
         if(this->position == *this->startPosition){
             this->deactivateRetreatBehavior();
             this->activateScatterBehavior();
             this->enableFrightened = 0;
+            this->behaviorClock.start();
         }
     }
 };

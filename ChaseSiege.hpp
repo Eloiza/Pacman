@@ -7,7 +7,7 @@ class ChaseSiege : public Chase{
     public:
         /*Constructors*/
         ChaseSiege();
-        ChaseSiege(Map *map, Cell *position, const Cell * pacmanPosition, const Cell * pairGhostPosition);
+        ChaseSiege(const Map *map, Cell *position, const Cell * pacmanPosition, const Cell * pairGhostPosition);
 
         virtual ~ChaseSiege() = default;
 

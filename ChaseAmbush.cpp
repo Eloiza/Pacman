@@ -4,7 +4,7 @@
 ChaseAmbush::ChaseAmbush(){
 };
 
-ChaseAmbush::ChaseAmbush(Map *map, Cell *position, const Cell * pacmanPosition, unsigned int pointsAhead){
+ChaseAmbush::ChaseAmbush(const Map *map, Cell *position, const Cell * pacmanPosition, unsigned int pointsAhead){
     this->map = map;
     this->position= position;
     this->setPacmanPosition(pacmanPosition);

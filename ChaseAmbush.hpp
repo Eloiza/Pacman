@@ -6,7 +6,7 @@
 class ChaseAmbush : public Chase{
     public:
         ChaseAmbush();
-        ChaseAmbush(Map *map, Cell *position, const Cell *pacmanPosition, unsigned int pointsAhed);
+        ChaseAmbush(const Map *map, Cell *position, const Cell *pacmanPosition, unsigned int pointsAhed);
 
         virtual ~ChaseAmbush() = default;
 

@@ -4,7 +4,7 @@
 ChaseSiege::ChaseSiege(){
 };
 
-ChaseSiege::ChaseSiege(Map *map, Cell *position, const Cell *pacmanPosition, const Cell *pairGhostPosition){
+ChaseSiege::ChaseSiege(const Map *map, Cell *position, const Cell *pacmanPosition, const Cell *pairGhostPosition){
     this->map = map;
     this->position = position;
     this->setPacmanPosition(pacmanPosition);
