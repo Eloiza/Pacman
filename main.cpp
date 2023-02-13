@@ -52,34 +52,29 @@ int main(int argc, char **argv){
     CharacterCollisionController charCollision = CharacterCollisionController(&pacman, ghost_list);
 
     ghostMoveClock.start();
-    blinky.startClock();
-    pinky.startClock();
-    inky.startClock();
-    clyde.startClock();
-
+    std::list<Ghost *>::iterator ghost = ghost_list.begin();
+    for(; ghost != ghost_list.end(); ghost++){
+        (*ghost)->startClock();
+    }
     while ((ch = getch()) != 'q' && !pacman.isDead()){
         if (!charCollision.checkCollisions()){
             /*update pacman*/
             pacman.move(ch);
             // update ghost position every 100ms
             if (ghostMoveClock.end() > (ms)160.0){
-                blinky.move(pacman.isInvencible());
-                pinky.move(pacman.isInvencible());
-                inky.move(pacman.isInvencible());
-                clyde.move(pacman.isInvencible());
+                for (ghost = ghost_list.begin(); ghost != ghost_list.end(); ghost++)
+                    (*ghost)->move(pacman.isInvencible());
                 ghostMoveClock.start();
             }
             pacman.updateState();
-            blinky.updateBehavior(pacman.isInvencible());
-            pinky.updateBehavior(pacman.isInvencible());
-            inky.updateBehavior(pacman.isInvencible());
-            clyde.updateBehavior(pacman.isInvencible());
+
+            for (ghost = ghost_list.begin(); ghost != ghost_list.end(); ghost++)
+                (*ghost)->updateBehavior(pacman.isInvencible());
         }
 
-        console.drawCharacter(blinky);
-        console.drawCharacter(pinky);
-        console.drawCharacter(inky);
-        console.drawCharacter(clyde);
+        for (ghost = ghost_list.begin(); ghost != ghost_list.end(); ghost++)
+            console.drawCharacter(**ghost);
+
         console.drawCharacter(pacman);
         console.drawHeader(pacman.getScore(), pacman.getLives());
     }
