@@ -19,11 +19,23 @@ void Character::move(unsigned int direction){
     switch (direction){
     case 'a':
         this->setPrevPosition(this->position.row, this->position.col);
-        this->setPosition(this->position.row, this->position.col-1); 
+        //teleport logic
+        if (this->position.row == 12 && this->position.col == 0){
+            this->setPosition(this->position.row, 27);
+        }
+        else{
+            this->setPosition(this->position.row, this->position.col - 1);
+        }
         break;
     case 'd':
         this->setPrevPosition(this->position.row, this->position.col);
-        this->setPosition(this->position.row, this->position.col+1); 
+        // teleport logic
+        if(this->position.row == 12 && this->position.col == 27){
+            this->setPosition(this->position.row, 0);
+        }
+        else{
+            this->setPosition(this->position.row, this->position.col + 1);
+        }
         break;
     case 'w':
         this->setPrevPosition(this->position.row, this->position.col);

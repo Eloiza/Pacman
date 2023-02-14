@@ -58,7 +58,7 @@ int main(int argc, char **argv){
     }
     unsigned int lastScore = 0;
     unsigned int score = 0;
-    unsigned int points=0, totalPalletes = 210;
+    unsigned int points=0, totalPalletes = 208;
     while ((ch = getch()) != 'q' && !pacman.isDead() && points < totalPalletes){
         if (!charCollision.checkCollisions()){
             /*update pacman*/
@@ -88,7 +88,7 @@ int main(int argc, char **argv){
     }
     endwin();
     if(points >= totalPalletes){
-        std::cout << "Pacman won!!! \\o/" << std::endl;
+        std::cout << "PACMAN WON!!! \\o/" << std::endl;
     }
     else{
         std::cout << "GAME OVER" << std::endl;
